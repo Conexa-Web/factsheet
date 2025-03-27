@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+         height: 100%;
+       }
+ 
+       #body {
+         width: 21cm;
+         height: 29.7cm;
+         font-family: 'Roboto', sans-serif;
+         padding: 0;
+         margin: 0;
+         font-size: 16px;
+         box-sizing: border-box;
+       }
+       p {
+         line-height: 10.5px;
+         margin: 0;
+       }
+ 
+       .flex {
+         display: flex;
+       }
+ 
+       .flex-column {
+         display: flex;
+         flex-direction: column;
+       }
+
+       .flex.items-center.gap-48 {
+         padding: 16px 24px;
+         background-color: #E1EBF1;
+         position: relative;
+       }
+
+       .flex-wrap {
+         flex-wrap: wrap;
+       }
+ 
+       .items-center {
+         align-items: center;
+       }
+ 
+       .items-end {
+         align-items: flex-end;
+       }
+ 
+       .justify-space-between {
+         justify-content: space-between;
+       }
+ 
+       .justify-center {
+         justify-content: center;
+       }
+ 
+       .expanded {
+         flex: 1 1;
+       }
+ 
+       .h100{
+         height: 100%;
+       }
+ 
+       .py-16 {
+         padding-top: 16px;
+         padding-bottom: 16px;
+       }
+ 
+       .px-12 {
+         padding-left: 12px;
+         padding-right: 12px;
+       }
+ 
+       .py-24 {
+         padding-top: 24px;
+         padding-bottom: 24px;
+       }
+       
+       .px-40 {
+         padding-left: 40px;
+         padding-right: 40px;
+       }
+
+       .px-24 {
+         padding-left: 24px;
+         padding-right: 24px;
+       }
+ 
+       .gap-4 {
+         gap: 4px;
+       }
+ 
+       .gap-8 {
+         gap: 8px;
+       }
+ 
+       .gap-12 {
+         gap: 12px;
+       }
+ 
+       .gap-16 {
+         gap: 16px;
+       }
+       .gap-48 {
+         gap: 48px;
+       }
+ 
+       .fw-400 {
+         font-weight: 400;
+       }
+ 
+       .fw-500 {
+         font-weight: 500;
+       }
+ 
+       .text-right {
+         text-align: right;
+       }
+ 
+       .text-center {
+         text-align: center;
+       }
+ 
+       .text-subordinate {
+         color: #818c8d;
+       }
+ 
+       .text-primary-6 {
+         color: #7e8da6;
+       }
+ 
+       .border-radius {
+         border-radius: 8px;
+       }
+
+       .triangle {
+         width: 0;
+         height: 0;
+         border-style: solid;
+         border-width: 0 86px 86px 0;
+         border-color: transparent #10273D transparent transparent; 
+         position: absolute;
+         top: 0;
+         right: 0;
+       }
+     </style>
+</head>
+<body id="body" class="flex-column">
+   
+
+        <div class="flex-column expanded ">
+        <img src="/assets/sellos/10.png" width="13.5%" style="position:absolute; z-index:1000; right:320px; top:50px; transform: rotate(12deg);"/>
+        <!-- CABECERA   -->
+        <div class="flex items-center gap-48 " style="padding:16px 24px; background-color: #E1EBF1; position: relative;">
+            <div class="flex-column" style="flex: 4;">
+              <span style="margin: 0; color: #0A80BA; font-size: 36px; font-weight: 100; line-height:36px">Fondo Impulso PYME 01 - Soles</span>
+              <span style="margin: 0; color: #10273D; font-size: 17px; font-weight: 100; line-height:24px">Fondo de Inversión - 28 de febrero del 2025</span>
+              <span style="margin: 0; color: #10273D; font-size: 17px; font-weight: 100;">Clase A</span>
+            </div>
+            <div class="flex-column" style="flex: 1; margin-right:10px">
+             <img src="/assets/LogoCFG.png" width="100%" />
+            </div>
+
+            <div class="triangle"></div>
+        </div>
+
+          <!-- CUERPO DEL FACTSHEET -->
+          <div style="padding:8px 24px;">
+            <div class="flex" style="gap:30px" >
+              
+            <!-- DATOS DEL VALOR CUOTA -->
+              <div class="flex-column " style="background-color: white; flex: 5;">
+                <p style="color: #0A80BA; font-weight: 500; font-size: 14px;">Evolución del Valor Cuota</p>
+               
+            <div style="width: 100%; position: relative; overflow: visible; padding: 0; margin: 16px 0;">
+               
+                <img  style="width: 100%;" src=" ${htmlChart}" />
+
+                <div style="position:absolute; bottom:-4px; right:0">
+                  <span style='font-size:8px; color:#10273D;'>Al final de cada trimestre el valor cuota regresa a 1.0000</span>
+                </div>
+            </div>
+
+                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">Comentarios de la Sociedad Gestora</p>
+
+                <p style=" word-spacing: -.4ch; font-size: 11px; text-align: justify; margin-bottom: 12px; color: #10273D;">
+                  El valor cuota al cierre de febrero alcanzó PEN 1.0075. Con este resultado la
+                  rentabilidad acumulada de los últimos 12 meses es de 9.26%. La Gestora viene
+                  haciendo seguimiento a la cartera de créditos otorgados, así como impulsando
+                  la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir
+                  a alcanzar la rentabilidad anual objetivo del Fondo.
+                </p>
+                <p style="font-size: 11px; text-align: justify; margin-bottom: 12px; color: #10273D;">
+                  Las operaciones más frecuentes son: los financiamientos a mediano plazo con
+                  61.22%, los financiamientos a corto plazo con 23.13% y la cesión de derechos
+                  con 8.19%. Los sectores en los que se invierte mantienen un alto potencial de
+                  crecimiento, destacando: 21.65% en construcción, 11.65% en
+                  salud, 10.48% en agroindustrial, 10.27% en seguridad, 6.17% en
+                  telecomunicaciones, 6.01% en educación y 33.76% en los demás sectores. La Gestora
+                  mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener
+                  la participación en cada industria por debajo del 20% de los activos del Fondo.
+                </p>
+                <p style="font-size: 11px; text-align: justify; margin-bottom: 12px; color: #10273D;">
+                  El Fondo cerró el mes con una liquidez de 7.46%, ubicándose dentro del rango
+                  meta de hasta 10% de los activos. La gestora está monitoreando activamente el
+                  contexto macroeconómico y financiero local, enfocándose en los sectores,
+                  empresas e instrumentos de inversión con mejores perspectivas para los
+                  inversionistas del fondo
+                </p>
+
+                <!-- TABLA DE RENDIMIENTO -->
+                <div style="position:relative;">
+                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">
+                
+                Rendimiento del fondo</p>
+
+                <div style="width: 100%; display: flex; margin-bottom: 2px; gap: 2px;">
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">Febrero 2025</span>
+                  </div>
+                  <div style="flex: 1; padding:2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">Últimos 3 meses</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">YTD</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">Últimos 12 meses</span>
+                  </div>
+                </div>
+                <div style="width: 100%; display: flex; margin-bottom: 12px; gap: 2px;">
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">0.75%</span>
+                  </div>
+                  <div style="flex: 1; padding:2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">2.31%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">0.75%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">9.26%</span>
+                  </div>
+                </div>
+                <div style="position:absolute; bottom:0; right:0">
+                  <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
+                </div>
+                </div>
+                <!-- TABLA DE AÑOS -->
+                <div style="position:relative;">
+                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px; ">
+                
+                Rendimiento año calendario</p>
+
+                <div style="width: 100%; display: flex; margin-bottom: 2px; gap: 2px;">
+                  
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2015</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2016</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2017</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2018</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2019</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2020</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2021</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2022</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2023</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">2024</span>
+                  </div>
+                  
+                </div>
+                <div style="width: 100%; display: flex; margin-bottom: 16px; gap: 2px;">
+                  
+                
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">9.95%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">9.70%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">10.14%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">7.10%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">7.69%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">8.45%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">8.12%</span>
+                  </div>
+                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">8.55%</span>
+                  </div>
+                   <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">10.00%</span>
+                  </div>
+                   <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                    <span style="font-size: 10px; color:#10273D;">9.32%</span>
+                  </div>
+                </div>
+                <div style="position:absolute; bottom:0; right:0">
+                  <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
+                </div>
+              </div>
+              </div>
+              
+              <!-- CUADRO DE CARACTERÍSTICAS -->
+              <div class="flex-column" style="padding:16px; background-color: #E1EBF1; flex: 3; border-radius: 12px;">
+                <p style="text-align: center; color: #0A80BA; margin-bottom: 4px; font-size: 13px;">
+                  Principales características
+                </p>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 4px;">
+                  <span style=" color: #10273D;">Inicio de Operaciones</span>
+                  <span style="color: #0A80BA;">20 - Nov - 2014</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 4px;">
+                  <span style=" color: #10273D;">Vencimiento</span>
+                  <span style="color: #0A80BA;">31 - Dic - 2027</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Moneda</span>
+                  <span style="color: #0A80BA;">PEN</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Tamaño del fondo (AUM)*</span>
+                  <span style="color: #0A80BA;">23,734,601</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Valor cuota al 28/02/2025 (NAV)</span>
+                  <span style="color: #0A80BA;">1.0075</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Frecuencia de valorización</span>
+                  <span style="color: #0A80BA;">Diaria</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Inversión mínima</span>
+                  <span style="color: #0A80BA;">100,000.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Rentabilidad Objetivo</span>
+                  <span style="color: #0A80BA;">9.00 - 10.00% anual</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Sociedad auditora</span>
+                  <span style="color: #0A80BA;">Deloitte</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Fideicomiso de garantía</span>
+                  <span style="color: #0A80BA;">La Fiduciaria S.A</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
+                  <span style=" color: #10273D;">Comisión administrativa</span>
+                  <span style="color: #0A80BA;">Hasta 5% anual del AUM</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; padding: 0 8px 4px 8px; margin-bottom: 8px;">
+                  <span style=" color: #10273D;">Distribución de beneficios</span>
+                  <span style="color: #0A80BA;">Trimestral</span>
+                </div>
+                 <p style="font-size: 6.5px; color: #10273D;  margin-bottom: 8px;">(*) AUM con valores no auditados y solo con fines informativos.</p>
+              
+                <p style="font-size: 9px; text-align: justify; margin-bottom: 8px; color: #10273D;"> <span style="color: #0A80BA;">EL FONDO IMPULSO PYME 01 - FONDO DE INVERSIÓN</span> tiene como objetivo realizar inversiones principalmente en
+                  pequeñas y medianas empresas (PYMEs) a través de
+                  instrumentos representativos de deuda y la cesión de
+                  derechos de empresas constituidas en el Perú. Todas sus
+                  inversiones son aprobadas por un Comité de Inversiones según lo expuesto en su reglamento de participación.</p>
+
+                <p style="font-size: 9px; text-align: justify;  margin-bottom: 8px; color: #10273D;"> <span style="color: #0A80BA;">CONEXA ASSET MANAGEMENT</span> es una sociedad gestora de
+                  fondos de inversión privados, perteneciente a <span style="color: #0A80BA;">CONEXA FINANCIAL GROUP</span></p>
+                
+                <p style="font-size: 9px; text-align: justify;  margin-bottom: 8px; color: #10273D;">La principal fuente de ingresos del Fondo son los intereses y
+                  las comisiones de desembolso que cobra por los
+                  financiamientos, los cuales están sujetos al pago del IGV.</p>
+
+                  <p style="font-size: 9px; text-align: justify;  margin-bottom: 8px; color: #10273D;"> <span style="color: #0A80BA;">EL FONDO IMPULSO PYME 01 - FONDO DE INVERSIÓN</span> solamente actúa como agente de retención sobre los
+                    beneficios de los partícipes.</p>
+
+                  <p style="font-size: 9px; text-align: justify;  margin-bottom: 8px; color:#10273D; font-weight:bold">IMPORTANTE:</p>
+
+                  <p style="font-size: 9px; text-align: justify;  margin-bottom: 8px; color: #10273D; ">Esta información ha sido preparada únicamente con fines
+                    informativos para los partícipes del FONDO IMPULSO PYME
+                    01 - FONDO DE INVERSIÓN. Se recomienda consultar con su
+                    asesor financiero antes de realizar inversiones en este tipo de
+                    instrumentos financieros. CONEXA ASSET MANAGEMENT
+                    S.A. y sus funcionarios no asumirán responsabilidad alguna
+                    por las decisiones que pudieran ser tomadas en base a esta
+                    información. Asimismo, las rentabilidades obtenidas en el
+                    pasado no son garantía de resultados futuros.</p>
+                    
+                    <p style="font-size: 9px; text-align: justify; color: #10273D;" >El patrimonio y la contabilidad del fondo son independientes al
+                      de la sociedad gestora.</p>
+              </div>
+            </div>
+          </div>
+
+
+<!-- FOOTER GRÁFICOS -->
+
+<div
+  class="footer-graficos"
+  style="
+    padding: 0px; 
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+   
+  "
+>
+ 
+  <!-- Gráfico 1: Diversificación por tipo de activos -->
+  <div
+    class="grafico"
+    style="
+      flex: 1;
+      max-width: 34%; 
+      text-align: center;
+      position:relative;
+      margin: 10px; 
+    "
+  >
+    <span
+      style="
+        font-size: 11px;
+        border-radius: 12px;
+        padding: 4px 12px;
+        color: #10273D;
+        margin-bottom: 8px;
+        display: inline-block;
+        background-color: #E1EBF1;
+        
+      "
+    >
+      Diversificación por tipo de activos
+    </span>
+
+    <div
+      style=" 
+      padding: 0px;
+      text-align:center;
+      "
+    >
+      <img
+        style="
+          width: 120%; 
+          height: auto; 
+          display: block; 
+          margin: 0 auto;
+        "
+        src="${htmlChartActivos}"
+        alt="Gráfico de Diversificación por tipo de activos"
+      />
+    </div>
+    <div style="position:absolute; bottom:-5px; left:0;">
+        <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Gráfico 2: Diversificación por tipo de sectores -->
+  <div
+    class="grafico"
+    style="
+      flex: 1;
+      max-width: 34%; 
+      text-align: center;
+      position:relative;
+      margin: 10px; 
+    "
+  >
+    <span
+      style="
+        font-size: 11px;
+        border-radius: 12px;
+        padding: 4px 12px;
+        color: #10273D;
+        margin-bottom: 8px;
+        background-color: #E1EBF1;
+        display: inline-block;
+      "
+    >
+      Diversificación por tipo de sectores
+    </span>
+    <div
+      style="
+        padding: 0px;
+        margin-right: 20px;
+      "
+    >
+      <!-- <img
+        style="
+          width: 120%; 
+          height: auto; 
+          display: block; 
+          margin: 0px auto;
+        "
+        src="${htmlChartSectores}"
+        alt="Gráfico de Diversificación por tipo de sectores"
+      /> -->
+      <div style="width: 120%; background-color: red;">1</div>
+    </div>
+      <div style="position:absolute; bottom:-5px; right:0;">
+        <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
+    </div>
+  </div>
+</div>
+              </div>
+           </div>
+    </div>
+</body>
+</html>
