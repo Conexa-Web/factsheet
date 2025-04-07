@@ -1,67 +1,67 @@
 {
-  "fecha": "31 de marzo del 2025",
-  "mes": "Marzo",
-  "anio": 2025,
+    "fecha": "28 de febrero del 2025",
+    "mes": "Febrero",
+    "anio": 2025,
     "caracteristicas_fondo": {
-        "fondo": "Fondo Impulso PYME 02",
-        "moneda": "Dólares",
+        "fondo": "Fondo Impulso PYME 01",
+        "moneda": "Soles",
         "ini_op": "20 - Nov - 2014",
-        "vencimiento": "31 - Dic- 2027",
-        "iso": "USD",
-        "aum": 8900349,
-        "valor_cuota": 1.0133,
+        "vencimiento": "31 - Dic - 2027",
+        "iso": "PEN",
+        "aum": 23958612,
+        "valor_cuota": 1.0149,
         "frec_val": "Diaria",
-        "inv_min": 50000,
+        "inv_min": 100000,
         "fideicomiso": "La Fiduciaria S.A",
-        "rentabilidad_objetivo": "7.50 - 8.50%",
+        "rentabilidad_objetivo": "9.00 - 10.00%",
         "aniversario":10
     },
     "rendimiento_fondo": {
-        "actual": 0.66,
-        "tres_meses": 2.08,
-        "ytd": 1.33,
-        "doce_meses": 8.24
+        "actual": 0.74,
+        "tres_meses": 2.31,
+        "ytd": 1.49,
+        "doce_meses": 9.20
     },
     "rendimiento_anio": [
         {
             "anio": 2015,
-            "valor": 10.21
+            "valor": 9.95
         },
         {
             "anio": 2016,
-            "valor": 7.75
+            "valor": 9.70
         },
         {
             "anio": 2017,
-            "valor": 7.31
+            "valor": 10.14
         },
         {
             "anio": 2018,
-            "valor": 7.26
+            "valor": 7.10
         },
         {
             "anio": 2019,
-            "valor": 7.51
+            "valor": 7.69
         },
         {
             "anio": 2020,
-            "valor": 6.64
+            "valor": 8.45
         },
         {
             "anio": 2021,
-            "valor": 5.44
+            "valor": 8.12
         },
         {
             "anio": 2022,
-            "valor": 7.54
+            "valor": 8.55
         },
         {
             "anio": 2023,
-            "valor": 8.30
+            "valor": 10.00
         },
         {
             "anio": 2024,
-            "valor": 8.25
+            "valor": 9.32
         }
     ],
     "valor_cuota": [
@@ -69,18 +69,18 @@
             "periodo": "DIC-23",
             "valores": [
                 1.0,
-                1.0067,
-                1.0134,
-                1.0201
+                1.0080,
+                1.0160,
+                1.0241
             ]
         },
         {
             "periodo": "MAR-24",
             "valores": [
                 1.0,
-                1.0067,
-                1.0134,
-                1.0200
+                1.0080,
+                1.0160,
+                1.0221
             ]
         },
         {
@@ -106,7 +106,7 @@
             "valores": [
                 1.0,
                 1.0075,
-                1.0133
+                1.0149
             ]
         }
     ],
@@ -114,64 +114,64 @@
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 21.15
+            "valor": 20.26
         },
         {
             "id": 2,
             "nombre_activo": "Caja y Bancos",
-            "valor": 2.11
+            "valor": 2.83
         },
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 8.46
+            "valor": 7.84
         },
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 68.28
+            "valor": 69.07
         }
     ],
     "sectores": [
         {
-            "sector": "Farmacéutico",
-            "valor": 13.90
-        },
-        {
             "sector": "Construcción",
-            "valor": 13.80
+            "valor": 19.27
         },
         {
-            "sector": "Comercial",
-            "valor": 12.61
-        },
-        {
-            "sector": "Servicios",
-            "valor": 12.44
+            "sector": "Salud",
+            "valor": 10.94
         },
         {
             "sector": "Agroindustrial",
-            "valor": 9.59
+            "valor": 10.04
         },
         {
-            "sector": "Minería",
-            "valor": 7.76
+            "sector": "Telecomunicaciones",
+            "valor": 9.41
         },
         {
-            "sector": "Industrial",
-            "valor": 5.85
+            "sector": "Seguridad",
+            "valor": 8.86
         },
         {
-            "sector": "Inmobiliario",
-            "valor": 4.50
+            "sector": "Hidrocarburos",
+            "valor": 6.70
         },
         {
-            "sector": "Automotriz",
-            "valor": 3.47
+            "sector": "Educación",
+            "valor": 5.65
+        },
+        {
+            "sector": "Forestal",
+            "valor": 5.61
+        },
+        {
+            "sector": "Comercial",
+            "valor": 4.23
         },
         {
             "sector": "Otros",
-            "valor": 16.10
+            "valor": 19.30
         }
     ]
 }

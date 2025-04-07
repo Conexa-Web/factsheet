@@ -1,0 +1,169 @@
+{
+  "fecha": "31 de marzo del 2025",
+  "mes": "Marzo",
+  "anio": 2025,
+  "caracteristicas_fondo": {
+      "fondo": "Fondo Impulso PYME 03",
+      "moneda": "Soles",
+      "ini_op": "19 - Feb - 2019",
+      "vencimiento": "31 - Dic - 2027",
+      "iso": "PEN",
+      "aum": 25201390,
+      "valor_cuota": 1.0149,
+      "frec_val": "Diaria",
+      "inv_min": 100000,
+      "fideicomiso": "La Fiduciaria S.A",
+      "rentabilidad_objetivo": "9.00 - 10.00%",
+      "aniversario":10
+  },
+  "rendimiento_fondo": {
+      "actual": 0.74,
+      "tres_meses": 2.34,
+      "ytd": 1.49,
+      "doce_meses": 9.22
+  },
+  "rendimiento_anio": [
+
+      {
+          "anio": 2019,
+          "valor": 7.25
+      },
+      {
+          "anio": 2020,
+          "valor": 7.90
+      },
+      {
+          "anio": 2021,
+          "valor": 8.50
+      },
+      {
+          "anio": 2022,
+          "valor": 8.54
+      },
+      {
+          "anio": 2023,
+          "valor": 10.00
+      },
+      {
+          "anio": 2024,
+          "valor": 9.34
+      }
+  ],
+  "valor_cuota": [
+      {
+          "periodo": "DIC-23",
+          "valores": [
+              1.0,
+              1.0080,
+              1.0160,
+              1.0241
+          ]
+      },
+      {
+          "periodo": "MAR-24",
+          "valores": [
+              1.0,
+              1.0080,
+              1.0160,
+              1.0241
+          ]
+      },
+      {
+          "periodo": "JUN-24",
+          "valores": [
+              1.0,
+              1.0059,
+              1.0137,
+              1.0189
+          ]
+      },
+      {
+          "periodo": "SEP-24",
+          "valores": [
+              1.0,
+              1.0073,
+              1.0147,
+              1.0231
+          ]
+      },
+      {
+          "periodo": "DIC-24",
+          "valores": [
+              1.0,
+              1.0075,
+              1.0150,
+              1.0198
+
+
+
+          ]
+      }
+
+
+  ],
+  "activos": [
+      {
+          "id": 1,
+          "nombre_activo": "Financiamiento a Corto Plazo",
+          "valor": 19.04
+      },
+      {
+          "id": 2,
+          "nombre_activo": "Caja y Bancos",
+          "valor": 0.59
+      },
+
+      {
+          "id": 4,
+          "nombre_activo": "Financiamiento a Mediano Plazo",
+          "valor": 80.06
+      },
+      {
+          "id": 3,
+          "nombre_activo": "Cesión de Derechos",
+          "valor": 7.84
+      }
+  ],
+  "sectores": [
+      {
+          "sector": "Comercial",
+          "valor": 19.27
+      },
+      {
+          "sector": "Industrial",
+          "valor": 10.94
+      },
+      {
+          "sector": "Salud",
+          "valor": 10.04
+      },
+      {
+          "sector": "Inmobiliario",
+          "valor": 9.41
+      },
+      {
+          "sector": "Construcción",
+          "valor": 8.86
+      },
+      {
+          "sector": "Metalmecánica",
+          "valor": 6.70
+      },
+      {
+          "sector": "Transporte",
+          "valor": 5.65
+      },
+      {
+          "sector": "Agroindustrial",
+          "valor": 5.61
+      },
+      {
+          "sector": "Automotriz",
+          "valor": 4.23
+      },
+      {
+          "sector": "Otros",
+          "valor": 9.24
+      }
+  ]
+}

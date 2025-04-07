@@ -3,9 +3,9 @@
   "mes": "Marzo",
   "anio": 2025,
     "caracteristicas_fondo": {
-        "fondo": "Fondo Impulso PYME 02",
+        "fondo": "Fondo Impulso PYME 04",
         "moneda": "Dólares",
-        "ini_op": "20 - Nov - 2014",
+        "ini_op": "20 - Jul - 2016",
         "vencimiento": "31 - Dic- 2027",
         "iso": "USD",
         "aum": 8900349,
@@ -14,50 +14,42 @@
         "inv_min": 50000,
         "fideicomiso": "La Fiduciaria S.A",
         "rentabilidad_objetivo": "7.50 - 8.50%",
-        "aniversario":10
+        "aniversario": 8
     },
     "rendimiento_fondo": {
         "actual": 0.66,
-        "tres_meses": 2.08,
+        "tres_meses": 2.12,
         "ytd": 1.33,
-        "doce_meses": 8.24
+        "doce_meses": 8.25
     },
     "rendimiento_anio": [
         {
-            "anio": 2015,
-            "valor": 10.21
-        },
-        {
-            "anio": 2016,
-            "valor": 7.75
-        },
-        {
             "anio": 2017,
-            "valor": 7.31
+            "valor": 8.12
         },
         {
             "anio": 2018,
-            "valor": 7.26
+            "valor": 8.14
         },
         {
             "anio": 2019,
-            "valor": 7.51
+            "valor": 7.87
         },
         {
             "anio": 2020,
-            "valor": 6.64
+            "valor": 7.86
         },
         {
             "anio": 2021,
-            "valor": 5.44
+            "valor": 6.48
         },
         {
             "anio": 2022,
-            "valor": 7.54
+            "valor": 7.53
         },
         {
             "anio": 2023,
-            "valor": 8.30
+            "valor": 8.27
         },
         {
             "anio": 2024,
@@ -69,8 +61,8 @@
             "periodo": "DIC-23",
             "valores": [
                 1.0,
-                1.0067,
-                1.0134,
+                1.0066,
+                1.0133,
                 1.0201
             ]
         },
@@ -78,8 +70,8 @@
             "periodo": "MAR-24",
             "valores": [
                 1.0,
-                1.0067,
-                1.0134,
+                1.0066,
+                1.0133,
                 1.0200
             ]
         },
@@ -87,25 +79,25 @@
             "periodo": "JUN-24",
             "valores": [
                 1.0,
-                1.0080,
-                1.0156,
-                1.0208
+                1.0067,
+                1.0133,
+                1.0191
             ]
         },
         {
             "periodo": "SEP-24",
             "valores": [
                 1.0,
-                1.0075,
-                1.0149,
-                1.0230
+                1.0065,
+                1.0131,
+                1.0209
             ]
         },
         {
             "periodo": "DIC-24",
             "valores": [
                 1.0,
-                1.0075,
+                1.0067,
                 1.0133
             ]
         }
@@ -114,22 +106,22 @@
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 21.15
+            "valor": 34.34
         },
         {
             "id": 2,
             "nombre_activo": "Caja y Bancos",
-            "valor": 2.11
+            "valor": 0.59
         },
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 8.46
+            "valor": 1.42
         },
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 68.28
+            "valor": 63.65
         }
     ],
     "sectores": [

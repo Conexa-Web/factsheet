@@ -1,7 +1,7 @@
 {
-  "fecha": "31 de marzo del 2025",
-  "mes": "Marzo",
-  "anio": 2025,
+    "fecha": "28 de febrero del 2025",
+    "mes": "Febrero",
+    "anio": 2025,
     "caracteristicas_fondo": {
         "fondo": "Fondo Impulso PYME 02",
         "moneda": "Dólares",
@@ -69,18 +69,18 @@
             "periodo": "DIC-23",
             "valores": [
                 1.0,
-                1.0067,
-                1.0134,
-                1.0201
+                1.0080,
+                1.0160,
+                1.0241
             ]
         },
         {
             "periodo": "MAR-24",
             "valores": [
                 1.0,
-                1.0067,
-                1.0134,
-                1.0200
+                1.0080,
+                1.0160,
+                1.0221
             ]
         },
         {

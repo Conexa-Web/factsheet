@@ -1,12 +1,13 @@
 {
-    "fecha": "28 de febrero del 2025",
-    "mes": "Febrero",
-    "anio": 2025,
+  "fecha": "31 de marzo del 2025",
+  "mes": "Marzo",
+  "anio": 2025,
     "caracteristicas_fondo": {
         "fondo": "Fondo Impulso PYME 01",
         "moneda": "Soles",
         "ini_op": "20 - Nov - 2014",
         "vencimiento": "31 - Dic - 2027",
+        "valor_cuota_al": "31/03/2025",
         "iso": "PEN",
         "aum": 23958612,
         "valor_cuota": 1.0149,
