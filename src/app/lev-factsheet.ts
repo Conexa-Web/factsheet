@@ -252,7 +252,7 @@ activos_data.forEach((activo, i) => {
         <!-- CABECERA   -->
         <div class="flex items-center gap-48 " style="padding:16px 24px; background-color: #10273D; position: relative;">
             <div class="flex-column" style="flex: 4;">
-              <span style="margin: 0; color: #0A80BA; font-size: 36px; font-weight: 100; line-height:36px">${
+              <span style="margin: 0; color: #0A80BA; font-size: 34px; font-weight: 100; line-height:36px">${
                 data_fs.caracteristicas_fondo.fondo
               } - ${data_fs.caracteristicas_fondo.moneda}</span>
               <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:24px">Fondo de Inversión - ${
@@ -582,7 +582,7 @@ activos_data.forEach((activo, i) => {
     border-radius: 12px;
     padding: 4px 12px;
     color: #10273D;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     border: 1px solid #0A80BA;
     display: inline-block;
   "

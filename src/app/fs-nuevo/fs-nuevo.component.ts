@@ -55,7 +55,8 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
   // TODO - CAMBIO DE JSON
   async ngAfterViewInit() {
-    this.data_fs = await this.json.getData('assets/data/fondo06.json');
+    // this.data_fs = await this.json.getData('assets/data/fondo06.json');
+    this.data_fs = await this.json.getData('assets/data/lending.json');
     this.data_fs.activos.map((x) => {
       this.activos_nombres.push(Object.values(x)[1]);
       this.activos_valor.push(Object.values(x)[2]);
@@ -197,8 +198,8 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
 
 // TODO AJUSTE DE LABELS Y VALORES EN GRAFICOS ESPACIADO
-   const baseAjuste = 1.24;
-      const extraAjusteIzquierda = 0.06;
+   const baseAjuste = 1.22;
+      const extraAjusteIzquierda = 0.07;
 
       const esIzquierda = Math.cos(angle) < 0;
 
