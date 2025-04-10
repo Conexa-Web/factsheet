@@ -6,10 +6,11 @@
         "fondo": "Fondo Impulso PYME 02",
         "moneda": "Dólares",
         "ini_op": "20 - Nov - 2014",
-        "vencimiento": "31 - Dic- 2027",
+        "vencimiento": "31 - Dic - 2027",
+        "valor_cuota_al": "31/03/2025",
         "iso": "USD",
-        "aum": 8900349,
-        "valor_cuota": 1.0133,
+        "aum": 8918721,
+        "valor_cuota": 1.0202,
         "frec_val": "Diaria",
         "inv_min": 50000,
         "fideicomiso": "La Fiduciaria S.A",
@@ -17,10 +18,10 @@
         "aniversario":10
     },
     "rendimiento_fondo": {
-        "actual": 0.66,
-        "tres_meses": 2.08,
-        "ytd": 1.33,
-        "doce_meses": 8.24
+        "actual": 0.68,
+        "tres_meses": 2.02,
+        "ytd": 2.02,
+        "doce_meses": 8.25
     },
     "rendimiento_anio": [
         {
@@ -45,7 +46,7 @@
         },
         {
             "anio": 2020,
-            "valor": 6.64
+            "valor": 6.34
         },
         {
             "anio": 2021,
@@ -87,26 +88,27 @@
             "periodo": "JUN-24",
             "valores": [
                 1.0,
-                1.0080,
-                1.0156,
-                1.0208
+                1.0066,
+                1.0133,
+                1.0195
             ]
         },
         {
             "periodo": "SEP-24",
             "valores": [
                 1.0,
-                1.0075,
-                1.0149,
-                1.0230
+                1.0065,
+                1.0131,
+                1.0204
             ]
         },
         {
             "periodo": "DIC-24",
             "valores": [
                 1.0,
-                1.0075,
-                1.0133
+                1.0067,
+                1.0133,
+                1.0202
             ]
         }
     ],
@@ -114,64 +116,64 @@
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 21.15
+            "valor": 20.54
         },
         {
             "id": 2,
             "nombre_activo": "Caja y Bancos",
-            "valor": 2.11
+            "valor": 2.65
         },
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 8.46
+            "valor": 8.45
         },
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 68.28
+            "valor": 68.36
         }
     ],
     "sectores": [
         {
             "sector": "Farmacéutico",
-            "valor": 13.90
-        },
-        {
-            "sector": "Construcción",
-            "valor": 13.80
-        },
-        {
-            "sector": "Comercial",
-            "valor": 12.61
+            "valor": 14.23
         },
         {
             "sector": "Servicios",
-            "valor": 12.44
+            "valor": 12.65
+        },
+        {
+            "sector": "Construcción",
+            "valor": 12.40
+        },
+        {
+            "sector": "Comercial",
+            "valor": 11.99
         },
         {
             "sector": "Agroindustrial",
-            "valor": 9.59
+            "valor": 9.65
         },
         {
             "sector": "Minería",
-            "valor": 7.76
+            "valor": 7.79
         },
         {
             "sector": "Industrial",
-            "valor": 5.85
+            "valor": 5.84
         },
         {
             "sector": "Inmobiliario",
-            "valor": 4.50
+            "valor": 4.58
         },
         {
-            "sector": "Automotriz",
+            "sector": "Forestal",
             "valor": 3.47
         },
         {
             "sector": "Otros",
-            "valor": 16.10
+            "valor": 17.40
         }
     ]
 }

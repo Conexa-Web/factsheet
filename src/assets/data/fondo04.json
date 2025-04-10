@@ -7,9 +7,10 @@
         "moneda": "Dólares",
         "ini_op": "20 - Jul - 2016",
         "vencimiento": "31 - Dic- 2027",
+        "valor_cuota_al": "31/03/2025",
         "iso": "USD",
-        "aum": 8900349,
-        "valor_cuota": 1.0133,
+        "aum": 14106590,
+        "valor_cuota": 1.0202,
         "frec_val": "Diaria",
         "inv_min": 50000,
         "fideicomiso": "La Fiduciaria S.A",
@@ -17,10 +18,10 @@
         "aniversario": 8
     },
     "rendimiento_fondo": {
-        "actual": 0.66,
-        "tres_meses": 2.12,
-        "ytd": 1.33,
-        "doce_meses": 8.25
+        "actual": 0.68,
+        "tres_meses": 2.02,
+        "ytd": 2.02,
+        "doce_meses": 8.26
     },
     "rendimiento_anio": [
         {
@@ -98,72 +99,75 @@
             "valores": [
                 1.0,
                 1.0067,
-                1.0133
+                1.0133,
+                1.0202
             ]
         }
     ],
     "activos": [
+      {
+        "id": 2,
+        "nombre_activo": "Caja y Bancos",
+        "valor": 0.77
+    },
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 34.34
+            "valor": 34.31
         },
-        {
-            "id": 2,
-            "nombre_activo": "Caja y Bancos",
-            "valor": 0.59
-        },
+
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 1.42
+            "valor": 1.45
         },
+
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 63.65
+            "valor": 63.47
         }
     ],
     "sectores": [
         {
-            "sector": "Farmacéutico",
-            "valor": 13.90
-        },
-        {
-            "sector": "Construcción",
-            "valor": 13.80
-        },
-        {
             "sector": "Comercial",
-            "valor": 12.61
+            "valor": 17.31
         },
         {
-            "sector": "Servicios",
-            "valor": 12.44
-        },
-        {
-            "sector": "Agroindustrial",
-            "valor": 9.59
-        },
-        {
-            "sector": "Minería",
-            "valor": 7.76
-        },
-        {
-            "sector": "Industrial",
-            "valor": 5.85
+            "sector": "Transporte",
+            "valor": 13.26
         },
         {
             "sector": "Inmobiliario",
-            "valor": 4.50
+            "valor": 11.16
         },
         {
-            "sector": "Automotriz",
-            "valor": 3.47
+            "sector": "Construcción",
+            "valor": 7.53
+        },
+        {
+            "sector": "Pesca",
+            "valor": 6.92
+        },
+        {
+            "sector": "Forestal",
+            "valor": 5.95
+        },
+        {
+            "sector": "Agricola",
+            "valor": 5.79
+        },
+        {
+            "sector": "Alimentos",
+            "valor": 5.70
+        },
+        {
+            "sector": "Publicidad",
+            "valor": 5.03
         },
         {
             "sector": "Otros",
-            "valor": 16.10
+            "valor": 21.35
         }
     ]
 }

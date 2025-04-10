@@ -53,19 +53,45 @@ export class LevFactSheetPDF {
 
     //TEXTO PARA ACTIVOS
     let activos_data = data_fs.activos.filter((x) => x.id !== 2);
-    activos_data.sort((a, b) => b.valor - a.valor);
+activos_data.sort((a, b) => b.valor - a.valor);
 
-    activos_data.forEach((activo, i) => {
-      activo_texto += `${
-        activo.id === 3 ? 'la' : 'los'
-      } ${activo.nombre_activo.toLowerCase()} con ${activo.valor}%${
-        i === activos_data.length - 1
-          ? ''
-          : i === activos_data.length - 2
-          ? ' y '
-          : ', '
-      }`;
-    });
+activos_data.forEach((activo, i) => {
+  let nombreActivo = activo.nombre_activo;
+
+  // Verificar si el nombre contiene la palabra "Financiamiento" y agregar "s" solo a esa palabra
+  if (nombreActivo.toLowerCase().includes("financiamiento")) {
+    nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');  // Reemplaza solo "Financiamiento" con "Financiamientos"
+  }
+
+  activo_texto += `${
+    activo.id === 3 ? 'la' : 'los'
+  } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
+    i === activos_data.length - 1
+      ? ''
+      : i === activos_data.length - 2
+      ? ' y '
+      : ', '
+  }`;
+});
+
+
+
+
+    // let activos_data = data_fs.activos.filter((x) => x.id !== 2);
+    // activos_data.sort((a, b) => b.valor - a.valor);
+
+    // activos_data.forEach((activo, i) => {
+    //   activo_texto += `${
+    //     activo.id === 3 ? 'la' : 'los'
+    //   } ${activo.nombre_activo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
+    //     i === activos_data.length - 1
+    //       ? ''
+    //       : i === activos_data.length - 2
+    //       ? ' y '
+    //       : ', '
+    //   }`;
+    // });
+
 
     //TEXTO PARA SECTORES
     // data_fs.sectores.sort((a,b)=>b.valor-a.valor);
@@ -74,14 +100,11 @@ export class LevFactSheetPDF {
     const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
     primerosSeis.forEach((sector, i) => {
-      sectores_texto += `${sector.valor}% en ${sector.sector.toLowerCase()}${
+      sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${
         i === primerosSeis.length
           ? ''
           : i === primerosSeis.length - 1
-          ? ` y ${this.formatoNumberMiles(
-              suma_restante,
-              2
-            )}% en los demás sectores`
+          ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
           : ', '
       }`;
     });
@@ -409,7 +432,7 @@ export class LevFactSheetPDF {
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Inversión mínima</span>
-                  <span style="color: #0A80BA;">${this.formatoNumberMiles(
+                  <span style="color: #0A80BA;">${this.formatoNumberMilesInv(
                     data_fs.caracteristicas_fondo.inv_min,
                     0
                   )}</span>
@@ -506,7 +529,7 @@ export class LevFactSheetPDF {
     border-radius: 12px;
     padding: 4px 12px;
     color: #10273D;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
     border: 1px solid #0A80BA;
     display: inline-block;
   "
@@ -559,7 +582,7 @@ export class LevFactSheetPDF {
     border-radius: 12px;
     padding: 4px 12px;
     color: #10273D;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     border: 1px solid #0A80BA;
     display: inline-block;
   "
@@ -630,4 +653,23 @@ export class LevFactSheetPDF {
     }
     return `${Number(0).toFixed(decimalLimit)}`;
   }
+
+  private static formatoNumberMilesInv(x: any, decimalLimit: number = 2) {
+    // Verifica si x es un número válido
+    if (x && !isNaN(Number(x))) {
+      // Convierte el número a un valor con los decimales indicados
+      let myArray = Number(x).toFixed(decimalLimit).toString().split('.');
+
+      // Agrega las comas como separadores de miles en la parte entera del número
+      const formattedNumber = myArray[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+      // Devuelve el número con los decimales, garantizando que siempre haya dos decimales
+      return formattedNumber + '.' + (myArray[1] || '00'); // Si no hay parte decimal, agrega '00'
+    }
+
+    // Si el valor no es un número válido, devuelve 0.00 formateado
+    return '0.00';
+  }
+
+
 }

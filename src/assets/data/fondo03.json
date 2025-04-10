@@ -7,8 +7,9 @@
       "moneda": "Soles",
       "ini_op": "13 - Feb - 2019",
       "vencimiento": "31 - Dic - 2027",
+      "valor_cuota_al": "31/03/2025",
       "iso": "PEN",
-      "aum": 25201390,
+      "aum": 25113223,
       "valor_cuota": 1.0149,
       "frec_val": "Diaria",
       "inv_min": 100000,
@@ -17,10 +18,10 @@
       "aniversario":6
   },
   "rendimiento_fondo": {
-      "actual": 0.74,
-      "tres_meses": 2.34,
-      "ytd": 1.49,
-      "doce_meses": 9.22
+      "actual": 0.75,
+      "tres_meses": 2.25,
+      "ytd": 2.25,
+      "doce_meses": 9.16
   },
   "rendimiento_anio": [
 
@@ -91,7 +92,8 @@
           "valores": [
               1.0,
               1.0075,
-              1.0149
+              1.0149,
+              1.0225
           ]
       }
 
@@ -99,55 +101,54 @@
   ],
   "activos": [
       {
-          "id": 1,
-          "nombre_activo": "Financiamiento a Corto Plazo",
-          "valor": 19.04
+        "id": 2,
+        "nombre_activo": "Caja y Bancos",
+        "valor": 0.85
       },
       {
-          "id": 2,
-          "nombre_activo": "Caja y Bancos",
-          "valor": 0.59
-      },
-
-      {
-          "id": 4,
-          "nombre_activo": "Financiamiento a Mediano Plazo",
-          "valor": 80.05
+        "id": 1,
+        "nombre_activo": "Financiamiento a Corto Plazo",
+        "valor": 19.71
       },
       {
-          "id": 3,
-          "nombre_activo": "Cesión de Derechos",
-          "valor": 0.32
+        "id": 3,
+        "nombre_activo": "Cesión de Derechos",
+        "valor": 0.08
+      },
+      {
+        "id": 4,
+        "nombre_activo": "Financiamiento a Mediano Plazo",
+        "valor": 79.36
       }
   ],
   "sectores": [
       {
           "sector": "Comercial",
-          "valor": 16.99
+          "valor": 16.81
       },
       {
           "sector": "Industrial",
-          "valor": 16.59
+          "valor": 16.76
       },
       {
           "sector": "Salud",
-          "valor": 11.36
+          "valor": 11.56
       },
       {
           "sector": "Inmobiliario",
-          "valor": 10.73
+          "valor": 10.84
       },
       {
           "sector": "Construcción",
-          "valor": 8.28
+          "valor": 8.03
       },
       {
           "sector": "Metalmecánica",
-          "valor": 7.83
+          "valor": 7.71
       },
       {
           "sector": "Transporte",
-          "valor": 7.20
+          "valor": 7.18
       },
       {
           "sector": "Agroindustrial",
@@ -155,11 +156,11 @@
       },
       {
           "sector": "Automotriz",
-          "valor": 5.01
+          "valor": 5.13
       },
       {
           "sector": "Otros",
-          "valor": 9.24
+          "valor": 9.21
       }
   ]
 }

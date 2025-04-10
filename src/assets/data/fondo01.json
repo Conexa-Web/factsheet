@@ -9,8 +9,8 @@
         "vencimiento": "31 - Dic - 2027",
         "valor_cuota_al": "31/03/2025",
         "iso": "PEN",
-        "aum": 23958612,
-        "valor_cuota": 1.0149,
+        "aum": 24206514,
+        "valor_cuota": 1.0225,
         "frec_val": "Diaria",
         "inv_min": 100000,
         "fideicomiso": "La Fiduciaria S.A",
@@ -18,10 +18,10 @@
         "aniversario":10
     },
     "rendimiento_fondo": {
-        "actual": 0.74,
-        "tres_meses": 2.31,
-        "ytd": 1.49,
-        "doce_meses": 9.20
+        "actual": 0.75,
+        "tres_meses": 2.25,
+        "ytd": 2.25,
+        "doce_meses": 9.15
     },
     "rendimiento_anio": [
         {
@@ -107,7 +107,8 @@
             "valores": [
                 1.0,
                 1.0075,
-                1.0149
+                1.0149,
+                1.0225
             ]
         }
     ],
@@ -115,36 +116,36 @@
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 20.26
+            "valor": 14.90
         },
         {
             "id": 2,
             "nombre_activo": "Caja y Bancos",
-            "valor": 2.83
+            "valor": 3.17
         },
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 7.84
+            "valor": 7.86
         },
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 69.07
+            "valor": 74.07
         }
     ],
     "sectores": [
         {
             "sector": "Construcción",
-            "valor": 19.27
+            "valor": 16.24
         },
         {
             "sector": "Salud",
-            "valor": 10.94
+            "valor": 10.73
         },
         {
             "sector": "Agroindustrial",
-            "valor": 10.04
+            "valor": 9.90
         },
         {
             "sector": "Telecomunicaciones",
@@ -152,27 +153,27 @@
         },
         {
             "sector": "Seguridad",
-            "valor": 8.86
+            "valor": 8.60
         },
         {
             "sector": "Hidrocarburos",
-            "valor": 6.70
+            "valor": 7.40
         },
         {
             "sector": "Educación",
-            "valor": 5.65
+            "valor": 7.05
         },
         {
             "sector": "Forestal",
-            "valor": 5.61
+            "valor": 5.56
         },
         {
             "sector": "Comercial",
-            "valor": 4.23
+            "valor": 5.46
         },
         {
             "sector": "Otros",
-            "valor": 19.30
+            "valor": 19.65
         }
     ]
 }
