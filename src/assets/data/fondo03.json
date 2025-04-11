@@ -10,7 +10,7 @@
       "valor_cuota_al": "31/03/2025",
       "iso": "PEN",
       "aum": 25113223,
-      "valor_cuota": 1.0149,
+      "valor_cuota": 1.0225,
       "frec_val": "Diaria",
       "inv_min": 100000,
       "fideicomiso": "La Fiduciaria S.A",
@@ -126,10 +126,15 @@
           "sector": "Comercial",
           "valor": 16.81
       },
+
       {
-          "sector": "Industrial",
-          "valor": 16.76
-      },
+        "sector": "Otros",
+        "valor": 9.21
+    },
+      {
+        "sector": "Automotriz",
+        "valor": 5.13
+    },
       {
           "sector": "Salud",
           "valor": 11.56
@@ -143,24 +148,23 @@
           "valor": 8.03
       },
       {
-          "sector": "Metalmecánica",
-          "valor": 7.71
-      },
-      {
-          "sector": "Transporte",
-          "valor": 7.18
-      },
+        "sector": "Metalmecánica",
+        "valor": 7.71
+    },
+
       {
           "sector": "Agroindustrial",
           "valor": 6.77
       },
+
+     {
+
+      "sector": "Transporte",
+      "valor": 7.18
+  },
       {
-          "sector": "Automotriz",
-          "valor": 5.13
-      },
-      {
-          "sector": "Otros",
-          "valor": 9.21
-      }
+        "sector": "Industrial",
+        "valor": 16.76
+    }
   ]
 }
