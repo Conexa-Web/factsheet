@@ -44,8 +44,8 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
   async ngOnInit(): Promise<void> { }
 
   async ngAfterViewInit() {
-    // Carga del JSON desde assets (por ejemplo, fondo07.json)
-    this.data_fs = await this.json.getData("assets/data/fondo01.json");
+    // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
+    this.data_fs = await this.json.getData("assets/data/fondo04.json");
 
     // Procesa los datos de "activos"
     this.data_fs.activos.forEach((x: any) => {
@@ -150,7 +150,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     // Calculamos el espaciado base
     const baseRadius = meta.data[0].getProps(['outerRadius'], true)['outerRadius'];
     // Radio base para las etiquetas
-    const labelRadius = baseRadius * 1.2;
+    const labelRadius = baseRadius * (es_sector ? 1.24 : 1.22);
 
     sortedData.forEach((item, i) => {
       const { startAngle, endAngle } = item.bar.getProps(['startAngle', 'endAngle'], true);
@@ -181,7 +181,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
       const isTop = Math.sin(angle) < 0;
       
       // Ajustamos el margen según la posición
-      const marginAdjust = 5;
+      const marginAdjust = isLeft ? 15 : 5;
       if (isLeft) {
         label.style.marginLeft = `-${marginAdjust}px`;
       } else {
@@ -190,10 +190,10 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
       // Creamos el contenido de la etiqueta
       label.innerHTML = `
-        <div style='color: #10273D; font-size: 36px; font-weight: 700; line-height: 1.2;'>
+        <div style='color: #10273D; font-size: 36px; font-weight: 700; line-height: 1.1; margin-top: 8px;'>
           ${this.formatoNumberMiles(value)}%
         </div>
-        <div style='color: #10273D; font-weight: 700; font-size: 26px; line-height: 1.2;'>
+        <div style='color: #10273D; font-weight: 700; font-size: 28px; line-height: 1.1; margin-bottom: 4px;'>
           ${label2}
         </div>
       `;
@@ -267,7 +267,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
             offset: 5,
             color: '#59BCE2',
             font: {
-              size: 18,
+              size: 22,
               family: 'TT Hoves Pro Trial',
             },
             formatter: (value) =>
@@ -282,7 +282,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
               minRotation: 0,
               autoSkip: false,
               color: '#10273D',
-              font: { size: 18, family: 'TT Hoves Pro Trial' },
+              font: { size: 22, family: 'TT Hoves Pro Trial' },
             },
             type: 'category'
           },
@@ -291,7 +291,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
             beginAtZero: false,
             ticks: {
               color: '#10273D',
-              font: { size: 18, family: 'TT Hoves Pro Trial' },
+              font: { size: 22, family: 'TT Hoves Pro Trial' },
               callback: (value) => ` ${this.formatoNumberMiles(value, 4)}`,
             },
           },

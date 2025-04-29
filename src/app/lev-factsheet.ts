@@ -109,8 +109,9 @@ export class LevFactSheetPDF {
     let html = `
         <style>
         p {
-          line-height: 10.5px;
+          line-height: 1.2;
           margin: 0;
+          font-size: 15px;
         }
 
         .flex {
@@ -123,7 +124,7 @@ export class LevFactSheetPDF {
         }
 
         .flex.items-center.gap-48 {
-          padding: 16px 24px;
+          padding: 12px 20px;
           background-color: #E1EBF1;
           position: relative;
         }
@@ -157,47 +158,47 @@ export class LevFactSheetPDF {
         }
 
         .py-16 {
-          padding-top: 16px;
-          padding-bottom: 16px;
+          padding-top: 12px;
+          padding-bottom: 12px;
         }
 
         .px-12 {
-          padding-left: 12px;
-          padding-right: 12px;
+          padding-left: 10px;
+          padding-right: 10px;
         }
 
         .py-24 {
-          padding-top: 24px;
-          padding-bottom: 24px;
+          padding-top: 20px;
+          padding-bottom: 20px;
         }
 
         .px-40 {
-          padding-left: 40px;
-          padding-right: 40px;
+          padding-left: 30px;
+          padding-right: 30px;
         }
 
         .px-24 {
-          padding-left: 24px;
-          padding-right: 24px;
+          padding-left: 20px;
+          padding-right: 20px;
         }
 
         .gap-4 {
-          gap: 4px;
+          gap: 3px;
         }
 
         .gap-8 {
-          gap: 8px;
+          gap: 6px;
         }
 
         .gap-12 {
-          gap: 12px;
+          gap: 8px;
         }
 
         .gap-16 {
-          gap: 16px;
+          gap: 12px;
         }
         .gap-48 {
-          gap: 48px;
+          gap: 36px;
         }
 
         .fw-400 {
@@ -225,14 +226,14 @@ export class LevFactSheetPDF {
         }
 
         .border-radius {
-          border-radius: 8px;
+          border-radius: 6px;
         }
 
         .triangle {
           width: 0;
           height: 0;
           border-style: solid;
-          border-width: 0 86px 86px 0;
+          border-width: 0 70px 70px 0;
           border-color: transparent #10273D transparent transparent;
           position: absolute;
           top: 0;
@@ -247,15 +248,15 @@ export class LevFactSheetPDF {
             : ''
         }
         <!-- CABECERA   -->
-        <div class="flex items-center gap-48 " style="padding:16px 24px; background-color: #10273D; position: relative;">
-            <div class="flex-column" style="flex: 4;">
-              <span style="margin: 0; color: #0A80BA; font-size: 34px; font-weight: 100; line-height:36px">${
+        <div class="flex items-center gap-48 " style="padding:12px 24px 8px 24px; background-color: #10273D; position: relative;">
+            <div class="flex-column" style="flex: 4; gap: 2px;">
+              <span style="margin: 0 0 2px 0; color: #0A80BA; font-size: ${data_fs.caracteristicas_fondo.fondo === 'Conexa Peruvian Lending' ? '32px' : '36px'}; font-weight: 100; line-height:32px; display: block;">${
                 data_fs.caracteristicas_fondo.fondo
               } - ${data_fs.caracteristicas_fondo.moneda}</span>
-              <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:24px">Fondo de Inversión - ${
+              <span style="margin: 0 0 0px 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:20px; display: block;">Fondo de Inversión - ${
                 data_fs.fecha
               }</span>
-              <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100;">Clase A</span>
+              <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; display: block;">Clase A</span>
             </div>
            <div class="flex-column" style="flex: 1; margin-right:10px; display: flex; align-items: center; padding: 0;">
              <img src="../assets/logos/logo_conexa_2.png" style="display: block;" width="100%" />
@@ -265,12 +266,12 @@ export class LevFactSheetPDF {
         </div>
 
           <!-- CUERPO DEL FACTSHEET -->
-          <div style="padding:8px 24px;">
+          <div style="padding:8px 24px 0 24px;">
             <div class="flex" style="gap:30px" >
 
             <!-- DATOS DEL VALOR CUOTA -->
               <div class="flex-column " style="background-color: white; flex: 5;">
-                <p style="color: #0A80BA; font-weight: 500; font-size: 14px;">Evolución del Valor Cuota</p>
+                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 4px;">Evolución del Valor Cuota</p>
 
             <div style="width: 100%; position: relative; overflow: visible; padding: 0; margin: 16px 0;">
 
@@ -283,7 +284,7 @@ export class LevFactSheetPDF {
 
                 <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">Comentarios de la Sociedad Gestora</p>
 
-                <p style=": word-spacing: -.4ch; font-size: 11px; text-align: justify; margin-bottom: 12px; ">
+                <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
                   El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${
       data_fs.caracteristicas_fondo.iso
     } ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la
@@ -294,14 +295,14 @@ export class LevFactSheetPDF {
                   la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir
                   a alcanzar la rentabilidad anual objetivo del Fondo.
                 </p>
-                <p style="font-size: 11px; text-align: justify; margin-bottom: 12px; ">
+                <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
                   Las operaciones más frecuentes son: ${activo_texto}.
                   Los sectores en los que se invierte mantienen un alto potencial de
                   crecimiento, destacando: ${sectores_texto}. La Gestora
                   mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener
                   la participación en cada industria por debajo del 20% de los activos del Fondo.
                 </p>
-                <p style="font-size: 11px; text-align: justify; margin-bottom: 12px;">
+                <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
                   El Fondo cerró el mes con una liquidez de ${
                     data_fs.activos.find((x) => x.id === 2).valor
                   }%, ubicándose ${
@@ -359,7 +360,7 @@ export class LevFactSheetPDF {
                     )}%</span>
                   </div>
                 </div>
-                <div style="position:absolute; bottom:0; right:0">
+                <div style="position:absolute; bottom:2px; left:0;">
                   <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
                 </div>
                 </div>
@@ -381,7 +382,7 @@ export class LevFactSheetPDF {
                  ${rendimiento_anio_valor}
 
                 </div>
-                <div style="position:absolute; bottom:0; right:0">
+                <div style="position:absolute; bottom:2px; right:0;">
                   <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
                 </div>
               </div>
@@ -459,7 +460,6 @@ export class LevFactSheetPDF {
                   <span style="color: #0A80BA;">Trimestral</span>
                 </div>
 
-
                 <p style="font-size: 9px; text-align: justify; margin-bottom: 8px; color: #10273D;"> <span style="color: #0A80BA;">EL ${data_fs.caracteristicas_fondo.fondo.toUpperCase()} - FONDO DE INVERSIÓN</span> tiene como objetivo realizar inversiones principalmente en
                   pequeñas y medianas empresas (PYMEs) a través de
                   instrumentos representativos de deuda y la cesión de
@@ -500,15 +500,13 @@ export class LevFactSheetPDF {
   class="footer-graficos"
   style="
     padding: 0px;
-    margin-top: 0px;
+    margin-top: 8px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
   "
 >
-
   <!-- Gráfico 1: Diversificación por tipo de activos -->
   <div
     class="grafico"
@@ -517,20 +515,20 @@ export class LevFactSheetPDF {
       max-width: 34%;
       text-align: center;
       position:relative;
-      margin: 10px;
+      margin: 8px;
     "
   >
     <span
-  style="
-    font-size: 11px;
-    border-radius: 12px;
-    padding: 4px 12px;
-    color: #10273D;
-    margin-bottom: 20px;
-    border: 1px solid #0A80BA;
-    display: inline-block;
-  "
->
+      style="
+        font-size: 11px;
+        border-radius: 12px;
+        padding: 4px 12px;
+        color: #10273D;
+        margin-bottom: 48px;
+        border: 1px solid #0A80BA;
+        display: inline-block;
+      "
+    >
       Diversificación por tipo de activos
     </span>
 
@@ -541,26 +539,23 @@ export class LevFactSheetPDF {
     >
       <img
         style="
-          width: 110%;
+          width: 136%;
           height: auto;
           display: block;
           margin: 0 auto;
-          margin-left: -25px;
-          margin-top: -25px;
+          margin-left: -42px;
+          margin-top: -42px;
           max-width: none;
         "
         src="${htmlChartActivos}"
         alt="Gráfico de Diversificación por tipo de activos"
       />
     </div>
-    <div style="position:absolute; bottom:-5px; left:0;">
+    <div style="height: 12px;"></div>
+    <div style="position:absolute; bottom:0; left:0;">
         <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
     </div>
   </div>
-
-
-
-
 
   <!-- Gráfico 2: Diversificación por tipo de sectores -->
   <div
@@ -570,20 +565,20 @@ export class LevFactSheetPDF {
       max-width: 34%;
       text-align: center;
       position:relative;
-      margin: 10px;
+      margin: 8px;
     "
   >
    <span
-  style="
-    font-size: 11px;
-    border-radius: 12px;
-    padding: 4px 12px;
-    color: #10273D;
-    margin-bottom: 12px;
-    border: 1px solid #0A80BA;
-    display: inline-block;
-  "
->
+      style="
+        font-size: 11px;
+        border-radius: 12px;
+        padding: 4px 12px;
+        color: #10273D;
+        margin-bottom: 48px;
+        border: 1px solid #0A80BA;
+        display: inline-block;
+      "
+    >
       Diversificación por tipo de sectores
     </span>
     <div
@@ -593,19 +588,20 @@ export class LevFactSheetPDF {
     >
       <img
         style="
-          width: 110%;
+          width: 136%;
           height: auto;
           display: block;
           margin: 0 auto;
-          margin-left: -25px;
-          margin-top: -25px;
+          margin-left: -42px;
+          margin-top: -42px;
           max-width: none;
         "
         src="${htmlChartSectores}"
         alt="Gráfico de Diversificación por tipo de sectores"
       />
     </div>
-      <div style="position:absolute; bottom:-5px; right:0;">
+    <div style="height: 12px;"></div>
+    <div style="position:absolute; bottom:0; right:0;">
         <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
     </div>
   </div>
@@ -615,7 +611,7 @@ export class LevFactSheetPDF {
     </div>
     `;
 
-    let pdf = await this.getPdfBuffer(html);
+    let pdf = await this.getPdf(html);
 
     // let resul = await AmplifyHelper.fileUploadToStorageBuffer({
     //   name: "prueba.pdf",
@@ -633,8 +629,19 @@ export class LevFactSheetPDF {
       margin: 0,
       filename: `prueba.pdf`,
       image: { type: 'jpeg', quality: 1 },
-      html2canvas: { background: 'white', scale: 2 },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+      html2canvas: { 
+        background: 'white', 
+        scale: 1.4,
+        useCORS: true,
+        logging: false,
+        allowTaint: true
+      },
+      jsPDF: { 
+        unit: 'in', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: true
+      },
       pagebreak: { mode: 'avoid-all', before: '.romper_fila' },
     };
     return html2pdf().from(html).set(opt);
