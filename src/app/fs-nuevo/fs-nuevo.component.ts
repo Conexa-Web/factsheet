@@ -45,7 +45,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     // Carga del JSON desde assets (por ejemplo, fondo07.json)
-    this.data_fs = await this.json.getData("assets/data/fondo04.json");
+    this.data_fs = await this.json.getData("assets/data/fondo01.json");
 
     // Procesa los datos de "activos"
     this.data_fs.activos.forEach((x: any) => {
@@ -131,7 +131,6 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   addHtmlLabels(chart: Chart, contenedor: any, es_sector: boolean) {
     const container = contenedor;
     container.innerHTML = '';
@@ -139,39 +138,69 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     const meta = chart.getDatasetMeta(0);
     const ctx = chart.ctx;
     const total = (chart.data.datasets[0].data.reduce((a, b) => (a as number) + (b as number), 0)) as number;
-    meta.data.forEach((bar, index) => {
-      const { startAngle, endAngle } = bar.getProps(['startAngle', 'endAngle'], true);
+    
+    // Ordenamos los datos por valor para mejor distribución
+    const sortedData = meta.data.map((bar, index) => ({
+      bar,
+      index,
+      value: chart.data.datasets[0].data[index] as number,
+      label: chart.data.labels[index]
+    })).sort((a, b) => b.value - a.value);
+
+    // Calculamos el espaciado base
+    const baseRadius = meta.data[0].getProps(['outerRadius'], true)['outerRadius'];
+    // Radio base para las etiquetas
+    const labelRadius = baseRadius * 1.2;
+
+    sortedData.forEach((item, i) => {
+      const { startAngle, endAngle } = item.bar.getProps(['startAngle', 'endAngle'], true);
       const angle = (startAngle + endAngle) / 2;
-      const label2 = chart.data.labels[index];
-      const { outerRadius } = bar.getProps(['outerRadius'], true);
-      const radius = outerRadius * (!es_sector ? 1.0 : 0.95);
-      const x = chart.width / 2 + radius * Math.cos(angle);
-      const y = chart.height / 2 + radius * Math.sin(angle);
-      const labelX = chart.width / 2 + radius * 1.25 * Math.cos(angle);
-      const labelY = chart.height / 2 + radius * 1.25 * Math.sin(angle);
-      const value = (chart.data.datasets[0].data[index]) as number;
+      const label2 = item.label as string;
+      const value = item.value;
 
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(labelX, labelY);
+      // Calculamos el radio adicional para textos largos
+      const isLongText = label2.toLowerCase().includes('financiamiento');
+      const extraRadius = isLongText ? baseRadius * 0.06 : 0;
+      const finalRadius = labelRadius + extraRadius;
 
+      // Calculamos la posición de la etiqueta
+      const labelX = chart.width / 2 + finalRadius * Math.cos(angle);
+      const labelY = chart.height / 2 + finalRadius * Math.sin(angle);
+
+      // Creamos el contenedor de la etiqueta
       const label = document.createElement('div');
-      label.innerHTML = `<div style='color: #10273D;text-align: end;font-size: 36px; font-weight: 700;'>
-        ${this.formatoNumberMiles(value)}%
-        </div>
-        <div style='color: #10273D; font-weight: 700;'>${label2}</div>`;
       label.style.position = 'absolute';
       label.style.left = `${labelX}px`;
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
-      label.style.fontSize = '26px';
+      label.style.textAlign = 'center';
+      label.style.minWidth = '120px';
+
+      // Ajustamos el estilo según el ángulo
+      const isLeft = Math.cos(angle) < 0;
+      const isTop = Math.sin(angle) < 0;
+      
+      // Ajustamos el margen según la posición
+      const marginAdjust = 5;
+      if (isLeft) {
+        label.style.marginLeft = `-${marginAdjust}px`;
+      } else {
+        label.style.marginLeft = `${marginAdjust}px`;
+      }
+
+      // Creamos el contenido de la etiqueta
+      label.innerHTML = `
+        <div style='color: #10273D; font-size: 36px; font-weight: 700; line-height: 1.2;'>
+          ${this.formatoNumberMiles(value)}%
+        </div>
+        <div style='color: #10273D; font-weight: 700; font-size: 26px; line-height: 1.2;'>
+          ${label2}
+        </div>
+      `;
 
       container.appendChild(label);
     });
   }
-
-
-
 
   renderChart(): void {
     const valorCuotaArray = this.data_fs.valor_cuota;
@@ -205,15 +234,13 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     });
 
     // Construye el arreglo de etiquetas (labels)
-    // La longitud total es: (L - 1) * (n - 1) + n, donde L es el número de períodos válidos
     const totalLength = (validElements.length - 1) * (n - 1) + n;
     const labels = new Array(totalLength).fill('');
-    // Coloca la etiqueta del período en la posición de inicio de cada línea
     validElements.forEach((item: any, index: number) => {
       const offset = index * (n - 1);
       labels[offset] = item.periodo;
     });
-    // Agregamos un label extra (oculto) para forzar un poco de espacio al final
+    // Agregamos un label extra para el espacio a la derecha
     labels.push('');
 
     // Obtiene el contexto 2D del canvas
@@ -226,37 +253,18 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: true,
+        layout: {
+          padding: {
+            right: 40 // Agregamos padding solo a la derecha
+          }
+        },
         plugins: {
           legend: { display: false },
           datalabels: {
             anchor: 'end',
-            // Usamos funciones scriptables para ajustar el alineamiento del último punto
-            align: (context) => {
-              const dsIndex = context.datasetIndex;
-              const dataIdx = context.dataIndex;
-              const ds = context.chart.data.datasets[dsIndex];
-              // Si es el último punto del último dataset, lo alineamos a 'left'
-              if (
-                dsIndex === context.chart.data.datasets.length - 1 &&
-                dataIdx === ds.data.length - 1
-              ) {
-                return 'right';
-              }
-              return 'right';
-            },
-            offset: (context) => {
-              const dsIndex = context.datasetIndex;
-              const dataIdx = context.dataIndex;
-              const ds = context.chart.data.datasets[dsIndex];
-              // Para el último punto del último dataset, se usa offset 5 (puedes ajustar según prefieras)
-              if (
-                dsIndex === context.chart.data.datasets.length - 1 &&
-                dataIdx === ds.data.length - 1
-              ) {
-                return 5;
-              }
-              return 5;
-            },
+            align: 'right',
+            offset: 5,
             color: '#59BCE2',
             font: {
               size: 18,
@@ -276,9 +284,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
               color: '#10273D',
               font: { size: 18, family: 'TT Hoves Pro Trial' },
             },
-            // Se utiliza 'type: "category"' para trabajar con el arreglo de labels
             type: 'category'
-            // No es necesario ajustar 'min' o 'max' si se usa el label extra
           },
           y: {
             grid: { color: 'rgba(0, 0, 0, 0.1)' },
@@ -296,9 +302,6 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     new Chart(ctx, chartConfig);
   }
 
-
-
-
   formatoNumberMiles(x: any, decimalLimit: number = 2) {
     if (x && !isNaN(Number(x))) {
       const parts = Number(x).toFixed(decimalLimit).split('.');
@@ -306,8 +309,6 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     }
     return Number(0).toFixed(decimalLimit);
   }
-
-
 
   private getRandomColor(): string {
     const letters = '0123456789ABCDEF';
@@ -317,8 +318,6 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
     }
     return color;
   }
-
-
 
   async generar() {
     let imgSectores: any;
