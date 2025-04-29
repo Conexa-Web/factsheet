@@ -27,7 +27,12 @@ export class LevFactSheetPDF {
     htmlChart: any,
     htmlChartActivos: any,
     htmlChartSectores: any,
-    data_fs: any
+    data_fs: any,
+    chartWidth?: number,
+    chartHeight?: number,
+    doughnutSize?: {width: number, height: number},
+    labelSpacing?: number,
+    lastValueOffset?: number
   ) {
     let rendimiento_anio = '';
     let rendimiento_anio_valor = '';
@@ -35,75 +40,67 @@ export class LevFactSheetPDF {
     let sectores_texto = '';
 
     //TABLA DE RENDIMIENTOS POR AÑO
-    for (let rendimiento of data_fs.rendimiento_anio) {
-      rendimiento_anio += `
+    if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio)) {
+      for (let rendimiento of data_fs.rendimiento_anio) {
+        rendimiento_anio += `
+          <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+                      <span style="font-size: 10px; color:#10273D; font-weight:bold">${rendimiento.anio}</span>
+          </div>
+        `;
+
+        rendimiento_anio_valor += `
+          <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+                      <span style="font-size: 10px; ">${this.formatoNumberMiles(
+                        rendimiento.valor
+                      )}%</span>
+          </div>
+        `;
+      }
+    } else {
+      // Si no hay datos de rendimiento anual, mostramos un mensaje
+      rendimiento_anio = `
         <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
-                    <span style="font-size: 10px; color:#10273D; font-weight:bold">${rendimiento.anio}</span>
+          <span style="font-size: 10px; color:#10273D; font-weight:bold">No hay datos disponibles</span>
         </div>
       `;
-
-      rendimiento_anio_valor += `
+      rendimiento_anio_valor = `
         <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
-                    <span style="font-size: 10px; ">${this.formatoNumberMiles(
-                      rendimiento.valor
-                    )}%</span>
+          <span style="font-size: 10px; ">-</span>
         </div>
       `;
     }
 
     //TEXTO PARA ACTIVOS
     let activos_data = data_fs.activos.filter((x) => x.id !== 2);
-activos_data.sort((a, b) => b.valor - a.valor);
+    activos_data.sort((a, b) => b.valor - a.valor);
 
-activos_data.forEach((activo, i) => {
-  let nombreActivo = activo.nombre_activo;
+    activos_data.forEach((activo, i) => {
+      let nombreActivo = activo.nombre_activo;
 
-  // Verificar si el nombre contiene la palabra "Financiamiento" y agregar "s" solo a esa palabra
-  if (nombreActivo.toLowerCase().includes("financiamiento")) {
-    nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');  // Reemplaza solo "Financiamiento" con "Financiamientos"
-  }
+      // Verificar si el nombre contiene la palabra "Financiamiento" y agregar "s" solo a esa palabra
+      if (nombreActivo.toLowerCase().includes("financiamiento")) {
+        nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
+      }
 
-  activo_texto += `${
-    activo.id === 3 ? 'la' : 'los'
-  } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
-    i === activos_data.length - 1
-      ? ''
-      : i === activos_data.length - 2
-      ? ' y '
-      : ', '
-  }`;
-});
-
-
-
-
-    // let activos_data = data_fs.activos.filter((x) => x.id !== 2);
-    // activos_data.sort((a, b) => b.valor - a.valor);
-
-    // activos_data.forEach((activo, i) => {
-    //   activo_texto += `${
-    //     activo.id === 3 ? 'la' : 'los'
-    //   } ${activo.nombre_activo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
-    //     i === activos_data.length - 1
-    //       ? ''
-    //       : i === activos_data.length - 2
-    //       ? ' y '
-    //       : ', '
-    //   }`;
-    // });
-
+      activo_texto += `${
+        activo.id === 3 ? 'la' : 'los'
+      } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
+        i === activos_data.length - 1
+          ? ''
+          : i === activos_data.length - 2
+          ? ' y '
+          : ', '
+      }`;
+    });
 
     //TEXTO PARA SECTORES
-    // data_fs.sectores.sort((a,b)=>b.valor-a.valor);
     const primerosSeis = data_fs.sectores.slice(0, 6);
     const restantes = data_fs.sectores.slice(6);
     const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
     primerosSeis.forEach((sector, i) => {
       sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${
-        i === primerosSeis.length
-          ? ''
-          : i === primerosSeis.length - 1
+        i === primerosSeis.length - 1
           ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
           : ', '
       }`;

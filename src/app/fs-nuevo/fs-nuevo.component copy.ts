@@ -45,7 +45,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     // Carga del JSON desde assets (por ejemplo, fondo07.json)
-    this.data_fs = await this.json.getData("assets/data/fondo04.json");
+    this.data_fs = await this.json.getData("assets/data/fondo07.json");
 
     // Procesa los datos de "activos"
     this.data_fs.activos.forEach((x: any) => {
