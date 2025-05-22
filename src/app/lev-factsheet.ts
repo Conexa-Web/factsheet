@@ -30,7 +30,7 @@ export class LevFactSheetPDF {
     data_fs: any,
     chartWidth?: number,
     chartHeight?: number,
-    doughnutSize?: {width: number, height: number},
+    doughnutSize?: { width: number, height: number },
     labelSpacing?: number,
     lastValueOffset?: number
   ) {
@@ -39,36 +39,73 @@ export class LevFactSheetPDF {
     let activo_texto = '';
     let sectores_texto = '';
 
-    //TABLA DE RENDIMIENTOS POR AÑO
-    if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio)) {
+
+    // TABLA DE RENDIMIENTOS POR AÑO
+
+    if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio) && data_fs.rendimiento_anio.length > 0) {
       for (let rendimiento of data_fs.rendimiento_anio) {
         rendimiento_anio += `
-          <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
-                      <span style="font-size: 10px; color:#10273D; font-weight:bold">${rendimiento.anio}</span>
-          </div>
-        `;
+      <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+        <span style="font-size: 10px; color:#10273D; font-weight:bold">${rendimiento.anio}</span>
+      </div>
+    `;
 
         rendimiento_anio_valor += `
-          <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
-                      <span style="font-size: 10px; ">${this.formatoNumberMiles(
-                        rendimiento.valor
-                      )}%</span>
-          </div>
-        `;
+      <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+        <span style="font-size: 10px;">${this.formatoNumberMiles(rendimiento.valor)}%</span>
+      </div>
+    `;
       }
     } else {
-      // Si no hay datos de rendimiento anual, mostramos un mensaje
+      // Si no hay datos de rendimiento anual, la tabla sigue visible con títulos pero sin valores
       rendimiento_anio = `
-        <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
-          <span style="font-size: 10px; color:#10273D; font-weight:bold">No hay datos disponibles</span>
-        </div>
-      `;
+    <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1; min-height: 20px;">
+      <span style="font-size: 10px; color:#10273D; font-weight:bold">&nbsp;</span> <!-- Espacio en blanco para mantener estructura -->
+    </div>
+  `;
+
       rendimiento_anio_valor = `
-        <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
-          <span style="font-size: 10px; ">-</span>
-        </div>
-      `;
+    <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1; min-height: 20px;">
+      <span style="font-size: 10px;">&nbsp;</span> <!-- Espacio en blanco para evitar reducción -->
+    </div>
+  `;
     }
+
+
+
+
+
+    // //TABLA DE RENDIMIENTOS POR AÑO
+    // if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio)) {
+    //   for (let rendimiento of data_fs.rendimiento_anio) {
+    //     rendimiento_anio += `
+    //       <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+    //                   <span style="font-size: 10px; color:#10273D; font-weight:bold">${rendimiento.anio}</span>
+    //       </div>
+    //     `;
+
+    //     rendimiento_anio_valor += `
+    //       <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+    //                   <span style="font-size: 10px; ">${this.formatoNumberMiles(
+    //                     rendimiento.valor
+    //                   )}%</span>
+    //       </div>
+    //     `;
+    //   }
+    // } else {
+
+    //   // Si no hay datos de rendimiento anual, mostramos un mensaje
+    //   rendimiento_anio = `
+    //     <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
+    //       <span style="font-size: 10px; color:#10273D; font-weight:bold"></span>
+    //     </div>
+    //   `;
+    //   rendimiento_anio_valor = `
+    //     <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+    //       <span style="font-size: 10px; "></span>
+    //     </div>
+    //   `;
+    // }
 
     //TEXTO PARA ACTIVOS
     let activos_data = data_fs.activos.filter((x) => x.id !== 2);
@@ -82,15 +119,13 @@ export class LevFactSheetPDF {
         nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
       }
 
-      activo_texto += `${
-        activo.id === 3 ? 'la' : 'los'
-      } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
-        i === activos_data.length - 1
+      activo_texto += `${activo.id === 3 ? 'la' : 'los'
+        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
           ? ''
           : i === activos_data.length - 2
-          ? ' y '
-          : ', '
-      }`;
+            ? ' y '
+            : ', '
+        }`;
     });
 
     //TEXTO PARA SECTORES
@@ -99,11 +134,10 @@ export class LevFactSheetPDF {
     const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
     primerosSeis.forEach((sector, i) => {
-      sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${
-        i === primerosSeis.length - 1
+      sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
           ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
           : ', '
-      }`;
+        }`;
     });
 
     let html = `
@@ -242,28 +276,28 @@ export class LevFactSheetPDF {
       </style>
 
         <div class="flex-column expanded ">
-        ${
-          data_fs.caracteristicas_fondo.aniversario
-            ? `<img src="/assets/sellos/${data_fs.caracteristicas_fondo.aniversario}.png" width="13.5%" style="position:absolute; z-index:1000; right:320px; top:50px; transform: rotate(12deg);"/>`
-            : ''
-        }
-        <!-- CABECERA   -->
-        <div class="flex items-center gap-48 " style="padding:12px 24px 8px 24px; background-color: #10273D; position: relative;">
-            <div class="flex-column" style="flex: 4; gap: 2px;">
-              <span style="margin: 0 0 2px 0; color: #0A80BA; font-size: ${data_fs.caracteristicas_fondo.fondo === 'Conexa Peruvian Lending' ? '32px' : '36px'}; font-weight: 100; line-height:32px; display: block;">${
-                data_fs.caracteristicas_fondo.fondo
-              } - ${data_fs.caracteristicas_fondo.moneda}</span>
-              <span style="margin: 0 0 0px 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:20px; display: block;">Fondo de Inversión - ${
-                data_fs.fecha
-              }</span>
-              <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; display: block;">Clase A</span>
-            </div>
-           <div class="flex-column" style="flex: 1; margin-right:10px; display: flex; align-items: center; padding: 0;">
-             <img src="../assets/logos/logo_conexa_2.png" style="display: block;" width="100%" />
-           </div>
+        ${data_fs.caracteristicas_fondo.aniversario
+        ? `<img src="/assets/sellos/${data_fs.caracteristicas_fondo.aniversario}.png" width="13.5%" style="position:absolute; z-index:1000; right:320px; top:50px; transform: rotate(12deg);"/>`
+        : ''
+      }
+      <!-- CABECERA -->
+<div class="flex items-center gap-48 " style="padding:12px 24px 8px 24px; background-color: #10273D; position: relative;">
+    <div class="flex-column" style="flex: 4; gap: 2px;">
+        <span style="margin: 0 0 2px 0; color: #0A80BA; font-size: ${data_fs.caracteristicas_fondo.fondo === 'Conexa Peruvian Lending' ? '32px' : '36px'}; font-weight: 100; line-height:32px; display: block;">
+            ${data_fs.caracteristicas_fondo.fondo} - ${data_fs.caracteristicas_fondo.moneda}
+        </span>
+        <span style="margin: 0 0 0px 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:20px; display: block;">
+            Fondo de Inversión - ${data_fs.fecha}
+        </span>
+        <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; display: block;">Clase A</span>
+    </div>
+    <div class="flex-column" style="flex: 1; margin-right:10px; display: flex; align-items: center; justify-content: center; height: 100%;">
+<img src="../assets/logos/logo_conexa_marca.svg" 
+     style="display: block; width: 140px; height: auto; margin-top: -15px;" />
 
-            <div class="triangle"></div>
-        </div>
+    </div>
+    <div class="triangle"></div>
+</div>
 
           <!-- CUERPO DEL FACTSHEET -->
           <div style="padding:8px 24px 0 24px;">
@@ -285,12 +319,11 @@ export class LevFactSheetPDF {
                 <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">Comentarios de la Sociedad Gestora</p>
 
                 <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
-                  El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${
-      data_fs.caracteristicas_fondo.iso
-    } ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la
+                  El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso
+      } ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la
                   rentabilidad acumulada de los últimos 12 meses es de ${this.formatoNumberMiles(
-                    data_fs.rendimiento_fondo.doce_meses
-                  )}%. La Gestora viene
+        data_fs.rendimiento_fondo.doce_meses
+      )}%. La Gestora viene
                   haciendo seguimiento a la cartera de créditos otorgados, así como impulsando
                   la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir
                   a alcanzar la rentabilidad anual objetivo del Fondo.
@@ -303,13 +336,11 @@ export class LevFactSheetPDF {
                   la participación en cada industria por debajo del 20% de los activos del Fondo.
                 </p>
                 <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
-                  El Fondo cerró el mes con una liquidez de ${
-                    data_fs.activos.find((x) => x.id === 2).valor
-                  }%, ubicándose ${
-      data_fs.activos.find((x) => x.id == 2).valor > 10
+                  El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.id === 2).valor
+      }%, ubicándose ${data_fs.activos.find((x) => x.id == 2).valor > 10
         ? 'por encima'
         : 'dentro'
-    } del rango
+      } del rango
                   meta de hasta 10% de los activos. La gestora está monitoreando activamente el
                   contexto macroeconómico y financiero local, enfocándose en los sectores,
                   empresas e instrumentos de inversión con mejores perspectivas para los
@@ -324,9 +355,8 @@ export class LevFactSheetPDF {
 
                 <div style="width: 100%; display: flex; margin-bottom: 2px; gap: 2px;">
                   <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
-                    <span style="font-size: 10px; color:#10273D; font-weight:bold">${
-                      data_fs.mes
-                    } ${data_fs.anio}</span>
+                    <span style="font-size: 10px; color:#10273D; font-weight:bold">${data_fs.mes
+      } ${data_fs.anio}</span>
                   </div>
                   <div style="flex: 1; padding:2px; text-align: center; background-color: #E1EBF1;">
                     <span style="font-size: 10px; color:#10273D; font-weight:bold">Últimos 3 meses</span>
@@ -341,28 +371,29 @@ export class LevFactSheetPDF {
                 <div style="width: 100%; display: flex; margin-bottom: 12px; gap: 2px;">
                   <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                     <span style="font-size: 10px; ">${this.formatoNumberMiles(
-                      data_fs.rendimiento_fondo.actual
-                    )}%</span>
+        data_fs.rendimiento_fondo.actual
+      )}%</span>
                   </div>
                   <div style="flex: 1; padding:2px; text-align: center; border: 1px solid #E1EBF1;">
                     <span style="font-size: 10px; ">${this.formatoNumberMiles(
-                      data_fs.rendimiento_fondo.tres_meses
-                    )}%</span>
+        data_fs.rendimiento_fondo.tres_meses
+      )}%</span>
                   </div>
                   <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                     <span style="font-size: 10px;">${this.formatoNumberMiles(
-                      data_fs.rendimiento_fondo.ytd
-                    )}%</span>
+        data_fs.rendimiento_fondo.ytd
+      )}%</span>
                   </div>
                   <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                     <span style="font-size: 10px; ">${this.formatoNumberMiles(
-                      data_fs.rendimiento_fondo.doce_meses
-                    )}%</span>
+        data_fs.rendimiento_fondo.doce_meses
+      )}%</span>
                   </div>
                 </div>
-                <div style="position:absolute; bottom:2px; left:0;">
+                  <div style="position:absolute; bottom:2px; right:0;">
                   <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
                 </div>
+               
                 </div>
                 <!-- TABLA DE AÑOS -->
                 <div style="position:relative;">
@@ -395,34 +426,30 @@ export class LevFactSheetPDF {
                 </p>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 4px;">
                   <span style=" color: #10273D;">Inicio de Operaciones</span>
-                  <span style="color: #0A80BA;">${
-                    data_fs.caracteristicas_fondo.ini_op
-                  }</span>
+                  <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.ini_op
+      }</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 4px;">
                   <span style=" color: #10273D;">Vencimiento</span>
-                  <span style="color: #0A80BA;">${
-                    data_fs.caracteristicas_fondo.vencimiento
-                  }</span>
+                  <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.vencimiento
+      }</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Moneda</span>
-                  <span style="color: #0A80BA;">${
-                    data_fs.caracteristicas_fondo.iso
-                  }</span>
+                  <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.iso
+      }</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Tamaño del fondo (AUM)</span>
                   <span style="color: #0A80BA;">${this.formatoNumberMiles(
-                    data_fs.caracteristicas_fondo.aum,
-                    0
-                  )}</span>
+        data_fs.caracteristicas_fondo.aum,
+        0
+      )}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Valor cuota al ${data_fs.caracteristicas_fondo.valor_cuota_al} (NAV)</span>
-                  <span style="color: #0A80BA;">${
-                    data_fs.caracteristicas_fondo.valor_cuota
-                  }</span>
+                  <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.valor_cuota
+      }</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Frecuencia de valorización</span>
@@ -431,15 +458,14 @@ export class LevFactSheetPDF {
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Inversión mínima</span>
                   <span style="color: #0A80BA;">${this.formatoNumberMilesInv(
-                    data_fs.caracteristicas_fondo.inv_min,
-                    0
-                  )}</span>
+        data_fs.caracteristicas_fondo.inv_min,
+        0
+      )}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Rentabilidad Objetivo</span>
-                  <span style="color: #0A80BA;">${
-                    data_fs.caracteristicas_fondo.rentabilidad_objetivo
-                  } anual</span>
+                  <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.rentabilidad_objetivo
+      } anual</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Sociedad auditora</span>
@@ -447,9 +473,8 @@ export class LevFactSheetPDF {
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Fideicomiso de garantía</span>
-                  <span style="color: #0A80BA;">${
-                    data_fs.caracteristicas_fondo.fideicomiso
-                  }</span>
+                  <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.fideicomiso
+      }</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                   <span style=" color: #10273D;">Comisión administrativa</span>
@@ -629,16 +654,16 @@ export class LevFactSheetPDF {
       margin: 0,
       filename: `prueba.pdf`,
       image: { type: 'jpeg', quality: 1 },
-      html2canvas: { 
-        background: 'white', 
+      html2canvas: {
+        background: 'white',
         scale: 1.4,
         useCORS: true,
         logging: false,
         allowTaint: true
       },
-      jsPDF: { 
-        unit: 'in', 
-        format: 'a4', 
+      jsPDF: {
+        unit: 'in',
+        format: 'a4',
         orientation: 'portrait',
         compress: true
       },
