@@ -55,7 +55,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
   // TODO - CAMBIO DE JSON
   async ngAfterViewInit() {
-    this.data_fs = await this.json.getData('assets/data/fondo06.json');
+    this.data_fs = await this.json.getData('assets/data/fondo01.json');
     // this.data_fs = await this.json.getData('assets/data/lending.json');
     this.data_fs.activos.map((x) => {
       this.activos_nombres.push(Object.values(x)[1]);

@@ -1,16 +1,16 @@
 {
-  "fecha": "31 de marzo del 2025",
-  "mes": "Marzo",
+  "fecha": "30 de abril del 2025",
+  "mes": "Abril",
   "anio": 2025,
     "caracteristicas_fondo": {
         "fondo": "Fondo Impulso PYME 04",
         "moneda": "Dólares",
         "ini_op": "20 - Jul - 2016",
         "vencimiento": "31 - Dic- 2027",
-        "valor_cuota_al": "31/03/2025",
+        "valor_cuota_al": "30/04/2025",
         "iso": "USD",
-        "aum": 14106590,
-        "valor_cuota": 1.0202,
+        "aum": 13812125,
+        "valor_cuota": 1.0068,
         "frec_val": "Diaria",
         "inv_min": 50000,
         "fideicomiso": "La Fiduciaria S.A",
@@ -19,9 +19,9 @@
     },
     "rendimiento_fondo": {
         "actual": 0.68,
-        "tres_meses": 2.02,
-        "ytd": 2.02,
-        "doce_meses": 8.26
+        "tres_meses": 2.03,
+        "ytd": 2.71,
+        "doce_meses": 8.28
     },
     "rendimiento_anio": [
         {
@@ -59,15 +59,6 @@
     ],
     "valor_cuota": [
         {
-            "periodo": "DIC-23",
-            "valores": [
-                1.0,
-                1.0066,
-                1.0133,
-                1.0201
-            ]
-        },
-        {
             "periodo": "MAR-24",
             "valores": [
                 1.0,
@@ -102,72 +93,79 @@
                 1.0133,
                 1.0202
             ]
+        },
+        {
+            "periodo": "MAR-25",
+            "valores": [
+                1.0,
+                1.0068
+            ]
         }
     ],
     "activos": [
-      {
-        "id": 2,
-        "nombre_activo": "Caja y Bancos",
-        "valor": 0.77
-    },
+        {
+            "id": 2,
+            "nombre_activo": "Caja y Bancos",
+            "valor": 0.69
+        },
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 34.31
+            "valor": 13.02
         },
 
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 1.45
+            "valor": 1.47
         },
 
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 63.47
+            "valor": 84.82
         }
     ],
     "sectores": [
         {
             "sector": "Comercial",
-            "valor": 17.31
+            "valor": 17.56
         },
         {
             "sector": "Transporte",
-            "valor": 13.26
+            "valor": 13.36
         },
         {
             "sector": "Inmobiliario",
-            "valor": 11.16
+            "valor": 11.38
         },
         {
             "sector": "Construcción",
-            "valor": 7.53
+            "valor": 7.72
         },
         {
             "sector": "Pesca",
-            "valor": 6.92
-        },
-        {
-            "sector": "Forestal",
-            "valor": 5.95
+            "valor": 7.12
         },
         {
             "sector": "Agricola",
-            "valor": 5.79
+            "valor": 5.98
+        },
+        {
+            "sector": "Forestal",
+            "valor": 5.77
         },
         {
             "sector": "Alimentos",
-            "valor": 5.70
+            "valor": 5.22
         },
         {
             "sector": "Publicidad",
-            "valor": 5.03
+            "valor": 5.17
         },
         {
             "sector": "Otros",
-            "valor": 21.35
+            "valor": 20.72
         }
     ]
 }

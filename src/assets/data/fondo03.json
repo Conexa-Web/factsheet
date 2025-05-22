@@ -1,16 +1,16 @@
 {
-  "fecha": "31 de marzo del 2025",
-  "mes": "Marzo",
+  "fecha": "30 de abril del 2025",
+  "mes": "Abril",
   "anio": 2025,
   "caracteristicas_fondo": {
       "fondo": "Fondo Impulso PYME 03",
       "moneda": "Soles",
       "ini_op": "13 - Feb - 2019",
       "vencimiento": "31 - Dic - 2027",
-      "valor_cuota_al": "31/03/2025",
+      "valor_cuota_al": "30/04/2025",
       "iso": "PEN",
-      "aum": 25113223,
-      "valor_cuota": 1.0225,
+      "aum": 25125309,
+      "valor_cuota": 1.0075,
       "frec_val": "Diaria",
       "inv_min": 100000,
       "fideicomiso": "La Fiduciaria S.A",
@@ -20,8 +20,8 @@
   "rendimiento_fondo": {
       "actual": 0.75,
       "tres_meses": 2.25,
-      "ytd": 2.25,
-      "doce_meses": 9.16
+      "ytd": 3.02,
+      "doce_meses": 9.11
   },
   "rendimiento_anio": [
 
@@ -51,15 +51,6 @@
       }
   ],
   "valor_cuota": [
-      {
-          "periodo": "DIC-23",
-          "valores": [
-              1.0,
-              1.0080,
-              1.0160,
-              1.0241
-          ]
-      },
       {
           "periodo": "MAR-24",
           "valores": [
@@ -95,6 +86,13 @@
               1.0149,
               1.0225
           ]
+      },
+      {
+            "periodo": "MAR-25",
+            "valores": [
+                1.0,
+                1.0075
+            ]
       }
 
 
@@ -103,12 +101,12 @@
       {
         "id": 2,
         "nombre_activo": "Caja y Bancos",
-        "valor": 0.85
+        "valor": 0.64
       },
       {
         "id": 1,
         "nombre_activo": "Financiamiento a Corto Plazo",
-        "valor": 19.71
+        "valor": 14.26
       },
       {
         "id": 3,
@@ -118,53 +116,57 @@
       {
         "id": 4,
         "nombre_activo": "Financiamiento a Mediano Plazo",
-        "valor": 79.36
+        "valor": 85.02
       }
   ],
   "sectores": [
       {
           "sector": "Comercial",
-          "valor": 16.81
+          "valor": 17.43
       },
-
-      {
-        "sector": "Otros",
-        "valor": 9.21
-    },
-      {
-        "sector": "Automotriz",
-        "valor": 5.13
-    },
-      {
-          "sector": "Salud",
-          "valor": 11.56
-      },
-      {
-          "sector": "Inmobiliario",
-          "valor": 10.84
-      },
-      {
-          "sector": "Construcción",
-          "valor": 8.03
-      },
-      {
-        "sector": "Metalmecánica",
-        "valor": 7.71
-    },
-
-      {
-          "sector": "Agroindustrial",
-          "valor": 6.77
-      },
-
-     {
-
-      "sector": "Transporte",
-      "valor": 7.18
-  },
       {
         "sector": "Industrial",
-        "valor": 16.76
+        "valor": 15.55
+    },
+    {
+        "sector": "Salud",
+        "valor": 11.52
+    },
+    {
+        "sector": "Inmobiliario",
+        "valor": 10.63
+    },
+    {
+        "sector": "Metalmecánica",
+        "valor": 7.83
+    },
+    {
+        "sector": "Construcción",
+        "valor": 7.06
+    },
+    {
+
+       "sector": "Transporte",
+       "valor": 7.01
+    },
+    
+   
+    {
+        "sector": "Agroindustrial",
+        "valor": 6.73
+    },
+   
+    {
+        "sector": "Automotriz",
+        "valor": 5.80
+    },
+
+    {
+        "sector": "Otros",
+        "valor": 10.44
     }
+      
+     
+      
   ]
 }

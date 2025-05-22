@@ -1,16 +1,16 @@
 {
-  "fecha": "31 de marzo del 2025",
-  "mes": "Marzo",
+  "fecha": "30 de abril del 2025",
+  "mes": "Abril",
   "anio": 2025,
     "caracteristicas_fondo": {
         "fondo": "Fondo Impulso PYME 01",
         "moneda": "Soles",
         "ini_op": "20 - Nov - 2014",
         "vencimiento": "31 - Dic - 2027",
-        "valor_cuota_al": "31/03/2025",
+        "valor_cuota_al": "30/04/2025",
         "iso": "PEN",
-        "aum": 24206514,
-        "valor_cuota": 1.0225,
+        "aum": 24317622,
+        "valor_cuota": 1.0075,
         "frec_val": "Diaria",
         "inv_min": 100000,
         "fideicomiso": "La Fiduciaria S.A",
@@ -19,9 +19,9 @@
     },
     "rendimiento_fondo": {
         "actual": 0.75,
-        "tres_meses": 2.25,
-        "ytd": 2.25,
-        "doce_meses": 9.15
+        "tres_meses": 2.26,
+        "ytd": 3.02,
+        "doce_meses": 9.10
     },
     "rendimiento_anio": [
         {
@@ -66,15 +66,7 @@
         }
     ],
     "valor_cuota": [
-        {
-            "periodo": "DIC-23",
-            "valores": [
-                1.0,
-                1.0080,
-                1.0160,
-                1.0241
-            ]
-        },
+      
         {
             "periodo": "MAR-24",
             "valores": [
@@ -110,70 +102,79 @@
                 1.0149,
                 1.0225
             ]
+        },
+        {
+            "periodo": "MAR-25",
+            "valores": [
+                1.0,
+                1.0075 
+            ]
         }
     ],
     "activos": [
         {
             "id": 1,
             "nombre_activo": "Financiamiento a Corto Plazo",
-            "valor": 14.90
+            "valor": 12.35
         },
-        {
-            "id": 2,
-            "nombre_activo": "Caja y Bancos",
-            "valor": 3.17
-        },
+       
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
-            "valor": 7.86
+            "valor": 6.90
         },
+       
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 74.07
+            "valor": 79.08
+        },
+          {
+            "id": 2,
+            "nombre_activo": "Caja y Bancos",
+            "valor": 1.67
         }
     ],
     "sectores": [
         {
             "sector": "Construcción",
-            "valor": 16.24
+            "valor": 14.82
         },
         {
             "sector": "Salud",
-            "valor": 10.73
+            "valor": 10.32
         },
         {
             "sector": "Agroindustrial",
-            "valor": 9.90
+            "valor": 9.35
         },
         {
             "sector": "Telecomunicaciones",
-            "valor": 9.41
+            "valor": 8.89
         },
         {
             "sector": "Seguridad",
-            "valor": 8.60
+            "valor": 7.56
         },
         {
             "sector": "Hidrocarburos",
-            "valor": 7.40
+            "valor": 7.02
         },
         {
             "sector": "Educación",
-            "valor": 7.05
+            "valor": 6.66
+        },
+        {
+            "sector": "Farmacéutico",
+            "valor": 6.29
         },
         {
             "sector": "Forestal",
-            "valor": 5.56
-        },
-        {
-            "sector": "Comercial",
-            "valor": 5.46
+            "valor": 5.28
         },
         {
             "sector": "Otros",
-            "valor": 19.65
+            "valor": 23.81
         }
     ]
 }
