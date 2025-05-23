@@ -6,7 +6,7 @@ export class LevFactSheetPDF {
       margin: 0,
       filename: `prueba.pdf`,
       image: { type: 'jpeg', quality: 1 },
-      html2canvas: { background: 'white', scale: 2 },
+      html2canvas: { background: 'white', scale: 2, dpi: 1200 },
       jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
     };
 
@@ -133,12 +133,20 @@ export class LevFactSheetPDF {
     const restantes = data_fs.sectores.slice(6);
     const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
-    primerosSeis.forEach((sector, i) => {
-      sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
-          ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
-          : ', '
-        }`;
-    });
+    // primerosSeis.forEach((sector, i) => {
+    //   sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
+    //     ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
+    //     : ', '
+    //     }`;
+    // });
+    primerosSeis.sort((a, b) => b.valor - a.valor);
+
+primerosSeis.forEach((sector, i) => {
+  sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
+    ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
+    : ', '
+  }`;
+});
 
     let html = `
         <style>
@@ -309,7 +317,7 @@ export class LevFactSheetPDF {
 
             <div style="width: 100%; position: relative; overflow: visible; padding: 0; margin: 16px 0;">
 
-                <img  style="width: 100%;" src=" ${htmlChart}" />
+                <img  style="width: 100%; height:180px" src=" ${htmlChart}" />
 
                 <div style="position:absolute; bottom:-4px; right:0">
                   <span style='font-size:8px; color:#10273D;'>Al final de cada trimestre el valor cuota regresa a 1.0000</span>
@@ -318,24 +326,25 @@ export class LevFactSheetPDF {
 
                 <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">Comentarios de la Sociedad Gestora</p>
 
-                <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
+                <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
                   El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso
-      } ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la
+                  } ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la
                   rentabilidad acumulada de los últimos 12 meses es de ${this.formatoNumberMiles(
-        data_fs.rendimiento_fondo.doce_meses
-      )}%. La Gestora viene
+                  data_fs.rendimiento_fondo.doce_meses)}%. La Gestora viene
                   haciendo seguimiento a la cartera de créditos otorgados, así como impulsando
                   la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir
                   a alcanzar la rentabilidad anual objetivo del Fondo.
                 </p>
-                <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
+               
+                <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
                   Las operaciones más frecuentes son: ${activo_texto}.
                   Los sectores en los que se invierte mantienen un alto potencial de
                   crecimiento, destacando: ${sectores_texto}. La Gestora
                   mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener
                   la participación en cada industria por debajo del 20% de los activos del Fondo.
                 </p>
-                <p style="word-spacing: 0.05em; font-size: 11px; text-align: justify; margin-bottom: 2px; line-height: 1;">
+               
+                <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
                   El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.id === 2).valor
       }%, ubicándose ${data_fs.activos.find((x) => x.id == 2).valor > 10
         ? 'por encima'
@@ -390,7 +399,7 @@ export class LevFactSheetPDF {
       )}%</span>
                   </div>
                 </div>
-                  <div style="position:absolute; bottom:2px; right:0;">
+                  <div style="position:absolute;  bottom: -2px; right:0;">
                   <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
                 </div>
                
@@ -649,14 +658,16 @@ export class LevFactSheetPDF {
     // return resul;
   }
 
+  // FEAT - NITIDEZ DE IMAGEN Y PDF
   private static getPdf(html) {
     var opt = {
       margin: 0,
       filename: `prueba.pdf`,
-      image: { type: 'jpeg', quality: 1 },
+      image: { type: 'jpeg', quality: 5 },
       html2canvas: {
         background: 'white',
-        scale: 1.4,
+        scale: 10,
+         dpi: 2000,
         useCORS: true,
         logging: false,
         allowTaint: true

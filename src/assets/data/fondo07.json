@@ -47,11 +47,7 @@
             "nombre_activo": "Financiamiento a Corto Plazo",
             "valor": 29.96
         },
-        {
-            "id": 2,
-            "nombre_activo": "Caja y Bancos",
-            "valor": 54.91
-        },
+       
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
@@ -60,43 +56,45 @@
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",
-            "valor": 11.24
+            "valor": 63.40
+        },
+         {
+            "id": 2,
+            "nombre_activo": "Caja y Bancos",
+            "valor": 2.76
         }
     ],
     "sectores": [
+       
+       
         {
             "sector": "Servicios",
-            "valor": 38.91
-        },
-        {
-            "sector": "Farmacéutico",
-            "valor": 0.28
-        },
-        {
-            "sector": "Hidrocarburos",
-            "valor": 21.60
+            "valor": 18.04
         },
          {
-            "sector": "Telecomunicaciones",
-            "valor": 3.05
+            "sector": "Seguridad",
+            "valor": 2.72
+        },
+         
+         {
+            "sector": "Hidrocarburos",
+            "valor": 10.01
+        },
+         {
+            "sector": "Inmobiliario",
+            "valor": 4.00
         },
         {
             "sector": "Educación",
-            "valor": 13.96
+            "valor": 6.47
         },
-        {
-            "sector": "Inmobiliario",
-            "valor": 8.62
-        },
-        {
+           {
             "sector": "Industrial",
-            "valor": 7.71
+            "valor": 57.34
         },
         {
-            "sector": "Seguridad",
-            "valor": 5.87
+            "sector": "Telecomunicaciones",
+            "valor": 1.41
         }
-       
-        
     ]
 }
