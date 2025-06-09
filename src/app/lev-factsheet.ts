@@ -326,15 +326,17 @@ primerosSeis.forEach((sector, i) => {
 
                 <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">Comentarios de la Sociedad Gestora</p>
 
-                <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
-                  El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso
-                  } ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la
-                  rentabilidad acumulada de los últimos 12 meses es de ${this.formatoNumberMiles(
-                  data_fs.rendimiento_fondo.doce_meses)}%. La Gestora viene
-                  haciendo seguimiento a la cartera de créditos otorgados, así como impulsando
-                  la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir
-                  a alcanzar la rentabilidad anual objetivo del Fondo.
-                </p>
+               
+
+   <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
+  El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso}
+  ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la rentabilidad acumulada de los últimos 12 meses es de 
+  ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses}%`}. La Gestora viene
+  haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes;
+  ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.
+</p>
+
+
                
                 <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
                   Las operaciones más frecuentes son: ${activo_texto}.
@@ -393,11 +395,11 @@ primerosSeis.forEach((sector, i) => {
         data_fs.rendimiento_fondo.ytd
       )}%</span>
                   </div>
-                  <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
-                    <span style="font-size: 10px; ">${this.formatoNumberMiles(
-        data_fs.rendimiento_fondo.doce_meses
-      )}%</span>
-                  </div>
+                <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
+  <span style="font-size: 10px;">
+    ${data_fs.rendimiento_fondo.doce_meses === 0 ? "—" : `${this.formatoNumberMiles(data_fs.rendimiento_fondo.doce_meses)}%`}
+  </span>
+</div>
                 </div>
                   <div style="position:absolute;  bottom: -2px; right:0;">
                   <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
