@@ -1,6 +1,6 @@
 .chart-container {
     position: relative;
-    width: 40%;
+    width: 620px;
     // height: 35px;
     margin: auto;
   }
@@ -10,3 +10,24 @@
     width: 800px;
     height: 800px;
   }
+
+.styleHead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.styleFile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 5px;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.buttonGenerar {
+  padding: 5px 15px;
+}

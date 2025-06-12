@@ -41,6 +41,7 @@ export class LevFactSheetPDF {
 
 
     // TABLA DE RENDIMIENTOS POR AÑO
+    console.log("data_fs", data_fs)
 
     if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio) && data_fs.rendimiento_anio.length > 0) {
       for (let rendimiento of data_fs.rendimiento_anio) {
@@ -281,6 +282,36 @@ primerosSeis.forEach((sector, i) => {
           top: 0;
           right: 0;
         }
+
+        .imgEstadistica {
+          width: 136%;
+          margin: 0 auto;
+          margin-left: -42px;
+          margin-top: -42px;
+          max-width: none;
+        }
+
+        @media (max-width: 1200px) { 
+          .imgEstadistica {
+            width: 136%;
+            margin: 0 auto;
+            margin-left: -42px;
+            margin-top: -42px;
+            max-width: none;
+          }
+        }
+
+        @media (min-width: 1600px) {
+          .imgEstadistica {
+            width: 176%;
+            margin: 0 auto;
+            margin-left: -92px;
+            margin-top: -42px;
+            max-width: none;
+          }
+        }
+
+
       </style>
 
         <div class="flex-column expanded ">
@@ -315,16 +346,16 @@ primerosSeis.forEach((sector, i) => {
               <div class="flex-column " style="background-color: white; flex: 5;">
                 <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 4px;">Evolución del Valor Cuota</p>
 
-            <div style="width: 100%; position: relative; overflow: visible; padding: 0; margin: 16px 0;">
+            <div style="width: 96%; height: 95%; position: relative; overflow: visible; padding: 0; margin: 2px 0 9px 0;">
 
-                <img  style="width: 100%; height:180px" src=" ${htmlChart}" />
+                <img  style="width: 96%; height: 95%;" src=" ${htmlChart}" />
 
-                <div style="position:absolute; bottom:-4px; right:0">
+                <div style="position:absolute; bottom:0; right:0">
                   <span style='font-size:8px; color:#10273D;'>Al final de cada trimestre el valor cuota regresa a 1.0000</span>
                 </div>
             </div>
 
-                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 12px;">Comentarios de la Sociedad Gestora</p>
+                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 10px;">Comentarios de la Sociedad Gestora</p>
 
                
 
@@ -571,23 +602,15 @@ primerosSeis.forEach((sector, i) => {
     <div
       style="
         padding: 0px;
+        width: 100%;
       "
     >
       <img
-        style="
-          width: 136%;
-          height: auto;
-          display: block;
-          margin: 0 auto;
-          margin-left: -42px;
-          margin-top: -42px;
-          max-width: none;
-        "
+        class="imgEstadistica"
         src="${htmlChartActivos}"
         alt="Gráfico de Diversificación por tipo de activos"
       />
     </div>
-    <div style="height: 12px;"></div>
     <div style="position:absolute; bottom:0; left:0;">
         <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
     </div>
@@ -620,24 +643,16 @@ primerosSeis.forEach((sector, i) => {
     <div
       style="
         padding: 0px;
+        width: 100%;
       "
     >
       <img
-        style="
-          width: 136%;
-          height: auto;
-          display: block;
-          margin: 0 auto;
-          margin-left: -42px;
-          margin-top: -42px;
-          max-width: none;
-        "
+        class="imgEstadistica"
         src="${htmlChartSectores}"
         alt="Gráfico de Diversificación por tipo de sectores"
       />
     </div>
-    <div style="height: 12px;"></div>
-    <div style="position:absolute; bottom:0; right:0;">
+    <div style="position:absolute; bottom:0; right:0; margin: 0; padding: 0">
         <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
     </div>
   </div>
@@ -647,7 +662,7 @@ primerosSeis.forEach((sector, i) => {
     </div>
     `;
 
-    let pdf = await this.getPdf(html);
+    // let pdf = await this.getPdf(html);
 
     // let resul = await AmplifyHelper.fileUploadToStorageBuffer({
     //   name: "prueba.pdf",
@@ -665,11 +680,11 @@ primerosSeis.forEach((sector, i) => {
     var opt = {
       margin: 0,
       filename: `prueba.pdf`,
-      image: { type: 'jpeg', quality: 5 },
+      image: { type: 'png', quality: 1 },
       html2canvas: {
         background: 'white',
-        scale: 10,
-         dpi: 2000,
+        scale: 12,
+        dpi: 3000,
         useCORS: true,
         logging: false,
         allowTaint: true
@@ -678,7 +693,7 @@ primerosSeis.forEach((sector, i) => {
         unit: 'in',
         format: 'a4',
         orientation: 'portrait',
-        compress: true
+        compress: false
       },
       pagebreak: { mode: 'avoid-all', before: '.romper_fila' },
     };

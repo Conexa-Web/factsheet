@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import html2canvas from 'html2canvas';
 import { JsonService } from '../json.service';
 import { LevFactSheetPDF } from '../lev-factsheet';
+import * as XLSX from 'xlsx';
 
 Chart.register(ChartDataLabels, ...registerables);
 
@@ -23,7 +24,7 @@ Chart.register(ChartDataLabels, ...registerables);
   templateUrl: './fs-nuevo.component.html',
   styleUrls: ['./fs-nuevo.component.scss'],
 })
-export class FsNuevoComponent implements OnInit, AfterViewInit {
+export class FsNuevoComponent implements OnInit {
   @ViewChild('chartWrapper', { static: false }) chartWrapper!: ElementRef;
   @ViewChild('chartCanvas', { static: true }) chartCanvas!: ElementRef;
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
@@ -38,14 +39,18 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
   activos_valor: number[] = [];
   sectores_nombres: string[] = [];
   sectores_valor: number[] = [];
+  datosPorHoja: Record<string, any[]> = {};
+  datos_final: any;
 
-  constructor(private json: JsonService) {}
+  constructor(
+    private json: JsonService,
+  ) {}
 
   async ngOnInit(): Promise<void> { }
 
-  async ngAfterViewInit() {
+ /*  async ngAfterViewInit() {
     // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
-    this.data_fs = await this.json.getData("assets/data/fondo07.json");
+    //this.data_fs = await this.json.getData("assets/data/fondo07.json");
     // this.data_fs = await this.json.getData("assets/data/lending.json");
     // Procesa los datos de "activos"
     this.data_fs.activos.forEach((x: any) => {
@@ -65,6 +70,86 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
     // Crea el gráfico de líneas usando "valor_cuota"
     this.renderChart();
+  } */
+
+  async ejecutarGraficas() {
+    // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
+    //this.data_fs = await this.json.getData("assets/data/fondo07.json");
+    // this.data_fs = await this.json.getData("assets/data/lending.json");
+    // Procesa los datos de "activos"
+    this.data_fs.activos.forEach((x: any) => {
+      this.activos_nombres.push(x.nombre_activo);
+      this.activos_valor.push(x.valor);
+    });
+
+    // Procesa los datos de "sectores"
+    this.data_fs.sectores.forEach((x: any) => {
+      this.sectores_nombres.push(x.sector);
+      this.sectores_valor.push(x.valor);
+    });
+
+    // Crea los gráficos doughnut de sectores y activos
+    this.createChart();
+    this.createChartActivos();
+
+    // Crea el gráfico de líneas usando "valor_cuota"
+    this.renderChart();
+  }
+
+  async onFileChange(event: any) {
+    this.data_fs = await this.json.getData("assets/data/fondo01_modelo.json");
+
+    console.log(this.data_fs);
+
+    const target: DataTransfer = <DataTransfer>event.target;
+    if (target.files.length !== 1) return;
+
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      const binaryStr: string = e.target.result;
+      const workbook: XLSX.WorkBook = XLSX.read(binaryStr, { type: 'binary' });
+
+      //const sheetName = workbook.SheetNames.includes('Hoja1') ? 'Hoja1' : workbook.SheetNames[0];
+      //const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
+      workbook.SheetNames.forEach(sheetName => {
+        const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
+        this.datosPorHoja[sheetName] = XLSX.utils.sheet_to_json(sheetData); // Guardar cada hoja en una lista separada
+      });
+
+      console.log(this.datosPorHoja);
+
+      //this.data_fs = this.data_fs.map((item: any) => {
+      if (Object.keys(this.datosPorHoja).length > 0) {
+        this.data_fs.activos = this.datosPorHoja['activos'];
+        this.data_fs.sectores = this.datosPorHoja['sectores'];
+
+        this.data_fs.rendimiento_fondo = this.datosPorHoja['rendimiento_fondo'][0];
+
+        this.data_fs.caracteristicas_fondo.valor_cuota_al = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
+        this.data_fs.caracteristicas_fondo.aum = this.datosPorHoja['caracteristicas_fondo'][0]['aum'];
+        this.data_fs.caracteristicas_fondo.valor_cuota = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
+        
+        this.data_fs.fecha = this.datosPorHoja['datos'][0]['fecha'];
+        this.data_fs.mes = this.datosPorHoja['datos'][0]['mes'];
+
+        this.data_fs.valor_cuota.forEach(item => {
+          if (item.periodo === "MAR-25") {
+            item.valores = this.datosPorHoja['valor_cuota'].map((item2: any) => {
+              if (item.periodo === item2.periodo) {
+                return Number(item2.valores)
+              };
+              return 0;
+            })
+          }
+        });
+      }
+
+      console.log("final", this.data_fs);
+      this.ejecutarGraficas();
+
+      //this.datos = XLSX.utils.sheet_to_json(sheetData);
+    };
+    reader.readAsBinaryString(target.files[0]);
   }
 
   async createChart() {
@@ -174,7 +259,7 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
       label.style.textAlign = 'center';
-      label.style.minWidth = '120px';
+      label.style.minWidth = '250px';
 
       // Ajustamos el estilo según el ángulo
       const isLeft = Math.cos(angle) < 0;
@@ -190,10 +275,10 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
 
       // Creamos el contenido de la etiqueta
       label.innerHTML = `
-        <div style='color: #10273D; font-size: 36px; font-weight: 700; line-height: 1.1; margin-top: 8px;'>
-          ${this.formatoNumberMiles(value)}%
+        <div style='color: #10273D; font-size: 32px; font-weight: 700; line-height: 1.0'>
+        ${this.formatoNumberMiles(value)}%
         </div>
-        <div style='color: #10273D; font-weight: 700; font-size: 28px; line-height: 1.1; margin-bottom: 4px;'>
+        <div style='color: #10273D; font-weight: 700; font-size: 25px; line-height: 1.0'>
           ${label2}
         </div>
       `;
@@ -322,23 +407,34 @@ export class FsNuevoComponent implements OnInit, AfterViewInit {
   async generar() {
     let imgSectores: any;
     let imgActivos: any;
+    let imagenChart: any;
     if (!this.chartWrapper) {
       console.error('No se encontró el contenedor del gráfico');
       return;
     }
+    console.log('this.data_fs', this.data_fs);
+
+    if (!this.data_fs) {
+      console.error('Error: this.data_fs no está definido');
+      return;
+    }
 
     const elementSectores = this.chartWrapper.nativeElement as HTMLDivElement;
-    await html2canvas(elementSectores, { backgroundColor: null }).then((canvas) => {
+    await html2canvas(elementSectores, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
       imgSectores = canvas.toDataURL('image/png');
     });
 
     const elementActivos = this.chartWrapperActivos.nativeElement as HTMLDivElement;
-    await html2canvas(elementActivos, { backgroundColor: null }).then((canvas) => {
+    await html2canvas(elementActivos, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
       imgActivos = canvas.toDataURL('image/png');
     });
 
-    const imagenChart = this.chartVC.nativeElement.toDataURL('image/png');
-
+    //const imagenChart = this.chartVC.nativeElement.toDataURL('image/png');
+    const elementChart = this.chartVC.nativeElement as HTMLDivElement;
+    await html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
+      imagenChart = canvas.toDataURL('image/png');
+    });
+    
     await LevFactSheetPDF.create(imagenChart, imgActivos, imgSectores, this.data_fs);
   }
 }
