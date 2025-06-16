@@ -28,20 +28,28 @@ export class LevFactSheetPDF {
     htmlChartActivos: any,
     htmlChartSectores: any,
     data_fs: any,
+    prevComent?: any,
     chartWidth?: number,
     chartHeight?: number,
     doughnutSize?: { width: number, height: number },
     labelSpacing?: number,
-    lastValueOffset?: number
+    lastValueOffset?: number,
   ) {
     let rendimiento_anio = '';
     let rendimiento_anio_valor = '';
-    let activo_texto = '';
-    let sectores_texto = '';
 
 
     // TABLA DE RENDIMIENTOS POR AÑO
     console.log("data_fs", data_fs)
+    console.log("prevComent", prevComent)
+
+    const parrafos = prevComent.split(/\n/); // Divide por tabulación o salto de línea
+    console.log("parrafos", parrafos)
+
+    // Asignar cada párrafo a una variable
+    const parrafo_1 = parrafos[0];
+    const parrafo_2 = parrafos[2];
+    const parrafo_3 = parrafos[4];
 
     if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio) && data_fs.rendimiento_anio.length > 0) {
       for (let rendimiento of data_fs.rendimiento_anio) {
@@ -109,45 +117,6 @@ export class LevFactSheetPDF {
     // }
 
     //TEXTO PARA ACTIVOS
-    let activos_data = data_fs.activos.filter((x) => x.id !== 2);
-    activos_data.sort((a, b) => b.valor - a.valor);
-
-    activos_data.forEach((activo, i) => {
-      let nombreActivo = activo.nombre_activo;
-
-      // Verificar si el nombre contiene la palabra "Financiamiento" y agregar "s" solo a esa palabra
-      if (nombreActivo.toLowerCase().includes("financiamiento")) {
-        nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
-      }
-
-      activo_texto += `${activo.id === 3 ? 'la' : 'los'
-        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
-          ? ''
-          : i === activos_data.length - 2
-            ? ' y '
-            : ', '
-        }`;
-    });
-
-    //TEXTO PARA SECTORES
-    const primerosSeis = data_fs.sectores.slice(0, 6);
-    const restantes = data_fs.sectores.slice(6);
-    const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
-
-    // primerosSeis.forEach((sector, i) => {
-    //   sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
-    //     ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
-    //     : ', '
-    //     }`;
-    // });
-    primerosSeis.sort((a, b) => b.valor - a.valor);
-
-primerosSeis.forEach((sector, i) => {
-  sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
-    ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
-    : ', '
-  }`;
-});
 
     let html = `
         <style>
@@ -289,6 +258,7 @@ primerosSeis.forEach((sector, i) => {
           margin-left: -42px;
           margin-top: -42px;
           max-width: none;
+          margin-bottom: 11px
         }
 
         @media (max-width: 1200px) { 
@@ -298,6 +268,7 @@ primerosSeis.forEach((sector, i) => {
             margin-left: -42px;
             margin-top: -42px;
             max-width: none;
+            margin-bottom: 11px
           }
         }
 
@@ -308,6 +279,7 @@ primerosSeis.forEach((sector, i) => {
             margin-left: -92px;
             margin-top: -42px;
             max-width: none;
+            margin-bottom: 11px
           }
         }
 
@@ -320,74 +292,54 @@ primerosSeis.forEach((sector, i) => {
         : ''
       }
       <!-- CABECERA -->
-<div class="flex items-center gap-48 " style="padding:12px 24px 8px 24px; background-color: #10273D; position: relative;">
-    <div class="flex-column" style="flex: 4; gap: 2px;">
-        <span style="margin: 0 0 2px 0; color: #0A80BA; font-size: ${data_fs.caracteristicas_fondo.fondo === 'Conexa Peruvian Lending' ? '32px' : '36px'}; font-weight: 100; line-height:32px; display: block;">
-            ${data_fs.caracteristicas_fondo.fondo} - ${data_fs.caracteristicas_fondo.moneda}
-        </span>
-        <span style="margin: 0 0 0px 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:20px; display: block;">
-            Fondo de Inversión - ${data_fs.fecha}
-        </span>
-        <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; display: block;">Clase A</span>
-    </div>
-    <div class="flex-column" style="flex: 1; margin-right:10px; display: flex; align-items: center; justify-content: center; height: 100%;">
-<img src="../assets/logos/logo_conexa_marca.svg" 
-     style="display: block; width: 140px; height: auto; margin-top: -15px;" />
+      <div class="flex items-center gap-48 " style="padding:12px 24px 8px 24px; background-color: #10273D; position: relative;">
+          <div class="flex-column" style="flex: 4; gap: 2px;">
+            <span style="margin: 0 0 2px 0; color: #0A80BA; font-size: ${data_fs.caracteristicas_fondo.fondo === 'Conexa Peruvian Lending' ? '32px' : '36px'}; font-weight: 100; line-height:32px; display: block;">
+                ${data_fs.caracteristicas_fondo.fondo} - ${data_fs.caracteristicas_fondo.moneda}
+            </span>
+            <span style="margin: 0 0 0px 0; color: #FFFFFF; font-size: 17px; font-weight: 100; line-height:20px; display: block;">
+                Fondo de Inversión - ${data_fs.fecha}
+            </span>
+            <span style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 100; display: block;">Clase A</span>
+          </div>
+          <div class="flex-column" style="flex: 1; margin-right:10px; display: flex; align-items: center; justify-content: center; height: 100%;">
+            <img src="../assets/logos/logo_conexa_marca.svg" 
+            style="display: block; width: 140px; height: auto; margin-top: -15px;" />
+          </div>
+          <div class="triangle"></div>
+      </div>
 
-    </div>
-    <div class="triangle"></div>
-</div>
+      <!-- CUERPO DEL FACTSHEET -->
+      <div style="padding:8px 24px 0 24px;">
+        <div class="flex" style="gap:30px" >
 
-          <!-- CUERPO DEL FACTSHEET -->
-          <div style="padding:8px 24px 0 24px;">
-            <div class="flex" style="gap:30px" >
+        <!-- DATOS DEL VALOR CUOTA -->
+          <div class="flex-column " style="background-color: white; flex: 5;">
+            <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 4px;">Evolución del Valor Cuota</p>
 
-            <!-- DATOS DEL VALOR CUOTA -->
-              <div class="flex-column " style="background-color: white; flex: 5;">
-                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 4px;">Evolución del Valor Cuota</p>
+            <div style="width: 410px; height: 400px; position: relative; overflow: visible; padding: 0; margin: 2px 0 9px 0;">
+              <img  style="width: 410px; margin-bottom: 2px" src=" ${htmlChart}" />
+              <div style="position:absolute; bottom:0; right:0">
+                <span style='font-size:8px; color:#10273D;'>Al final de cada trimestre el valor cuota regresa a 1.0000</span>
+              </div>
+          </div>
 
-            <div style="width: 96%; height: 95%; position: relative; overflow: visible; padding: 0; margin: 2px 0 9px 0;">
-
-                <img  style="width: 96%; height: 95%;" src=" ${htmlChart}" />
-
-                <div style="position:absolute; bottom:0; right:0">
-                  <span style='font-size:8px; color:#10273D;'>Al final de cada trimestre el valor cuota regresa a 1.0000</span>
-                </div>
-            </div>
-
-                <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 10px;">Comentarios de la Sociedad Gestora</p>
-
-               
-
-   <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
-  El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso}
-  ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la rentabilidad acumulada de los últimos 12 meses es de 
-  ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses}%`}. La Gestora viene
-  haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes;
-  ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.
-</p>
-
-
-               
-                <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
-                  Las operaciones más frecuentes son: ${activo_texto}.
-                  Los sectores en los que se invierte mantienen un alto potencial de
-                  crecimiento, destacando: ${sectores_texto}. La Gestora
-                  mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener
-                  la participación en cada industria por debajo del 20% de los activos del Fondo.
-                </p>
-               
-                <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
-                  El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.id === 2).valor
-      }%, ubicándose ${data_fs.activos.find((x) => x.id == 2).valor > 10
-        ? 'por encima'
-        : 'dentro'
-      } del rango
-                  meta de hasta 10% de los activos. La gestora está monitoreando activamente el
-                  contexto macroeconómico y financiero local, enfocándose en los sectores,
-                  empresas e instrumentos de inversión con mejores perspectivas para los
-                  inversionistas del fondo
-                </p>
+          <div>
+            <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 10px;">
+              Comentarios de la Sociedad Gestora
+            </p>
+            <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
+              ${parrafo_1}
+            </p>
+                
+            <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
+              ${parrafo_2}
+            </p>
+                          
+            <p style="word-spacing: 0.15em; font-size: 11px; text-align: justify; margin-bottom: 6px; line-height: 1.1;">
+              ${parrafo_3}
+            </p>
+          </div>
 
                 <!-- TABLA DE RENDIMIENTO -->
                 <div style="position:relative;">
@@ -611,7 +563,7 @@ primerosSeis.forEach((sector, i) => {
         alt="Gráfico de Diversificación por tipo de activos"
       />
     </div>
-    <div style="position:absolute; bottom:0; left:0;">
+    <div style="position:absolute; bottom:0; left:0">
         <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
     </div>
   </div>

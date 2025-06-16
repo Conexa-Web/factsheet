@@ -7,6 +7,21 @@
     <button (click)="generar()" class="buttonGenerar">Generar</button>
   </div>
 
+  <div 
+    style="
+      display: flex; 
+      justify-content: center; 
+      flex-direction: column; 
+      margin-top: 15px; 
+      width: 100%;
+      align-items: center;
+    ">
+    <p style="color: #0A80BA; font-weight: 700; font-size: 14px; margin-bottom: 10px;">
+      Comentarios de la Sociedad Gestora
+    </p>
+    <textarea name="" id="" rows="20" cols="83" [(ngModel)]="prevComent" style="padding: 20px;"></textarea>
+  </div>
+
   <div style="display: flex; width: 100%; height: 1050px;">
     <div #chartWrapperActivos style="display: flex; justify-content: center; flex: 2.2;  align-items: center; padding-top: 20px;">
       <div style="position: relative; width: 750px; height: 750px;">

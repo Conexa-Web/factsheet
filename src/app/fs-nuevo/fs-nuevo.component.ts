@@ -13,13 +13,14 @@ import html2canvas from 'html2canvas';
 import { JsonService } from '../json.service';
 import { LevFactSheetPDF } from '../lev-factsheet';
 import * as XLSX from 'xlsx';
+import { FormsModule } from '@angular/forms';
 
 Chart.register(ChartDataLabels, ...registerables);
 
 @Component({
   selector: 'fs-nuevo',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   providers: [JsonService],
   templateUrl: './fs-nuevo.component.html',
   styleUrls: ['./fs-nuevo.component.scss'],
@@ -41,6 +42,7 @@ export class FsNuevoComponent implements OnInit {
   sectores_valor: number[] = [];
   datosPorHoja: Record<string, any[]> = {};
   datos_final: any;
+  prevComent: string = "";
 
   constructor(
     private json: JsonService,
@@ -96,6 +98,58 @@ export class FsNuevoComponent implements OnInit {
     this.renderChart();
   }
 
+  prevComentarios(data_fs) {
+    let activo_texto = '';
+    let sectores_texto = '';
+
+    //TEXTO PARA ACTIVOS
+    let activos_data = data_fs.activos.filter((x) => x.id !== 2);
+    activos_data.sort((a, b) => b.valor - a.valor);
+
+    activos_data.forEach((activo, i) => {
+      let nombreActivo = activo.nombre_activo;
+
+      // Verificar si el nombre contiene la palabra "Financiamiento" y agregar "s" solo a esa palabra
+      if (nombreActivo.toLowerCase().includes("financiamiento")) {
+        nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
+      }
+
+      activo_texto += `${activo.id === 3 ? 'la' : 'los'
+        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
+          ? ''
+          : i === activos_data.length - 2
+            ? ' y '
+            : ', '
+        }`;
+    });
+
+    //TEXTO PARA SECTORES
+    const primerosSeis = data_fs.sectores.slice(0, 6);
+    const restantes = data_fs.sectores.slice(6);
+    const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
+
+    // primerosSeis.forEach((sector, i) => {
+    //   sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
+    //     ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
+    //     : ', '
+    //     }`;
+    // });
+    primerosSeis.sort((a, b) => b.valor - a.valor);
+
+    primerosSeis.forEach((sector, i) => {
+      sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
+        ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
+        : ', '
+      }`;
+    });
+
+    let parrafo_1 = `El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso} ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la rentabilidad acumulada de los últimos 12 meses es de ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses}%`}. La Gestora viene haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.`;
+    let parrafo_2 = `Las operaciones más frecuentes son: ${activo_texto}. Los sectores en los que se invierte mantienen un alto potencial de crecimiento, destacando: ${sectores_texto}. La Gestora mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener la participación en cada industria por debajo del 20% de los activos del Fondo.`;
+    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.id === 2).valor}%, ubicándose ${data_fs.activos.find((x) => x.id == 2).valor > 10? 'por encima' : 'dentro' } del rango meta de hasta 10% de los activos. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
+
+    this.prevComent = parrafo_1 + "\n\n" + parrafo_2 + "\n\n" + parrafo_3;
+  }
+
   async onFileChange(event: any) {
     this.data_fs = await this.json.getData("assets/data/fondo01_modelo.json");
 
@@ -146,6 +200,7 @@ export class FsNuevoComponent implements OnInit {
 
       console.log("final", this.data_fs);
       this.ejecutarGraficas();
+      this.prevComentarios(this.data_fs);
 
       //this.datos = XLSX.utils.sheet_to_json(sheetData);
     };
@@ -235,7 +290,7 @@ export class FsNuevoComponent implements OnInit {
     // Calculamos el espaciado base
     const baseRadius = meta.data[0].getProps(['outerRadius'], true)['outerRadius'];
     // Radio base para las etiquetas
-    const labelRadius = baseRadius * (es_sector ? 1.24 : 1.22);
+    const labelRadius = baseRadius * (es_sector ? 1.24 : 1.25);
 
     sortedData.forEach((item, i) => {
       const { startAngle, endAngle } = item.bar.getProps(['startAngle', 'endAngle'], true);
@@ -259,7 +314,7 @@ export class FsNuevoComponent implements OnInit {
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
       label.style.textAlign = 'center';
-      label.style.minWidth = '250px';
+      label.style.minWidth = '200px';
 
       // Ajustamos el estilo según el ángulo
       const isLeft = Math.cos(angle) < 0;
@@ -352,7 +407,7 @@ export class FsNuevoComponent implements OnInit {
             offset: 5,
             color: '#59BCE2',
             font: {
-              size: 22,
+              size: 15,
               family: 'TT Hoves Pro Trial',
             },
             formatter: (value) =>
@@ -367,7 +422,7 @@ export class FsNuevoComponent implements OnInit {
               minRotation: 0,
               autoSkip: false,
               color: '#10273D',
-              font: { size: 22, family: 'TT Hoves Pro Trial' },
+              font: { size: 15, family: 'TT Hoves Pro Trial' },
             },
             type: 'category'
           },
@@ -376,7 +431,7 @@ export class FsNuevoComponent implements OnInit {
             beginAtZero: false,
             ticks: {
               color: '#10273D',
-              font: { size: 22, family: 'TT Hoves Pro Trial' },
+              font: { size: 15, family: 'TT Hoves Pro Trial' },
               callback: (value) => ` ${this.formatoNumberMiles(value, 4)}`,
             },
           },
@@ -435,7 +490,7 @@ export class FsNuevoComponent implements OnInit {
       imagenChart = canvas.toDataURL('image/png');
     });
     
-    await LevFactSheetPDF.create(imagenChart, imgActivos, imgSectores, this.data_fs);
+    await LevFactSheetPDF.create(imagenChart, imgActivos, imgSectores, this.data_fs, this.prevComent);
   }
 }
 
