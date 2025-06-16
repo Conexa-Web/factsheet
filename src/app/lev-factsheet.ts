@@ -317,7 +317,7 @@ export class LevFactSheetPDF {
           <div class="flex-column " style="background-color: white; flex: 5;">
             <p style="color: #0A80BA; font-weight: 500; font-size: 14px; margin-bottom: 4px;">Evolución del Valor Cuota</p>
 
-            <div style="width: 410px; height: 400px; position: relative; overflow: visible; padding: 0; margin: 2px 0 9px 0;">
+            <div style="width: 410px; height: 212px; position: relative; overflow: visible; padding: 0; margin: 2px 0 9px 0;">
               <img  style="width: 410px; margin-bottom: 2px" src=" ${htmlChart}" />
               <div style="position:absolute; bottom:0; right:0">
                 <span style='font-size:8px; color:#10273D;'>Al final de cada trimestre el valor cuota regresa a 1.0000</span>
@@ -635,7 +635,7 @@ export class LevFactSheetPDF {
       image: { type: 'png', quality: 1 },
       html2canvas: {
         background: 'white',
-        scale: 12,
+        scale: 11,
         dpi: 3000,
         useCORS: true,
         logging: false,
