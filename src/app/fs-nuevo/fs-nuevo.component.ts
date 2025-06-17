@@ -179,12 +179,17 @@ export class FsNuevoComponent implements OnInit {
 
         this.data_fs.rendimiento_fondo = this.datosPorHoja['rendimiento_fondo'][0];
 
+        this.data_fs.caracteristicas_fondo.fondo = this.datosPorHoja['caracteristicas_fondo'][0]['fondo'];
+        this.data_fs.caracteristicas_fondo.moneda = this.datosPorHoja['caracteristicas_fondo'][0]['moneda'];
+        this.data_fs.caracteristicas_fondo.iso = this.datosPorHoja['caracteristicas_fondo'][0]['iso'];
         this.data_fs.caracteristicas_fondo.valor_cuota_al = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
         this.data_fs.caracteristicas_fondo.aum = this.datosPorHoja['caracteristicas_fondo'][0]['aum'];
         this.data_fs.caracteristicas_fondo.valor_cuota = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
+        this.data_fs.caracteristicas_fondo.aniversario = this.datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
         
         this.data_fs.fecha = this.datosPorHoja['datos'][0]['fecha'];
         this.data_fs.mes = this.datosPorHoja['datos'][0]['mes'];
+        this.data_fs.anio = this.datosPorHoja['datos'][0]['anio'];
 
         this.data_fs.valor_cuota.forEach(item => {
           if (item.periodo === "MAR-25") {

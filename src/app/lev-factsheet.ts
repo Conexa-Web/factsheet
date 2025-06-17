@@ -635,7 +635,7 @@ export class LevFactSheetPDF {
       image: { type: 'png', quality: 1 },
       html2canvas: {
         background: 'white',
-        scale: 11,
+        scale: 12,
         dpi: 3000,
         useCORS: true,
         logging: false,

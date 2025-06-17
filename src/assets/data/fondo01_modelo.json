@@ -1,21 +1,21 @@
 {
     "fecha": "",
     "mes": "",
-    "anio": 2025,
+    "anio": 0,
     "caracteristicas_fondo": {
-        "fondo": "Fondo Impulso PYME 01",
-        "moneda": "Soles",
+        "fondo": "",
+        "moneda": "",
         "ini_op": "20 - Nov - 2014",
         "vencimiento": "31 - Dic - 2027",
         "valor_cuota_al": "",
-        "iso": "PEN",
+        "iso": "",
         "aum": 0,
         "valor_cuota": 0,
         "frec_val": "Diaria",
         "inv_min": 100000,
         "fideicomiso": "La Fiduciaria S.A",
         "rentabilidad_objetivo": "9.00 - 10.00%",
-        "aniversario": 10
+        "aniversario": 0
     },
     "rendimiento_fondo": {
         "actual": 0,
