@@ -50,7 +50,20 @@ export class FsNuevoComponent implements OnInit {
     private json: JsonService,
   ) {}
 
-  async ngOnInit(): Promise<void> { }
+  async ngOnInit(): Promise<void> {
+    this.data_fs = await this.json.getData("assets/data/fondo01_modelo.json");
+    console.log("aquuiiii", this.data_fs)
+    const storage = localStorage.getItem("DATA_EXCEL");
+    let storage_coment = localStorage.getItem("PREV_COMENTARIO");
+    
+    if (storage && storage_coment) {
+      console.log("storage_coment", storage_coment)
+      console.log("dataaaaa", JSON.parse(storage))
+      this.data_fs = JSON.parse(storage);
+      this.prevComent = storage_coment;
+      this.ejecutarGraficas();
+    }
+  }
 
   alternarValorGrafico(datas) {
     const ordenado = [...datas].sort((a, b) => b.valor - a.valor);
@@ -65,10 +78,6 @@ export class FsNuevoComponent implements OnInit {
   }
 
   async ejecutarGraficas() {
-    // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
-    //this.data_fs = await this.json.getData("assets/data/fondo07.json");
-    // this.data_fs = await this.json.getData("assets/data/lending.json");
-    
     // Procesa los datos de "activos"
     const dataActivo = this.alternarValorGrafico(this.data_fs.activos);
     dataActivo.forEach((x: any) => {
@@ -134,51 +143,31 @@ export class FsNuevoComponent implements OnInit {
     let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor}%, ubicándose ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor > 10? 'por encima' : 'dentro' } del rango meta de hasta 10% de los activos. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
 
     this.prevComent = parrafo_1 + "\n\n" + parrafo_2 + "\n\n" + parrafo_3;
+    localStorage.setItem("PREV_COMENTARIO", this.prevComent);
   }
 
-  async onFileChange(event: any) {
-    this.data_fs = await this.json.getData("assets/data/fondo01_modelo.json");
+  fusionarData(datosPorHoja) {
+    //this.data_fs = this.data_fs.map((item: any) => {
+      if (Object.keys(datosPorHoja).length > 0) {
+        this.data_fs.activos = datosPorHoja['activos'];
+        this.data_fs.sectores = datosPorHoja['sectores'];
 
-    console.log(this.data_fs);
+        this.data_fs.rendimiento_fondo = datosPorHoja['rendimiento_fondo'][0];
 
-    const target: DataTransfer = <DataTransfer>event.target;
-    if (target.files.length !== 1) return;
-
-    const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      const binaryStr: string = e.target.result;
-      const workbook: XLSX.WorkBook = XLSX.read(binaryStr, { type: 'binary' });
-
-      //const sheetName = workbook.SheetNames.includes('Hoja1') ? 'Hoja1' : workbook.SheetNames[0];
-      //const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
-      workbook.SheetNames.forEach(sheetName => {
-        const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
-        this.datosPorHoja[sheetName] = XLSX.utils.sheet_to_json(sheetData); // Guardar cada hoja en una lista separada
-      });
-
-      console.log(this.datosPorHoja);
-
-      //this.data_fs = this.data_fs.map((item: any) => {
-      if (Object.keys(this.datosPorHoja).length > 0) {
-        this.data_fs.activos = this.datosPorHoja['activos'];
-        this.data_fs.sectores = this.datosPorHoja['sectores'];
-
-        this.data_fs.rendimiento_fondo = this.datosPorHoja['rendimiento_fondo'][0];
-
-        this.data_fs.caracteristicas_fondo.fondo = this.datosPorHoja['caracteristicas_fondo'][0]['fondo'];
-        this.data_fs.caracteristicas_fondo.moneda = this.datosPorHoja['caracteristicas_fondo'][0]['moneda'];
-        this.data_fs.caracteristicas_fondo.iso = this.datosPorHoja['caracteristicas_fondo'][0]['iso'];
-        this.data_fs.caracteristicas_fondo.valor_cuota_al = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
-        this.data_fs.caracteristicas_fondo.aum = this.datosPorHoja['caracteristicas_fondo'][0]['aum'];
-        this.data_fs.caracteristicas_fondo.valor_cuota = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
-        this.data_fs.caracteristicas_fondo.aniversario = this.datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
+        this.data_fs.caracteristicas_fondo.fondo = datosPorHoja['caracteristicas_fondo'][0]['fondo'];
+        this.data_fs.caracteristicas_fondo.moneda = datosPorHoja['caracteristicas_fondo'][0]['moneda'];
+        this.data_fs.caracteristicas_fondo.iso = datosPorHoja['caracteristicas_fondo'][0]['iso'];
+        this.data_fs.caracteristicas_fondo.valor_cuota_al = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
+        this.data_fs.caracteristicas_fondo.aum = datosPorHoja['caracteristicas_fondo'][0]['aum'];
+        this.data_fs.caracteristicas_fondo.valor_cuota = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
+        this.data_fs.caracteristicas_fondo.aniversario = datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
         
-        this.data_fs.fecha = this.datosPorHoja['datos'][0]['fecha'];
-        this.data_fs.mes = this.datosPorHoja['datos'][0]['mes'];
-        this.data_fs.anio = this.datosPorHoja['datos'][0]['anio'];
+        this.data_fs.fecha = datosPorHoja['datos'][0]['fecha'];
+        this.data_fs.mes = datosPorHoja['datos'][0]['mes'];
+        this.data_fs.anio = datosPorHoja['datos'][0]['anio'];
 
         const valor_cuota = Object.values(
-          this.datosPorHoja['valor_cuota'].reduce((acc, { periodo, valores }) => {
+          datosPorHoja['valor_cuota'].reduce((acc, { periodo, valores }) => {
             if (!acc[periodo]) {
               acc[periodo] = { periodo, valores: [] };
             }
@@ -189,15 +178,46 @@ export class FsNuevoComponent implements OnInit {
 
         this.data_fs.valor_cuota = valor_cuota;
       }
+  }
+
+  async onFileChange(event: any) {
+    const target: DataTransfer = <DataTransfer>event.target;
+    const reader: FileReader = new FileReader();
+
+    if (target.files.length !== 1) return;
+
+    reader.onload = (e: any) => {
+      const binaryStr: string = e.target.result;
+      const workbook: XLSX.WorkBook = XLSX.read(binaryStr, { type: 'binary' });
+
+      workbook.SheetNames.forEach(sheetName => {
+        const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
+        this.datosPorHoja[sheetName] = XLSX.utils.sheet_to_json(sheetData); // Guardar cada hoja en una lista separada
+      });
+      console.log(this.datosPorHoja);
+
+      this.fusionarData(this.datosPorHoja);
+      this.saveStorageData_fs();
 
       console.log("final", this.data_fs);
       this.ejecutarGraficas();
       this.prevComentarios(this.data_fs);
-
-      //this.datos = XLSX.utils.sheet_to_json(sheetData);
     };
+
     reader.readAsBinaryString(target.files[0]);
-    /* this.generar("edit") */
+  }
+
+  updatedPagina() {
+    localStorage.clear();
+    this.prevComent = "";
+  }
+
+  updatedComent(event) {
+    localStorage.setItem("PREV_COMENTARIO", event);
+  }
+
+  saveStorageData_fs() {
+    localStorage.setItem("DATA_EXCEL", JSON.stringify(this.data_fs));
   }
 
   async createChart() {
