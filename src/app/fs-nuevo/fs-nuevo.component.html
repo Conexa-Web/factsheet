@@ -7,17 +7,18 @@
     <div class="styleFile">
       <span>Aqui puedes subir tu plantilla de excel por cada Fondo</span>
       <label for="modeloExcel" class="custom-button">Plantilla Excel</label>
+      <span style="font-size: 12px; opacity: 0.6;">Cantidad max. 1 archivo</span>
       <input id="modeloExcel" type="file" class="file-input" (change)="onFileChange($event)" accept=".xlsx, .xls"/>
     </div>
    
   </div>
 
   <div class="styleComentario">
-    
-    <p style="color: #0A80BA; font-weight: 700; font-size: 14px; margin-bottom: 10px;">
-      Comentarios de la Sociedad Gestora <strong style="color: rgb(255, 0, 0);">(Texto editable)</strong>
+    <p style="color: #0A80BA; font-weight: 700; font-size: 14px; margin-bottom: 10px; font-size: 15px;">
+      Comentarios de la Sociedad Gestora 
+      <strong style="color: rgb(255, 0, 0); font-size: 12px;">(Texto editable)</strong>
     </p>
-    <span>Max. caracteres 1290</span>
+    <span style="font-size: 12px;">Cantidad max. caracteres 1290</span>
     <textarea name="" id="" rows="20" cols="83" [(ngModel)]="prevComent" style="padding: 20px;" maxlength="1290" placeholder="Cantidad máxima de caracteres 1290"></textarea>
   </div>
 
@@ -26,7 +27,7 @@
 
   <br>
   <div style="display: flex; align-items: center; flex-direction: column; gap:15px; margin-top: 10px;">
-    <div style="display: flex; gap: 10px;">
+    <div style="display: flex; gap: 20px;">
         <button class="styleUpdate" (click)="generar('edit')">Previsualizar</button>
          <button (click)="generar()" class="buttonGenerar">Generar</button>
     </div>
