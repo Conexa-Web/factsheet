@@ -1,26 +1,26 @@
 {
-  "fecha": "31 de marzo del 2025",
-  "mes": "Marzo",
+  "fecha": "30 de abril del 2025",
+  "mes": "Abril",
   "anio": 2025,
     "caracteristicas_fondo": {
         "fondo": "Fondo Impulso PYME 07",
         "moneda": "Soles",
         "ini_op": "20 -Ene - 2025",
         "vencimiento": "31 - Dic - 2030",
-        "valor_cuota_al": "31/03/2025",
+        "valor_cuota_al": "30/04/2025",
         "iso": "PEN",
-        "aum": 54424032,
-        "valor_cuota": 1.0177,
+        "aum": 7398768,
+        "valor_cuota": 1.0076,
         "frec_val": "Diaria",
         "inv_min": 100000,
         "fideicomiso": "La Fiduciaria S.A",
         "rentabilidad_objetivo": "9.00 - 10.00%"
     },
     "rendimiento_fondo": {
-        "actual": 0.75,
-        "tres_meses": 1.77,
-        "ytd": 2.25,
-        "doce_meses": 1.77
+        "actual": 0.76,
+        "tres_meses": 2.26,
+        "ytd": 2.54,
+        "doce_meses": 0
     },
 
     "valor_cuota": [
@@ -32,55 +32,70 @@
                 1.0101,
                 1.0177
             ]
+        },
+         {
+            "periodo": "MAR-25",
+            "valores": [
+                1.0,
+                1.0076
+            ]
         }
     ],
-    "activos": [
-      {
-        "id": 1,
-        "nombre_activo": "Financiamiento a Corto Plazo",
-        "valor": 54.96
-    },
-      {
-        "id": 3,
-        "nombre_activo": "Cesión de Derechos",
-        "valor": 9.51
-    },
-
+     "activos": [
         {
+            "id": 1,
+            "nombre_activo": "Financiamiento a Corto Plazo",
+            "valor": 29.96
+        },
+       
+        {
+            "id": 3,
+            "nombre_activo": "Cesión de Derechos",
+            "valor": 3.89
+        },
+        {
+            "id": 4,
+            "nombre_activo": "Financiamiento a Mediano Plazo",
+            "valor": 63.40
+        },
+         {
             "id": 2,
             "nombre_activo": "Caja y Bancos",
-            "valor": 35.53
+            "valor": 2.76
         }
 
     ],
     "sectores": [
-        {
-            "sector": "Hidrocarburos",
-            "valor": 20.82
-        },
+       
+       
         {
             "sector": "Servicios",
-            "valor": 30.81
+            "valor": 18.04
         },
-        {
-          "sector": "Seguridad",
-          "valor": 5.54
+         {
+            "sector": "Seguridad",
+            "valor": 2.72
         },
-        {
+         
+         {
+            "sector": "Hidrocarburos",
+            "valor": 10.01
+        },
+         {
             "sector": "Inmobiliario",
-            "valor": 13.98
+            "valor": 4.00
         },
         {
             "sector": "Educación",
-            "valor": 13.50
+            "valor": 6.47
+        },
+           {
+            "sector": "Industrial",
+            "valor": 57.34
         },
         {
-          "sector": "Financiero",
-          "valor": 12.40
-      },
-      {
-          "sector": "Telecomunicaciones",
-          "valor": 2.95
-      }
+            "sector": "Telecomunicaciones",
+            "valor": 1.41
+        }
     ]
 }

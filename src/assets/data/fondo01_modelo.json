@@ -1,0 +1,71 @@
+{
+    "fecha": "",
+    "mes": "",
+    "anio": 0,
+    "caracteristicas_fondo": {
+        "fondo": "",
+        "moneda": "",
+        "ini_op": "20 - Nov - 2014",
+        "vencimiento": "31 - Dic - 2027",
+        "valor_cuota_al": "",
+        "iso": "",
+        "aum": 0,
+        "valor_cuota": 0,
+        "frec_val": "Diaria",
+        "inv_min": 100000,
+        "fideicomiso": "La Fiduciaria S.A",
+        "rentabilidad_objetivo": "9.00 - 10.00%",
+        "aniversario": 0
+    },
+    "rendimiento_fondo": {
+        "actual": 0,
+        "tres_meses": 0,
+        "ytd": 0,
+        "doce_meses": 0
+    },
+    "rendimiento_anio": [
+        {
+            "anio": 2015,
+            "valor": 9.95
+        },
+        {
+            "anio": 2016,
+            "valor": 9.70
+        },
+        {
+            "anio": 2017,
+            "valor": 10.14
+        },
+        {
+            "anio": 2018,
+            "valor": 7.10
+        },
+        {
+            "anio": 2019,
+            "valor": 7.69
+        },
+        {
+            "anio": 2020,
+            "valor": 8.45
+        },
+        {
+            "anio": 2021,
+            "valor": 8.12
+        },
+        {
+            "anio": 2022,
+            "valor": 8.55
+        },
+        {
+            "anio": 2023,
+            "valor": 10.00
+        },
+        {
+            "anio": 2024,
+            "valor": 9.32
+        }
+    ],
+    "valor_cuota": [],
+    "activos": [],
+    "sectores": []
+}

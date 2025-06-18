@@ -66,7 +66,7 @@
         }
     ],
     "valor_cuota": [
-      
+     
         {
             "periodo": "MAR-24",
             "valores": [
@@ -107,7 +107,7 @@
             "periodo": "MAR-25",
             "valores": [
                 1.0,
-                1.0075 
+                1.0075
             ]
         }
     ],
@@ -135,7 +135,7 @@
             "valor": 1.67
         }
     ],
-    "sectores": [
+      "sectores": [
         {
             "sector": "Construcción",
             "valor": 14.82
@@ -177,4 +177,5 @@
             "valor": 23.81
         }
     ]
+    
 }

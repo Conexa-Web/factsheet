@@ -57,7 +57,7 @@
             "valor": 8.25
         }
     ],
-    "valor_cuota": [
+      "valor_cuota": [
         {
             "periodo": "MAR-24",
             "valores": [
@@ -102,7 +102,7 @@
             ]
         }
     ],
-    "activos": [
+   "activos": [
         {
             "id": 2,
             "nombre_activo": "Caja y Bancos",
@@ -113,13 +113,13 @@
             "nombre_activo": "Financiamiento a Corto Plazo",
             "valor": 13.02
         },
-
+ 
         {
             "id": 3,
             "nombre_activo": "Cesión de Derechos",
             "valor": 1.47
         },
-
+ 
         {
             "id": 4,
             "nombre_activo": "Financiamiento a Mediano Plazo",

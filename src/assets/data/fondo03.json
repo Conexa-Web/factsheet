@@ -94,8 +94,8 @@
                 1.0075
             ]
       }
-
-
+ 
+ 
   ],
   "activos": [
       {
@@ -145,11 +145,11 @@
         "valor": 7.06
     },
     {
-
+ 
        "sector": "Transporte",
        "valor": 7.01
     },
-    
+   
    
     {
         "sector": "Agroindustrial",
@@ -160,7 +160,7 @@
         "sector": "Automotriz",
         "valor": 5.80
     },
-
+ 
     {
         "sector": "Otros",
         "valor": 10.44
