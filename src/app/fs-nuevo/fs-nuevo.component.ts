@@ -50,30 +50,6 @@ export class FsNuevoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> { }
 
- /*  async ngAfterViewInit() {
-    // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
-    //this.data_fs = await this.json.getData("assets/data/fondo07.json");
-    // this.data_fs = await this.json.getData("assets/data/lending.json");
-    // Procesa los datos de "activos"
-    this.data_fs.activos.forEach((x: any) => {
-      this.activos_nombres.push(x.nombre_activo);
-      this.activos_valor.push(x.valor);
-    });
-
-    // Procesa los datos de "sectores"
-    this.data_fs.sectores.forEach((x: any) => {
-      this.sectores_nombres.push(x.sector);
-      this.sectores_valor.push(x.valor);
-    });
-
-    // Crea los gráficos doughnut de sectores y activos
-    this.createChart();
-    this.createChartActivos();
-
-    // Crea el gráfico de líneas usando "valor_cuota"
-    this.renderChart();
-  } */
-
   async ejecutarGraficas() {
     // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
     //this.data_fs = await this.json.getData("assets/data/fondo07.json");
@@ -128,12 +104,6 @@ export class FsNuevoComponent implements OnInit {
     const restantes = data_fs.sectores.slice(6);
     const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
-    // primerosSeis.forEach((sector, i) => {
-    //   sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
-    //     ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
-    //     : ', '
-    //     }`;
-    // });
     primerosSeis.sort((a, b) => b.valor - a.valor);
 
     primerosSeis.forEach((sector, i) => {
@@ -191,16 +161,17 @@ export class FsNuevoComponent implements OnInit {
         this.data_fs.mes = this.datosPorHoja['datos'][0]['mes'];
         this.data_fs.anio = this.datosPorHoja['datos'][0]['anio'];
 
-        this.data_fs.valor_cuota.forEach(item => {
-          if (item.periodo === "MAR-25") {
-            item.valores = this.datosPorHoja['valor_cuota'].map((item2: any) => {
-              if (item.periodo === item2.periodo) {
-                return Number(item2.valores)
-              };
-              return 0;
-            })
-          }
-        });
+        const valor_cuota = Object.values(
+          this.datosPorHoja['valor_cuota'].reduce((acc, { periodo, valores }) => {
+            if (!acc[periodo]) {
+              acc[periodo] = { periodo, valores: [] };
+            }
+            acc[periodo].valores.push(parseFloat(valores));
+            return acc;
+          }, {})
+        );
+
+        this.data_fs.valor_cuota = valor_cuota;
       }
 
       console.log("final", this.data_fs);
@@ -210,6 +181,7 @@ export class FsNuevoComponent implements OnInit {
       //this.datos = XLSX.utils.sheet_to_json(sheetData);
     };
     reader.readAsBinaryString(target.files[0]);
+    this.generar("edit")
   }
 
   async createChart() {
@@ -295,7 +267,7 @@ export class FsNuevoComponent implements OnInit {
     // Calculamos el espaciado base
     const baseRadius = meta.data[0].getProps(['outerRadius'], true)['outerRadius'];
     // Radio base para las etiquetas
-    const labelRadius = baseRadius * (es_sector ? 1.24 : 1.25);
+    const labelRadius = baseRadius * (es_sector ? 1.24 : 1.22);
 
     sortedData.forEach((item, i) => {
       const { startAngle, endAngle } = item.bar.getProps(['startAngle', 'endAngle'], true);
@@ -399,6 +371,7 @@ export class FsNuevoComponent implements OnInit {
       options: {
         responsive: true,
         maintainAspectRatio: true,
+        devicePixelRatio: 2,
         layout: {
           padding: {
             right: 40 // Agregamos padding solo a la derecha
@@ -464,38 +437,67 @@ export class FsNuevoComponent implements OnInit {
     return color;
   }
 
-  async generar() {
+/*   async configurarCanvas() {
     let imgSectores: any;
     let imgActivos: any;
     let imagenChart: any;
-    if (!this.chartWrapper) {
-      console.error('No se encontró el contenedor del gráfico');
-      return;
-    }
-    console.log('this.data_fs', this.data_fs);
-
-    if (!this.data_fs) {
-      console.error('Error: this.data_fs no está definido');
-      return;
+    if (!this.chartWrapper || !this.chartVC || !this.chartWrapperActivos || !this.data_fs) {
+        console.error('Error: Falta algún contenedor o data_fs no está definido');
+        return {};
     }
 
+    const elementChart = this.chartVC.nativeElement as HTMLDivElement;
     const elementSectores = this.chartWrapper.nativeElement as HTMLDivElement;
+    const elementActivos = this.chartWrapperActivos.nativeElement as HTMLDivElement;
+    
+    await html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
+      imagenChart = canvas.toDataURL('image/png');
+    });
+
     await html2canvas(elementSectores, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
       imgSectores = canvas.toDataURL('image/png');
     });
 
-    const elementActivos = this.chartWrapperActivos.nativeElement as HTMLDivElement;
     await html2canvas(elementActivos, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
       imgActivos = canvas.toDataURL('image/png');
     });
 
-    //const imagenChart = this.chartVC.nativeElement.toDataURL('image/png');
+    return {
+      imagenChart,
+      imgActivos,
+      imgSectores
+    }
+  } */
+
+  async configurarCanvas() {
+    if (!this.chartWrapper || !this.chartVC || !this.chartWrapperActivos || !this.data_fs) {
+        console.error('Error: Falta algún contenedor o data_fs no está definido');
+        return {};
+    }
+
     const elementChart = this.chartVC.nativeElement as HTMLDivElement;
-    await html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
-      imagenChart = canvas.toDataURL('image/png');
-    });
-    
-    await LevFactSheetPDF.create(imagenChart, imgActivos, imgSectores, this.data_fs, this.prevComent);
+    const elementSectores = this.chartWrapper.nativeElement as HTMLDivElement;
+    const elementActivos = this.chartWrapperActivos.nativeElement as HTMLDivElement;
+
+    const [imagenChart, imgSectores, imgActivos] = await Promise.all([
+        html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png')),
+        html2canvas(elementSectores, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png')),
+        html2canvas(elementActivos, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png'))
+    ]);
+
+    return { imagenChart, imgActivos, imgSectores };
+  }
+
+  async generar(accion:string = "") {
+    try {
+      const canva = await this.configurarCanvas();
+
+      if (Object.keys(canva).length > 0) {
+        await LevFactSheetPDF.create(canva.imagenChart, canva.imgActivos, canva.imgSectores, this.data_fs, this.prevComent, accion);
+      }
+    } catch (error) {
+      console.log("Error", error)
+    }
   }
 }
 

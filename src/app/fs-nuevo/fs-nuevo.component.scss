@@ -1,21 +1,38 @@
 .chart-container {
-    position: relative;
-    width: 620px;
-    // height: 35px;
-    margin: auto;
-  }
+  position: relative;
+  width: 620px;
+  // height: 620px;
+  margin: auto;
+}
 
-.chart-container2 {
+/* .chart-container2 {
     position: relative;
     width: 800px;
     height: 800px;
-  }
+  } */
 
 .styleHead {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid gray;
+  border-radius: 20px;
+  margin: 30px auto 10px;
+  width: 620px;
+  padding: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.styleHead button {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: rgb(122, 121, 121);
+  color: white;
 }
 
 .styleFile {
@@ -28,6 +45,29 @@
   font-weight: bold;
 }
 
+.file-input {
+  display: none;
+}
+
+.custom-button {
+  background-color: #32a76c;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.custom-button:hover {
+  background-color: #27be78;
+}
+
 .buttonGenerar {
   padding: 5px 15px;
+}
+
+#miGrafica {
+  width: 600px;
+  height: 400px;
 }

@@ -65,48 +65,7 @@
             "valor": 9.32
         }
     ],
-    "valor_cuota": [
-        {
-            "periodo": "MAR-24",
-            "valores": [
-                1.0,
-                1.0080,
-                1.0160,
-                1.0221
-            ]
-        },
-        {
-            "periodo": "JUN-24",
-            "valores": [
-                1.0,
-                1.0080,
-                1.0156,
-                1.0208
-            ]
-        },
-        {
-            "periodo": "SEP-24",
-            "valores": [
-                1.0,
-                1.0075,
-                1.0149,
-                1.0230
-            ]
-        },
-        {
-            "periodo": "DIC-24",
-            "valores": [
-                1.0,
-                1.0075,
-                1.0149,
-                1.0225
-            ]
-        },
-        {
-            "periodo": "MAR-25",
-            "valores": []
-        }
-    ],
+    "valor_cuota": [],
     "activos": [],
     "sectores": []
 }
