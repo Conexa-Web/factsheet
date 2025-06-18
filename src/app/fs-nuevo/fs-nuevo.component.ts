@@ -14,13 +14,14 @@ import { JsonService } from '../json.service';
 import { LevFactSheetPDF } from '../lev-factsheet';
 import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from '../loading/loading.component'
 
 Chart.register(ChartDataLabels, ...registerables);
 
 @Component({
   selector: 'fs-nuevo',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, LoadingComponent],
   providers: [JsonService],
   templateUrl: './fs-nuevo.component.html',
   styleUrls: ['./fs-nuevo.component.scss'],
@@ -43,6 +44,7 @@ export class FsNuevoComponent implements OnInit {
   datosPorHoja: Record<string, any[]> = {};
   datos_final: any;
   prevComent: string = "";
+  isLoading = false;
 
   constructor(
     private json: JsonService,
@@ -504,11 +506,15 @@ export class FsNuevoComponent implements OnInit {
 
   async generar(accion:string = "") {
     try {
+      this.isLoading = true;
       const canva = await this.configurarCanvas();
 
       if (Object.keys(canva).length > 0) {
         await LevFactSheetPDF.create(canva.imagenChart, canva.imgActivos, canva.imgSectores, this.data_fs, this.prevComent, accion);
       }
+      this.isLoading = false;
+
+
     } catch (error) {
       console.log("Error", error)
     }

@@ -21,6 +21,9 @@
     <textarea name="" id="" rows="20" cols="83" [(ngModel)]="prevComent" style="padding: 20px;" maxlength="1290" placeholder="Cantidad máxima de caracteres 1290"></textarea>
   </div>
 
+  <app-loading *ngIf="isLoading"></app-loading>
+
+
   <br>
   <div style="display: flex; align-items: center; flex-direction: column; gap:15px; margin-top: 10px;">
     <div style="display: flex; gap: 10px;">
