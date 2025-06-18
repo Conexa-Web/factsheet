@@ -283,7 +283,7 @@ export class FsNuevoComponent implements OnInit {
     // Calculamos el espaciado base
     const baseRadius = meta.data[0].getProps(['outerRadius'], true)['outerRadius'];
     // Radio base para las etiquetas
-    const labelRadius = baseRadius * (es_sector ? 1.24 : 1.22);
+    const labelRadius = baseRadius * (es_sector ? 1.25 : 1.23);
 
     sortedData.forEach((item, i) => {
       const { startAngle, endAngle } = item.bar.getProps(['startAngle', 'endAngle'], true);
