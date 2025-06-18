@@ -485,7 +485,7 @@ export class LevFactSheetPDF {
             <!-- Gráfico 1: Diversificación por tipo de activos -->
             <div class="grafico" style="
               flex: 1;
-              max-width: 34%;
+              max-width: 35%;
               text-align: center;
               position:relative;
               margin: 8px;
@@ -517,7 +517,7 @@ export class LevFactSheetPDF {
             <!-- Gráfico 2: Diversificación por tipo de sectores -->
             <div class="grafico" style="
               flex: 1;
-              max-width: 34%;
+              max-width: 35%;
               text-align: center;
               position:relative;
               margin: 8px;
@@ -540,7 +540,7 @@ export class LevFactSheetPDF {
                     <img class="imgEstadistica" src="${htmlChartSectores}"
                         alt="Gráfico de Diversificación por tipo de sectores" />
                 </div>
-                <div style="position:absolute; bottom:0; left: 0">
+                <div style="position:absolute; bottom:0; right: 0">
                     <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
                 </div>
             </div>
