@@ -3,6 +3,7 @@
   width: 620px;
   // height: 620px;
   margin: auto;
+  opacity: 0;
 }
 
 /* .chart-container2 {
@@ -24,6 +25,7 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
 .styleHead button {
@@ -33,6 +35,18 @@
   padding: 10px 20px;
   background-color: rgb(122, 121, 121);
   color: white;
+}
+
+.styleHead button:hover {
+  background-color: rgb(143, 143, 143);
+}
+
+.styleHead .styleUpdate {
+  background-color: rgb(62, 165, 212)
+}
+
+.styleHead .styleUpdate:hover {
+  background-color: rgb(106, 154, 243);
 }
 
 .styleFile {
