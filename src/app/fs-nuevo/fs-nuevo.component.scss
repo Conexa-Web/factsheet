@@ -41,11 +41,25 @@
   background-color: rgb(143, 143, 143);
 }
 
-.styleHead .styleUpdate {
+.styleComentario {
+  display: flex; 
+  justify-content: center; 
+  flex-direction: column; 
+  margin-top: 15px; 
+  width: 100%;
+  align-items: center;
+}
+
+.styleUpdate {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: white;
   background-color: rgb(62, 165, 212)
 }
 
-.styleHead .styleUpdate:hover {
+.styleUpdate:hover {
   background-color: rgb(106, 154, 243);
 }
 

@@ -4,7 +4,7 @@ export const opt_pdf = {
   image: { type: 'png', quality: 1 },
   html2canvas: {
     background: 'white',
-    scale: 5,
+    scale: 7,
     dpi: 3000,
     useCORS: true,
     logging: false,

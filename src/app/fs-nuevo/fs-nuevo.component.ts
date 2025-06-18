@@ -181,7 +181,7 @@ export class FsNuevoComponent implements OnInit {
       //this.datos = XLSX.utils.sheet_to_json(sheetData);
     };
     reader.readAsBinaryString(target.files[0]);
-    this.generar("edit")
+    /* this.generar("edit") */
   }
 
   async createChart() {
