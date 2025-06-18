@@ -540,7 +540,7 @@ export class LevFactSheetPDF {
                     <img class="imgEstadistica" src="${htmlChartSectores}"
                         alt="Gráfico de Diversificación por tipo de sectores" />
                 </div>
-                <div style="position:absolute; bottom:0; left: 0">
+                <div style="position:absolute; bottom:0; right: 0">
                     <span style='font-size:8px; color:#10273D;'>Fuente: Conexa Asset Management</span>
                 </div>
             </div>

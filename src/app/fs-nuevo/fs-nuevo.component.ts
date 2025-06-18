@@ -442,51 +442,10 @@ export class FsNuevoComponent implements OnInit {
     return Number(0).toFixed(decimalLimit);
   }
 
-  private getRandomColor(): string {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-/*   async configurarCanvas() {
-    let imgSectores: any;
-    let imgActivos: any;
-    let imagenChart: any;
-    if (!this.chartWrapper || !this.chartVC || !this.chartWrapperActivos || !this.data_fs) {
-        console.error('Error: Falta algún contenedor o data_fs no está definido');
-        return {};
-    }
-
-    const elementChart = this.chartVC.nativeElement as HTMLDivElement;
-    const elementSectores = this.chartWrapper.nativeElement as HTMLDivElement;
-    const elementActivos = this.chartWrapperActivos.nativeElement as HTMLDivElement;
-    
-    await html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
-      imagenChart = canvas.toDataURL('image/png');
-    });
-
-    await html2canvas(elementSectores, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
-      imgSectores = canvas.toDataURL('image/png');
-    });
-
-    await html2canvas(elementActivos, { scale: 2, backgroundColor: 'white' }).then((canvas) => {
-      imgActivos = canvas.toDataURL('image/png');
-    });
-
-    return {
-      imagenChart,
-      imgActivos,
-      imgSectores
-    }
-  } */
-
   async configurarCanvas() {
     if (!this.chartWrapper || !this.chartVC || !this.chartWrapperActivos || !this.data_fs) {
-        console.error('Error: Falta algún contenedor o data_fs no está definido');
-        return {};
+      console.error('Error: Falta algún contenedor o data_fs no está definido');
+      return {};
     }
 
     const elementChart = this.chartVC.nativeElement as HTMLDivElement;
@@ -494,9 +453,9 @@ export class FsNuevoComponent implements OnInit {
     const elementActivos = this.chartWrapperActivos.nativeElement as HTMLDivElement;
 
     const [imagenChart, imgSectores, imgActivos] = await Promise.all([
-        html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png')),
-        html2canvas(elementSectores, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png')),
-        html2canvas(elementActivos, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png'))
+      html2canvas(elementChart, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png')),
+      html2canvas(elementSectores, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png')),
+      html2canvas(elementActivos, { scale: 2, backgroundColor: 'white' }).then(canvas => canvas.toDataURL('image/png'))
     ]);
 
     return { imagenChart, imgActivos, imgSectores };
