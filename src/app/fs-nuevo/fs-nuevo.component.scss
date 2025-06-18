@@ -28,7 +28,7 @@
   position: relative;
 }
 
-.styleHead button {
+.buttonGenerar {
   border-radius: 10px;
   border: 1px solid transparent;
   cursor: pointer;
@@ -37,7 +37,7 @@
   color: white;
 }
 
-.styleHead button:hover {
+.buttonGenerar:hover {
   background-color: rgb(143, 143, 143);
 }
 
@@ -91,9 +91,9 @@
   background-color: #27be78;
 }
 
-.buttonGenerar {
-  padding: 5px 15px;
-}
+// .buttonGenerar {
+//   padding: 5px 15px;
+// }
 
 #miGrafica {
   width: 600px;

@@ -79,7 +79,7 @@ export class FsNuevoComponent implements OnInit {
     let sectores_texto = '';
 
     //TEXTO PARA ACTIVOS
-    let activos_data = data_fs.activos.filter((x) => x.id !== 2);
+    let activos_data = data_fs.activos.filter((x) => x.nombre_activo !== "Caja y Bancos");
     activos_data.sort((a, b) => b.valor - a.valor);
 
     activos_data.forEach((activo, i) => {
@@ -90,8 +90,7 @@ export class FsNuevoComponent implements OnInit {
         nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
       }
 
-      activo_texto += `${activo.id === 3 ? 'la' : 'los'
-        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
+      activo_texto += `${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
           ? ''
           : i === activos_data.length - 2
             ? ' y '
@@ -115,7 +114,7 @@ export class FsNuevoComponent implements OnInit {
 
     let parrafo_1 = `El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso} ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la rentabilidad acumulada de los últimos 12 meses es de ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses}%`}. La Gestora viene haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.`;
     let parrafo_2 = `Las operaciones más frecuentes son: ${activo_texto}. Los sectores en los que se invierte mantienen un alto potencial de crecimiento, destacando: ${sectores_texto}. La Gestora mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener la participación en cada industria por debajo del 20% de los activos del Fondo.`;
-    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.id === 2).valor}%, ubicándose ${data_fs.activos.find((x) => x.id == 2).valor > 10? 'por encima' : 'dentro' } del rango meta de hasta 10% de los activos. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
+    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor}%, ubicándose ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor > 10? 'por encima' : 'dentro' } del rango meta de hasta 10% de los activos. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
 
     this.prevComent = parrafo_1 + "\n\n" + parrafo_2 + "\n\n" + parrafo_3;
   }
@@ -291,7 +290,7 @@ export class FsNuevoComponent implements OnInit {
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
       label.style.textAlign = 'center';
-      label.style.minWidth = '200px';
+      label.style.minWidth = '180px';
 
       // Ajustamos el estilo según el ángulo
       const isLeft = Math.cos(angle) < 0;
@@ -307,10 +306,10 @@ export class FsNuevoComponent implements OnInit {
 
       // Creamos el contenido de la etiqueta
       label.innerHTML = `
-        <div style='color: #10273D; font-size: 32px; font-weight: 700; line-height: 1.0'>
+        <div style='color: #10273D; font-size: 36px; font-weight: 700; line-height: 1.0'>
         ${this.formatoNumberMiles(value)}%
         </div>
-        <div style='color: #10273D; font-weight: 700; font-size: 25px; line-height: 1.0'>
+        <div style='color: #10273D; font-weight: 700; font-size: 28px; line-height: 1.0'>
           ${label2}
         </div>
       `;
