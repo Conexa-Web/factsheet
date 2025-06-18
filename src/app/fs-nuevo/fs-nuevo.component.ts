@@ -50,18 +50,33 @@ export class FsNuevoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> { }
 
+  alternarValorGrafico(datas) {
+    const ordenado = [...datas].sort((a, b) => b.valor - a.valor);
+
+    const alternado = [];
+    while (ordenado.length) {
+        if (ordenado.length) alternado.push(ordenado.shift()); // Mayor
+        if (ordenado.length) alternado.push(ordenado.pop());   // Menor
+    }
+
+    return alternado;
+  }
+
   async ejecutarGraficas() {
     // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
     //this.data_fs = await this.json.getData("assets/data/fondo07.json");
     // this.data_fs = await this.json.getData("assets/data/lending.json");
+    
     // Procesa los datos de "activos"
-    this.data_fs.activos.forEach((x: any) => {
+    const dataActivo = this.alternarValorGrafico(this.data_fs.activos);
+    dataActivo.forEach((x: any) => {
       this.activos_nombres.push(x.nombre_activo);
       this.activos_valor.push(x.valor);
     });
 
     // Procesa los datos de "sectores"
-    this.data_fs.sectores.forEach((x: any) => {
+    const dataSector = this.alternarValorGrafico(this.data_fs.sectores);
+    dataSector.forEach((x: any) => {
       this.sectores_nombres.push(x.sector);
       this.sectores_valor.push(x.valor);
     });
@@ -290,7 +305,7 @@ export class FsNuevoComponent implements OnInit {
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
       label.style.textAlign = 'center';
-      label.style.minWidth = '180px';
+      label.style.minWidth = '200px';
 
       // Ajustamos el estilo según el ángulo
       const isLeft = Math.cos(angle) < 0;
