@@ -12,9 +12,9 @@
         "aum": 0,
         "valor_cuota": 0,
         "frec_val": "Diaria",
-        "inv_min": 100000,
+        "inv_min": 0,
         "fideicomiso": "La Fiduciaria S.A",
-        "rentabilidad_objetivo": "9.00 - 10.00%",
+        "rentabilidad_objetivo": "",
         "aniversario": 0
     },
     "rendimiento_fondo": {

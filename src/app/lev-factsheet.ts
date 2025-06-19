@@ -488,7 +488,8 @@ export class LevFactSheetPDF {
               max-width: 35%;
               text-align: center;
               position:relative;
-              margin: 8px;
+              margin: 0px;
+              padding-right: 55px;
             ">
                 <span style="
                 font-size: 11px;

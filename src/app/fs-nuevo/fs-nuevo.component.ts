@@ -112,16 +112,17 @@ export class FsNuevoComponent implements OnInit {
     let alternado = this.alternarValor(datas, this.descendente);
 
     if (type === "sector") {
-      const sectoresPrioritarios = ["telecomunicaciones", "alquiler de equipos"];
-
-      const firstData = alternado.filter(item => sectoresPrioritarios.includes(item.sector.toLowerCase()))
-      if (firstData) {
-        const alternadoFirst = this.alternarValor(firstData);
-        const restantes = alternado.filter(item => !sectoresPrioritarios.includes(item.sector.toLowerCase()))
-        alternado = [...alternadoFirst, ...restantes];
-      }
+      alternado = alternado.map(item => {
+        const newItem = { ...item };
+        if (newItem.sector.toLowerCase() === "telecomunicaciones") {
+          newItem.sector = "tele -\ncomunicaciones";
+        }
+        if (newItem.sector.toLowerCase() === "alquiler de equipos") {
+          newItem.sector = "alquiler de\nequipos";
+        }
+        return newItem;
+      })
     }
-
     return alternado;
   }
 
@@ -215,6 +216,8 @@ export class FsNuevoComponent implements OnInit {
         aum: datosPorHoja['caracteristicas_fondo'][0]['aum'],
         valor_cuota: datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'],
         aniversario: datosPorHoja['caracteristicas_fondo'][0]['aniversario'],
+        rentabilidad_objetivo: datosPorHoja['caracteristicas_fondo'][0]['rentabilidad_objetivo'] || "",
+        inv_min: datosPorHoja['caracteristicas_fondo'][0]['inv_min'] || 0,
       }
       const datos = {
         fecha: datosPorHoja['datos'][0]['fecha'],
@@ -234,14 +237,15 @@ export class FsNuevoComponent implements OnInit {
       this.data_fs.rendimiento_anio = rendimiento_anio;
       this.data_fs.rendimiento_fondo = rendimiento_fondo;
 
+      this.data_fs.caracteristicas_fondo.valor_cuota_al = typeof caracteristicas_fondo.valor_cuota_al === 'number' ? this.convertirFechaDesdeExcel(caracteristicas_fondo.valor_cuota_al) : caracteristicas_fondo.valor_cuota_al;
       this.data_fs.caracteristicas_fondo.fondo = caracteristicas_fondo.fondo;
       this.data_fs.caracteristicas_fondo.moneda = caracteristicas_fondo.moneda;
       this.data_fs.caracteristicas_fondo.iso = caracteristicas_fondo.iso;
-      this.data_fs.caracteristicas_fondo.valor_cuota_al = typeof caracteristicas_fondo.valor_cuota_al === 'number' ? this.convertirFechaDesdeExcel(caracteristicas_fondo.valor_cuota_al) : caracteristicas_fondo.valor_cuota_al;
-
       this.data_fs.caracteristicas_fondo.aum = caracteristicas_fondo.aum;
       this.data_fs.caracteristicas_fondo.valor_cuota = caracteristicas_fondo.valor_cuota;
       this.data_fs.caracteristicas_fondo.aniversario = caracteristicas_fondo.aniversario;
+      this.data_fs.caracteristicas_fondo.rentabilidad_objetivo = caracteristicas_fondo.rentabilidad_objetivo;
+      this.data_fs.caracteristicas_fondo.inv_min = caracteristicas_fondo.inv_min;
 
       this.data_fs.fecha = datos.fecha;
       this.data_fs.mes = datos.mes;
