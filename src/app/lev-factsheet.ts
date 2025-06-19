@@ -213,7 +213,7 @@ export class LevFactSheetPDF {
                 width: 176%;
                 margin: 0 auto;
                 margin-left: -92px;
-                margin-top: -42px;
+                margin-top: -46px;
                 max-width: none;
                 margin-bottom: 11px
             }
@@ -477,7 +477,7 @@ export class LevFactSheetPDF {
         <!-- FOOTER GRÁFICOS -->
         <div class="footer-graficos" style="
             padding: 0;
-            margin-top: 7px;
+            margin-top: 3px;
             display: flex;
             align-items: center;
             justify-content: space-evenly;
