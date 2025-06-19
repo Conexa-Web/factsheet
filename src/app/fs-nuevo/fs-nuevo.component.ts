@@ -193,37 +193,62 @@ export class FsNuevoComponent implements OnInit {
   }
 
   formatDecimal(data) {
-     return data.map(item => ({
-        ...item,
-        valor: parseFloat(item.valor)
-      }));
+    return data.map(item => ({
+      ...item,
+      valor: parseFloat(item.valor)
+    }));
+  }
+
+  convertirFechaDesdeExcel(n: number): string {
+    return moment('1899-12-30').add(n, 'days').format('DD/MM/YYYY');
   }
 
   fusionarData(datosPorHoja) {
-   
-    //this.data_fs = this.data_fs.map((item: any) => {
+    console.log('datosPorHoja', datosPorHoja);
+
     if (Object.keys(datosPorHoja).length > 0) {
-      this.data_fs.activos = this.formatDecimal(datosPorHoja['activos']) 
-      this.data_fs.sectores = this.formatDecimal(datosPorHoja['sectores']) 
-      if(datosPorHoja?.rendimiento_anio) {
-        this.data_fs.rendimiento_anio = this.formatDecimal(datosPorHoja['rendimiento_anio']) 
+      const caracteristicas_fondo = {
+        valor_cuota_al: datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'],
+        fondo: datosPorHoja['caracteristicas_fondo'][0]['fondo'],
+        moneda: datosPorHoja['caracteristicas_fondo'][0]['moneda'],
+        iso: datosPorHoja['caracteristicas_fondo'][0]['iso'],
+        aum: datosPorHoja['caracteristicas_fondo'][0]['aum'],
+        valor_cuota: datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'],
+        aniversario: datosPorHoja['caracteristicas_fondo'][0]['aniversario'],
       }
-      this.data_fs.rendimiento_fondo = datosPorHoja['rendimiento_fondo'][0];
+      const datos = {
+        fecha: datosPorHoja['datos'][0]['fecha'],
+        mes: datosPorHoja['datos'][0]['mes'],
+        anio: datosPorHoja['datos'][0]['anio'],
+      }
 
-      this.data_fs.caracteristicas_fondo.fondo = datosPorHoja['caracteristicas_fondo'][0]['fondo'];
-      this.data_fs.caracteristicas_fondo.moneda = datosPorHoja['caracteristicas_fondo'][0]['moneda'];
-      this.data_fs.caracteristicas_fondo.iso = datosPorHoja['caracteristicas_fondo'][0]['iso'];
-      // this.data_fs.caracteristicas_fondo.valor_cuota_al = moment(datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al']).format('YYYY-MM-D');
-      this.data_fs.caracteristicas_fondo.aum = datosPorHoja['caracteristicas_fondo'][0]['aum'];
-      this.data_fs.caracteristicas_fondo.valor_cuota = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
-      this.data_fs.caracteristicas_fondo.aniversario = datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
+      const activos = this.formatDecimal(datosPorHoja['activos'] || []);
+      const sectores = this.formatDecimal(datosPorHoja['sectores'] || []);
+      const rendimiento_anio = this.formatDecimal(datosPorHoja['rendimiento_anio'] || []);
+      const rendimiento_fondo = datosPorHoja['rendimiento_fondo'][0];
+      const valor_cuota = datosPorHoja['valor_cuota'];
 
-      this.data_fs.fecha = datosPorHoja['datos'][0]['fecha'];
-      this.data_fs.mes = datosPorHoja['datos'][0]['mes'];
-      this.data_fs.anio = datosPorHoja['datos'][0]['anio'];
+      this.data_fs.activos = activos;
+      this.data_fs.sectores = sectores;
 
-      const valor_cuota = Object.values(
-        datosPorHoja['valor_cuota'].reduce((acc, { periodo, valores }) => {
+      this.data_fs.rendimiento_anio = rendimiento_anio;
+      this.data_fs.rendimiento_fondo = rendimiento_fondo;
+
+      this.data_fs.caracteristicas_fondo.fondo = caracteristicas_fondo.fondo;
+      this.data_fs.caracteristicas_fondo.moneda = caracteristicas_fondo.moneda;
+      this.data_fs.caracteristicas_fondo.iso = caracteristicas_fondo.iso;
+      this.data_fs.caracteristicas_fondo.valor_cuota_al = typeof caracteristicas_fondo.valor_cuota_al === 'number' ? this.convertirFechaDesdeExcel(caracteristicas_fondo.valor_cuota_al) : caracteristicas_fondo.valor_cuota_al;
+
+      this.data_fs.caracteristicas_fondo.aum = caracteristicas_fondo.aum;
+      this.data_fs.caracteristicas_fondo.valor_cuota = caracteristicas_fondo.valor_cuota;
+      this.data_fs.caracteristicas_fondo.aniversario = caracteristicas_fondo.aniversario;
+
+      this.data_fs.fecha = datos.fecha;
+      this.data_fs.mes = datos.mes;
+      this.data_fs.anio = datos.anio;
+
+      const valor_cuota_modificado = Object.values(
+        valor_cuota.reduce((acc, { periodo, valores }) => {
           if (!acc[periodo]) {
             acc[periodo] = { periodo, valores: [] };
           }
@@ -232,7 +257,7 @@ export class FsNuevoComponent implements OnInit {
         }, {})
       );
 
-      this.data_fs.valor_cuota = valor_cuota;
+      this.data_fs.valor_cuota = valor_cuota_modificado;
     }
   }
 
