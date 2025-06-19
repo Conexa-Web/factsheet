@@ -6,11 +6,16 @@
   <div class="styleHead">
     <div class="styleFile">
       <span>Aqui puedes subir tu plantilla de excel por cada Fondo</span>
-      <label for="modeloExcel" class="custom-button">Plantilla Excel</label>
+      <label for="modeloExcel" class="custom-button">Subir Plantilla</label>
       <span style="font-size: 12px; opacity: 0.6;">Cantidad max. 1 archivo</span>
       <input id="modeloExcel" type="file" class="file-input" (change)="onFileChange($event)" accept=".xlsx, .xls"/>
+      <button class="styleUpdatedClear" (click)="updatedPagina()">
+        <img src="assets/icons/updated.svg" width="20" alt="Updated" title="Limpiar página">
+      </button>
     </div>
-   
+  </div>
+  <div class="stylePlantilla">
+    Descargar: <a href="assets/Plantilla/plantilla_factsheet.xlsx" download>Plantilla Fondo Excel </a>
   </div>
 
   <div class="styleComentario">
@@ -18,12 +23,20 @@
       Comentarios de la Sociedad Gestora 
       <strong style="color: rgb(255, 0, 0); font-size: 12px;">(Texto editable)</strong>
     </p>
-    <span style="font-size: 12px;">Cantidad max. caracteres 1290</span>
-    <textarea name="" id="" rows="20" cols="83" [(ngModel)]="prevComent" style="padding: 20px;" maxlength="1290" placeholder="Cantidad máxima de caracteres 1290"></textarea>
+    <span style="font-size: 12px; opacity: 0.6; font-weight: bold;">Cantidad max. caracteres 1290</span>
+    <textarea 
+      name="" id="" 
+      rows="20" 
+      cols="83" 
+      [(ngModel)]="prevComent" 
+      style="padding: 20px; border-radius: 10px;" 
+      maxlength="1290" 
+      placeholder="Cantidad máxima de caracteres 1290"
+      (ngModelChange)="updatedComent($event)">
+    </textarea>
   </div>
 
   <app-loading *ngIf="isLoading"></app-loading>
-
 
   <br>
   <div style="display: flex; align-items: center; flex-direction: column; gap:15px; margin-top: 10px;">
@@ -31,6 +44,7 @@
         <button class="styleUpdate" (click)="generar('edit')">Previsualizar</button>
          <button (click)="generar()" class="buttonGenerar">Generar</button>
     </div>
+    <p style="color: rgb(255, 0, 0); font-size: 11px; margin: 0; font-weight: bold; opacity: 0.9;">{{this.statusComent}}</p>
 
     <iframe id="visorPDF" width="70%" height="1000px"></iframe>
     <!-- <embed id="visorPDF" width="100%" height="600px" type="application/pdf"> -->
