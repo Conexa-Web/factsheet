@@ -35,7 +35,9 @@ export class FsNuevoComponent implements OnInit {
   @ViewChild('chartContainerActivos', { static: true }) chartContainerActivos!: ElementRef;
   @ViewChild('chartVC', { static: true }) chartVC!: ElementRef;
 
-  chart!: Chart; // Gráfico de sectores (doughnut)
+  chart!: Chart; // Gráfico lineas (doughnut)
+  chart2!: Chart; // Gráfico de activos (doughnut)
+  chart3!: Chart; // Gráfico de sectores (doughnut)
   data_fs: any;
   activos_nombres: string[] = [];
   activos_valor: number[] = [];
@@ -45,50 +47,102 @@ export class FsNuevoComponent implements OnInit {
   datos_final: any;
   prevComent: string = "";
   isLoading = false;
+  statusComent = "";
+  ascendente = "ASC";
+  descendente = "DESC";
 
   constructor(
     private json: JsonService,
-  ) {}
+  ) { }
 
-  async ngOnInit(): Promise<void> { }
+  async ngOnInit(): Promise<void> {
+    this.data_fs = await this.json.getData("assets/data/fondo01_modelo.json");
+    const { storage_data, storage_coment } = this.getStorageData_fs();
+    console.log("inicio data_fs", this.data_fs)
 
-  alternarValorGrafico(datas) {
-    const ordenado = [...datas].sort((a, b) => b.valor - a.valor);
+    if (storage_data && storage_coment) {
+      console.log("coment storage", storage_coment)
+      console.log("data storage", JSON.parse(storage_data))
 
-    const alternado = [];
+      this.data_fs = JSON.parse(storage_data);
+      this.prevComent = storage_coment;
+      this.ejecutarGraficas();
+    }
+  }
+
+  updatedPagina() {
+    localStorage.clear();
+    this.prevComent = "";
+    window.location.reload();
+  }
+
+  updatedComent(event) {
+    localStorage.setItem("PREV_COMENTARIO", event);
+  }
+
+  saveStorageData_fs() {
+    localStorage.setItem("DATA_EXCEL", JSON.stringify(this.data_fs));
+  }
+
+  getStorageData_fs() {
+    const storage_data = localStorage.getItem("DATA_EXCEL");
+    const storage_coment = localStorage.getItem("PREV_COMENTARIO");
+    return {
+      storage_data,
+      storage_coment
+    }
+  }
+
+  alternarValor(datas, order = this.ascendente) {
+    const ordenado = order === this.descendente
+      ? [...datas].sort((a, b) => b.valor - a.valor)
+      : [...datas].sort((a, b) => a.valor - b.valor);
+
+    let alternado = [];
     while (ordenado.length) {
-        if (ordenado.length) alternado.push(ordenado.shift()); // Mayor
-        if (ordenado.length) alternado.push(ordenado.pop());   // Menor
+      if (ordenado.length) alternado.push(ordenado.shift()); // Mayor
+      if (ordenado.length) alternado.push(ordenado.pop());   // Menor
+    }
+
+    return alternado;
+  }
+
+  alternarValorGrafico(datas, type) {
+    let alternado = this.alternarValor(datas, this.descendente);
+
+    if (type === "sector") {
+      const sectoresPrioritarios = ["telecomunicaciones", "alquiler de equipos"];
+
+      const firstData = alternado.filter(item => sectoresPrioritarios.includes(item.sector.toLowerCase()))
+      if (firstData) {
+        const alternadoFirst = this.alternarValor(firstData);
+        const restantes = alternado.filter(item => !sectoresPrioritarios.includes(item.sector.toLowerCase()))
+        alternado = [...alternadoFirst, ...restantes];
+      }
     }
 
     return alternado;
   }
 
   async ejecutarGraficas() {
-    // Carga del JSON desde assets (por ejemplo, fondo07.json, lending.json)
-    //this.data_fs = await this.json.getData("assets/data/fondo07.json");
-    // this.data_fs = await this.json.getData("assets/data/lending.json");
-    
     // Procesa los datos de "activos"
-    const dataActivo = this.alternarValorGrafico(this.data_fs.activos);
+    const dataActivo = this.alternarValorGrafico(this.data_fs.activos, "activo");
     dataActivo.forEach((x: any) => {
       this.activos_nombres.push(x.nombre_activo);
       this.activos_valor.push(x.valor);
     });
 
     // Procesa los datos de "sectores"
-    const dataSector = this.alternarValorGrafico(this.data_fs.sectores);
+    const dataSector = this.alternarValorGrafico(this.data_fs.sectores, "sector");
     dataSector.forEach((x: any) => {
       this.sectores_nombres.push(x.sector);
       this.sectores_valor.push(x.valor);
     });
 
-    // Crea los gráficos doughnut de sectores y activos
-    this.createChart();
-    this.createChartActivos();
+    this.renderChartLineas(); // Gráfico de líneas.
+    this.createChartSectores(); // Gráfico doughnut de sectores.
+    this.createChartActivos(); // Gráfico doughnut activos.
 
-    // Crea el gráfico de líneas usando "valor_cuota"
-    this.renderChart();
   }
 
   prevComentarios(data_fs) {
@@ -108,10 +162,10 @@ export class FsNuevoComponent implements OnInit {
       }
 
       activo_texto += `${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
-          ? ''
-          : i === activos_data.length - 2
-            ? ' y '
-            : ', '
+        ? ''
+        : i === activos_data.length - 2
+          ? ' y '
+          : ', '
         }`;
     });
 
@@ -126,81 +180,94 @@ export class FsNuevoComponent implements OnInit {
       sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
         ? ` y ${this.formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
         : ', '
-      }`;
+        }`;
     });
 
     let parrafo_1 = `El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso} ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la rentabilidad acumulada de los últimos 12 meses es de ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses}%`}. La Gestora viene haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.`;
     let parrafo_2 = `Las operaciones más frecuentes son: ${activo_texto}. Los sectores en los que se invierte mantienen un alto potencial de crecimiento, destacando: ${sectores_texto}. La Gestora mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener la participación en cada industria por debajo del 20% de los activos del Fondo.`;
-    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor}%, ubicándose ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor > 10? 'por encima' : 'dentro' } del rango meta de hasta 10% de los activos. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
+    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor}%, ubicándose ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor > 10 ? 'por encima' : 'dentro'} del rango meta de hasta 10% de los activos. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
 
     this.prevComent = parrafo_1 + "\n\n" + parrafo_2 + "\n\n" + parrafo_3;
+    localStorage.setItem("PREV_COMENTARIO", this.prevComent);
+  }
+
+  fusionarData(datosPorHoja) {
+    //this.data_fs = this.data_fs.map((item: any) => {
+    if (Object.keys(datosPorHoja).length > 0) {
+      this.data_fs.activos = datosPorHoja['activos'].map(item => ({
+        ...item,
+        valor: parseFloat(item.valor)
+      }));
+
+      this.data_fs.sectores = datosPorHoja['sectores'].map(item => ({
+        ...item,
+        valor: parseFloat(item.valor)
+      }));
+
+      this.data_fs.rendimiento_fondo = datosPorHoja['rendimiento_fondo'][0];
+
+      this.data_fs.caracteristicas_fondo.fondo = datosPorHoja['caracteristicas_fondo'][0]['fondo'];
+      this.data_fs.caracteristicas_fondo.moneda = datosPorHoja['caracteristicas_fondo'][0]['moneda'];
+      this.data_fs.caracteristicas_fondo.iso = datosPorHoja['caracteristicas_fondo'][0]['iso'];
+      this.data_fs.caracteristicas_fondo.valor_cuota_al = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
+      this.data_fs.caracteristicas_fondo.aum = datosPorHoja['caracteristicas_fondo'][0]['aum'];
+      this.data_fs.caracteristicas_fondo.valor_cuota = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
+      this.data_fs.caracteristicas_fondo.aniversario = datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
+
+      this.data_fs.fecha = datosPorHoja['datos'][0]['fecha'];
+      this.data_fs.mes = datosPorHoja['datos'][0]['mes'];
+      this.data_fs.anio = datosPorHoja['datos'][0]['anio'];
+
+      const valor_cuota = Object.values(
+        datosPorHoja['valor_cuota'].reduce((acc, { periodo, valores }) => {
+          if (!acc[periodo]) {
+            acc[periodo] = { periodo, valores: [] };
+          }
+          acc[periodo].valores.push(parseFloat(valores));
+          return acc;
+        }, {})
+      );
+
+      this.data_fs.valor_cuota = valor_cuota;
+    }
   }
 
   async onFileChange(event: any) {
-    this.data_fs = await this.json.getData("assets/data/fondo01_modelo.json");
-
-    console.log(this.data_fs);
-
     const target: DataTransfer = <DataTransfer>event.target;
+    const reader: FileReader = new FileReader();
+    this.statusComent = "";
+
     if (target.files.length !== 1) return;
 
-    const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      const binaryStr: string = e.target.result;
-      const workbook: XLSX.WorkBook = XLSX.read(binaryStr, { type: 'binary' });
+    try {
+      reader.onload = (e: any) => {
+        const binaryStr: string = e.target.result;
+        const workbook: XLSX.WorkBook = XLSX.read(binaryStr, { type: 'binary' });
 
-      //const sheetName = workbook.SheetNames.includes('Hoja1') ? 'Hoja1' : workbook.SheetNames[0];
-      //const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
-      workbook.SheetNames.forEach(sheetName => {
-        const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
-        this.datosPorHoja[sheetName] = XLSX.utils.sheet_to_json(sheetData); // Guardar cada hoja en una lista separada
-      });
+        workbook.SheetNames.forEach(sheetName => {
+          const sheetData: XLSX.WorkSheet = workbook.Sheets[sheetName];
+          this.datosPorHoja[sheetName] = XLSX.utils.sheet_to_json(sheetData); // Guardar cada hoja en una lista separada
+        });
+        console.log("this.datosPorHoja", this.datosPorHoja);
 
-      console.log(this.datosPorHoja);
+        this.fusionarData(this.datosPorHoja);
+        this.saveStorageData_fs();
 
-      //this.data_fs = this.data_fs.map((item: any) => {
-      if (Object.keys(this.datosPorHoja).length > 0) {
-        this.data_fs.activos = this.datosPorHoja['activos'];
-        this.data_fs.sectores = this.datosPorHoja['sectores'];
+        console.log("final", this.data_fs);
+        this.ejecutarGraficas();
+        this.prevComentarios(this.data_fs);
+      };
 
-        this.data_fs.rendimiento_fondo = this.datosPorHoja['rendimiento_fondo'][0];
-
-        this.data_fs.caracteristicas_fondo.fondo = this.datosPorHoja['caracteristicas_fondo'][0]['fondo'];
-        this.data_fs.caracteristicas_fondo.moneda = this.datosPorHoja['caracteristicas_fondo'][0]['moneda'];
-        this.data_fs.caracteristicas_fondo.iso = this.datosPorHoja['caracteristicas_fondo'][0]['iso'];
-        this.data_fs.caracteristicas_fondo.valor_cuota_al = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
-        this.data_fs.caracteristicas_fondo.aum = this.datosPorHoja['caracteristicas_fondo'][0]['aum'];
-        this.data_fs.caracteristicas_fondo.valor_cuota = this.datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
-        this.data_fs.caracteristicas_fondo.aniversario = this.datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
-        
-        this.data_fs.fecha = this.datosPorHoja['datos'][0]['fecha'];
-        this.data_fs.mes = this.datosPorHoja['datos'][0]['mes'];
-        this.data_fs.anio = this.datosPorHoja['datos'][0]['anio'];
-
-        const valor_cuota = Object.values(
-          this.datosPorHoja['valor_cuota'].reduce((acc, { periodo, valores }) => {
-            if (!acc[periodo]) {
-              acc[periodo] = { periodo, valores: [] };
-            }
-            acc[periodo].valores.push(parseFloat(valores));
-            return acc;
-          }, {})
-        );
-
-        this.data_fs.valor_cuota = valor_cuota;
-      }
-
-      console.log("final", this.data_fs);
-      this.ejecutarGraficas();
-      this.prevComentarios(this.data_fs);
-
-      //this.datos = XLSX.utils.sheet_to_json(sheetData);
-    };
-    reader.readAsBinaryString(target.files[0]);
-    /* this.generar("edit") */
+      reader.readAsBinaryString(target.files[0]);
+    } catch (error) {
+      console.log("Error", error);
+    }
   }
 
-  async createChart() {
+  async createChartSectores() {
+    if (this.chart3) {
+      this.chart3.destroy();
+    }
     const data: ChartData<'doughnut'> = {
       labels: this.sectores_nombres,
       datasets: [{
@@ -221,7 +288,7 @@ export class FsNuevoComponent implements OnInit {
       },
     };
 
-    this.chart = new Chart(this.chartCanvas.nativeElement, {
+    this.chart3 = new Chart(this.chartCanvas.nativeElement, {
       type: 'doughnut',
       data,
       options,
@@ -233,6 +300,9 @@ export class FsNuevoComponent implements OnInit {
   }
 
   createChartActivos() {
+    if (this.chart2) {
+      this.chart2.destroy();
+    }
     const data: ChartData<'doughnut'> = {
       labels: this.activos_nombres,
       datasets: [{
@@ -253,7 +323,7 @@ export class FsNuevoComponent implements OnInit {
       },
     };
 
-    this.chart = new Chart(this.chartCanvasActivos.nativeElement, {
+    this.chart2 = new Chart(this.chartCanvasActivos.nativeElement, {
       type: 'doughnut',
       data,
       options,
@@ -269,9 +339,9 @@ export class FsNuevoComponent implements OnInit {
     container.innerHTML = '';
 
     const meta = chart.getDatasetMeta(0);
-    const ctx = chart.ctx;
-    const total = (chart.data.datasets[0].data.reduce((a, b) => (a as number) + (b as number), 0)) as number;
-    
+    /* const ctx = chart.ctx;
+    const total = (chart.data.datasets[0].data.reduce((a, b) => (a as number) + (b as number), 0)) as number; */
+
     // Ordenamos los datos por valor para mejor distribución
     const sortedData = meta.data.map((bar, index) => ({
       bar,
@@ -307,12 +377,12 @@ export class FsNuevoComponent implements OnInit {
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
       label.style.textAlign = 'center';
-      label.style.minWidth = '200px';
+      label.style.minWidth = '170px'; // espaciado del texto en la gráfica
 
       // Ajustamos el estilo según el ángulo
       const isLeft = Math.cos(angle) < 0;
       const isTop = Math.sin(angle) < 0;
-      
+
       // Ajustamos el margen según la posición
       const marginAdjust = isLeft ? 15 : 5;
       if (isLeft) {
@@ -335,7 +405,10 @@ export class FsNuevoComponent implements OnInit {
     });
   }
 
-  renderChart(): void {
+  renderChartLineas(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
     const valorCuotaArray = this.data_fs.valor_cuota;
 
     // Filtra solo los elementos válidos: con "periodo" definido y con un arreglo "valores" no vacío
@@ -401,7 +474,7 @@ export class FsNuevoComponent implements OnInit {
             offset: 5,
             color: '#59BCE2',
             font: {
-              size: 15,
+              size: 16,
               family: 'TT Hoves Pro Trial',
             },
             formatter: (value) =>
@@ -433,7 +506,7 @@ export class FsNuevoComponent implements OnInit {
       },
     };
 
-    new Chart(ctx, chartConfig);
+    this.chart = new Chart(ctx, chartConfig);
   }
 
   formatoNumberMiles(x: any, decimalLimit: number = 2) {
@@ -463,19 +536,29 @@ export class FsNuevoComponent implements OnInit {
     return { imagenChart, imgActivos, imgSectores };
   }
 
-  async generar(accion:string = "") {
+  async generar(accion: string = "") {
+    const { storage_data, storage_coment } = this.getStorageData_fs();
+    this.statusComent = "";
+
+    if (!storage_data && !storage_coment) {
+      this.statusComent = accion === "edit"
+        ? "No hay información para previsualizar"
+        : "No hay información para generar el pdf";
+      return;
+    }
+
     try {
       this.isLoading = true;
       const canva = await this.configurarCanvas();
 
       if (Object.keys(canva).length > 0) {
         await LevFactSheetPDF.create(canva.imagenChart, canva.imgActivos, canva.imgSectores, this.data_fs, this.prevComent, accion);
+        this.isLoading = false;
       }
-      this.isLoading = false;
-
 
     } catch (error) {
-      console.log("Error", error)
+      console.log("Error", error);
+      this.isLoading = false;
     }
   }
 }
