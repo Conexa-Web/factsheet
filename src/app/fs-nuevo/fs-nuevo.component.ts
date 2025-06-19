@@ -474,7 +474,7 @@ export class FsNuevoComponent implements OnInit {
             offset: 5,
             color: '#59BCE2',
             font: {
-              size: 15,
+              size: 16,
               family: 'TT Hoves Pro Trial',
             },
             formatter: (value) =>
