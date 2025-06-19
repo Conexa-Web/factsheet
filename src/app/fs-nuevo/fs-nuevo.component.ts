@@ -191,18 +191,19 @@ export class FsNuevoComponent implements OnInit {
     localStorage.setItem("PREV_COMENTARIO", this.prevComent);
   }
 
+  formatDecimal(data) {
+     return data.map(item => ({
+        ...item,
+        valor: parseFloat(item.valor)
+      }));
+  }
+
   fusionarData(datosPorHoja) {
     //this.data_fs = this.data_fs.map((item: any) => {
     if (Object.keys(datosPorHoja).length > 0) {
-      this.data_fs.activos = datosPorHoja['activos'].map(item => ({
-        ...item,
-        valor: parseFloat(item.valor)
-      }));
-
-      this.data_fs.sectores = datosPorHoja['sectores'].map(item => ({
-        ...item,
-        valor: parseFloat(item.valor)
-      }));
+      this.data_fs.activos = this.formatDecimal(datosPorHoja['activos']) 
+      this.data_fs.sectores = this.formatDecimal(datosPorHoja['sectores']) 
+      this.data_fs.rendimiento_anio = this.formatDecimal(datosPorHoja['rendimiento_anio']) 
 
       this.data_fs.rendimiento_fondo = datosPorHoja['rendimiento_fondo'][0];
 

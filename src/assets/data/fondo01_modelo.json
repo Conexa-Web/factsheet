@@ -23,48 +23,7 @@
         "ytd": 0,
         "doce_meses": 0
     },
-    "rendimiento_anio": [
-        {
-            "anio": 2015,
-            "valor": 9.95
-        },
-        {
-            "anio": 2016,
-            "valor": 9.70
-        },
-        {
-            "anio": 2017,
-            "valor": 10.14
-        },
-        {
-            "anio": 2018,
-            "valor": 7.10
-        },
-        {
-            "anio": 2019,
-            "valor": 7.69
-        },
-        {
-            "anio": 2020,
-            "valor": 8.45
-        },
-        {
-            "anio": 2021,
-            "valor": 8.12
-        },
-        {
-            "anio": 2022,
-            "valor": 8.55
-        },
-        {
-            "anio": 2023,
-            "valor": 10.00
-        },
-        {
-            "anio": 2024,
-            "valor": 9.32
-        }
-    ],
+    "rendimiento_anio": [],
     "valor_cuota": [],
     "activos": [],
     "sectores": []
