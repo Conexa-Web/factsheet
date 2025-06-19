@@ -15,6 +15,7 @@ import { LevFactSheetPDF } from '../lev-factsheet';
 import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from '../loading/loading.component'
+import moment from 'moment';
 
 Chart.register(ChartDataLabels, ...registerables);
 
@@ -199,18 +200,21 @@ export class FsNuevoComponent implements OnInit {
   }
 
   fusionarData(datosPorHoja) {
+    console.log('datosPorHoja', datosPorHoja);
     //this.data_fs = this.data_fs.map((item: any) => {
     if (Object.keys(datosPorHoja).length > 0) {
       this.data_fs.activos = this.formatDecimal(datosPorHoja['activos']) 
       this.data_fs.sectores = this.formatDecimal(datosPorHoja['sectores']) 
-      this.data_fs.rendimiento_anio = this.formatDecimal(datosPorHoja['rendimiento_anio']) 
-
+      console.log('this.data_fs?.rendimiento_anio', this.data_fs?.rendimiento_anio);
+      if(this.data_fs?.rendimiento_anio && this.data_fs.rendimiento_anio.length > 0) {
+        this.data_fs.rendimiento_anio = this.formatDecimal(datosPorHoja['rendimiento_anio']) 
+      }
       this.data_fs.rendimiento_fondo = datosPorHoja['rendimiento_fondo'][0];
 
       this.data_fs.caracteristicas_fondo.fondo = datosPorHoja['caracteristicas_fondo'][0]['fondo'];
       this.data_fs.caracteristicas_fondo.moneda = datosPorHoja['caracteristicas_fondo'][0]['moneda'];
       this.data_fs.caracteristicas_fondo.iso = datosPorHoja['caracteristicas_fondo'][0]['iso'];
-      this.data_fs.caracteristicas_fondo.valor_cuota_al = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al'];
+      this.data_fs.caracteristicas_fondo.valor_cuota_al = moment(datosPorHoja['caracteristicas_fondo'][0]['valor_cuota_al']).format('YYYY-MM-D');
       this.data_fs.caracteristicas_fondo.aum = datosPorHoja['caracteristicas_fondo'][0]['aum'];
       this.data_fs.caracteristicas_fondo.valor_cuota = datosPorHoja['caracteristicas_fondo'][0]['valor_cuota'];
       this.data_fs.caracteristicas_fondo.aniversario = datosPorHoja['caracteristicas_fondo'][0]['aniversario'];
