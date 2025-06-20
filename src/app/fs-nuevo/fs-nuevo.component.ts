@@ -163,14 +163,32 @@ export class FsNuevoComponent implements OnInit {
         nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
       }
 
-      activo_texto += `${nombreActivo === 'Cesión de Derechos' ? 'la' : 'los'
-        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
-          ? ''
-          : i === activos_data.length - 2
+      // activo_texto += `${nombreActivo === 'Cesión de Derechos' ? 'la' : 'los'
+      //   } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
+      //     ? ''
+      //     : i === activos_data.length - 2
+      //       ? ' y '
+      //       : ', '
+      //   }`;
+
+        activo_texto += `${
+          nombreActivo === 'Cesión de Derechos'
+            ? 'la'
+            : nombreActivo.toLowerCase().includes('capital de trabajo')
+            ? 'el'
+            : nombreActivo.toLowerCase().includes('financiamiento')
+            ? 'los'
+            : 'los'
+        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${
+          i === activos_data.length - 1
+            ? ''
+            : i === activos_data.length - 2
             ? ' y '
             : ', '
         }`;
     });
+
+
 
     //TEXTO PARA SECTORES
     const primerosSeis = data_fs.sectores.slice(0, 6);
