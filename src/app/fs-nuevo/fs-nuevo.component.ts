@@ -115,7 +115,7 @@ export class FsNuevoComponent implements OnInit {
       alternado = alternado.map(item => {
         const newItem = { ...item };
         if (newItem.sector.toLowerCase() === "telecomunicaciones") {
-          newItem.sector = "tele -\ncomunicaciones";
+          newItem.sector = "Tele -\ncomunicaciones";
         }
         if (newItem.sector.toLowerCase() === "alquiler de equipos") {
           newItem.sector = "alquiler de\nequipos";
@@ -163,11 +163,12 @@ export class FsNuevoComponent implements OnInit {
         nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
       }
 
-      activo_texto += `${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
-        ? ''
-        : i === activos_data.length - 2
-          ? ' y '
-          : ', '
+      activo_texto += `${nombreActivo === 'Cesión de Derechos' ? 'la' : 'los'
+        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
+          ? ''
+          : i === activos_data.length - 2
+            ? ' y '
+            : ', '
         }`;
     });
 
@@ -218,6 +219,8 @@ export class FsNuevoComponent implements OnInit {
         aniversario: datosPorHoja['caracteristicas_fondo'][0]['aniversario'],
         rentabilidad_objetivo: datosPorHoja['caracteristicas_fondo'][0]['rentabilidad_objetivo'] || "",
         inv_min: datosPorHoja['caracteristicas_fondo'][0]['inv_min'] || 0,
+        ini_op: datosPorHoja['caracteristicas_fondo'][0]['ini_op'] || "",
+        vencimiento: datosPorHoja['caracteristicas_fondo'][0]['vencimiento'] || "",
       }
       const datos = {
         fecha: datosPorHoja['datos'][0]['fecha'],
@@ -246,6 +249,8 @@ export class FsNuevoComponent implements OnInit {
       this.data_fs.caracteristicas_fondo.aniversario = caracteristicas_fondo.aniversario;
       this.data_fs.caracteristicas_fondo.rentabilidad_objetivo = caracteristicas_fondo.rentabilidad_objetivo;
       this.data_fs.caracteristicas_fondo.inv_min = caracteristicas_fondo.inv_min;
+      this.data_fs.caracteristicas_fondo.ini_op = caracteristicas_fondo.ini_op;
+      this.data_fs.caracteristicas_fondo.vencimiento = caracteristicas_fondo.vencimiento;
 
       this.data_fs.fecha = datos.fecha;
       this.data_fs.mes = datos.mes;
