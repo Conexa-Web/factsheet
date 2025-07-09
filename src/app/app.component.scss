@@ -1,12 +1,152 @@
 .chart-container {
-    position: relative;
-    width: 40%;
-    // height: 35px;
-    margin: auto;
-  }
+  position: relative;
+  width: 620px;
+  // height: 620px;
+  margin: auto;
+  opacity: 0;
+}
 
-.chart-container2 {
+/* .chart-container2 {
     position: relative;
     width: 800px;
     height: 800px;
-  }
+  } */
+.head {
+  background-color: rgb(39 73 145);
+  width: 100%;
+  height: 45px;
+  position: fixed;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-family: "Acme", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 17px;
+}
+
+.styleHead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 20px;
+  margin: 70px auto 10px;
+  width: 620px;
+  padding: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.buttonGenerar {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: rgb(122, 121, 121);
+  color: white;
+}
+
+.buttonGenerar:hover {
+  background-color: rgb(143, 143, 143);
+}
+
+.styleComentario {
+  display: flex; 
+  justify-content: center; 
+  flex-direction: column; 
+  margin-top: 15px; 
+  width: 100%;
+  align-items: center;
+}
+
+.styleUpdate {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: white;
+  background-color: rgb(62, 165, 212)
+}
+
+.styleUpdate:hover {
+  background-color: rgb(106, 154, 243);
+}
+
+.styleFile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 5px;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.styleFile .styleSelectOption {
+  padding: 6px;
+  border-radius: 7px;
+  /* color: rgb(18, 18, 40); */
+}
+
+.file-input {
+  display: none;
+}
+
+.custom-button {
+  background-color: #32a76c;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.custom-button:hover {
+  background-color: #27be78;
+}
+
+// .buttonGenerar {
+//   padding: 5px 15px;
+// }
+
+#miGrafica {
+  width: 600px;
+  height: 400px;
+}
+
+.stylePlantilla {
+  position: absolute; 
+  top: 75px; 
+  right: 30px;
+  font-weight: bold;
+  font-size: 14.5px;
+}
+
+.stylePlantilla a {
+  text-decoration: none;
+  color: rgb(47, 0, 255);
+  border-bottom: 1px solid;
+  padding-bottom: 2px;
+}
+
+.styleUpdatedClear {
+  position: absolute; 
+  top: 10px; 
+  right: 15px; 
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: rgb(177, 177, 177);
+  border-radius: 50%;
+  color: blue;
+}
+
+.styleUpdatedClear:hover {
+  background-color: rgb(155, 155, 155);
+}

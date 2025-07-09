@@ -1,0 +1,22 @@
+.modal {
+ position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3); // gris suave, no muy transparente
+  backdrop-filter: blur(5px); // desenfoque del fondo
+  -webkit-backdrop-filter: blur(5px); // compatibilidad para Safari
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+}
+
+.modalText {
+  color: rgb(255, 255, 255); // celeste vivo
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(255,255,255,0.5); // un leve resplandor para visib
+}

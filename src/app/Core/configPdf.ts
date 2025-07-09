@@ -4,8 +4,8 @@ export const opt_pdf = {
   image: { type: 'png', quality: 1 },
   html2canvas: {
     background: 'white',
-    scale: 7,
-    dpi: 3000,
+    scale: 4,
+    dpi: 500,
     useCORS: true,
     logging: false,
     allowTaint: true
@@ -14,7 +14,7 @@ export const opt_pdf = {
     unit: 'in',
     format: 'a4',
     orientation: 'portrait',
-    compress: false
+    compress: true
   },
   pagebreak: { mode: 'avoid-all', before: '.romper_fila' },
 };

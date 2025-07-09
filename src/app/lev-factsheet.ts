@@ -1,5 +1,6 @@
 import html2pdf from 'html2pdf.js';
-import { opt_pdf } from './Core/configPdf';
+import { opt_pdf } from './core/configPdf';
+import { formatoNumberMilesHtml, formatoNumberMilesInv } from './shared/utils/format';
 
 export class LevFactSheetPDF {
   static async create(
@@ -13,10 +14,6 @@ export class LevFactSheetPDF {
     let rendimiento_anio = '';
     let rendimiento_anio_valor = '';
 
-    // TABLA DE RENDIMIENTOS POR AÑO
-    console.log("data_fs", data_fs)
-    console.log("prevComent", prevComent)
-
     const parrafos = prevComent.split(/\n/); // Divide por tabulación o salto de línea
     console.log("parrafos", parrafos)
 
@@ -26,7 +23,7 @@ export class LevFactSheetPDF {
     const parrafo_3 = parrafos[4];
 
     if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio) && data_fs.rendimiento_anio.length > 0) {
-      for (let rendimiento of data_fs.rendimiento_anio) {
+        for (let rendimiento of data_fs.rendimiento_anio) {
         rendimiento_anio += `
           <div style="flex: 1; padding: 2px; text-align: center; background-color: #E1EBF1;">
             <span style="font-size: 10px; color:#10273D; font-weight:bold">${rendimiento.anio}</span>
@@ -35,7 +32,7 @@ export class LevFactSheetPDF {
 
         rendimiento_anio_valor += `
           <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
-            <span style="font-size: 10px;">${this.formatoNumberMiles(rendimiento.valor)}%</span>
+            <span style="font-size: 10px;">${formatoNumberMilesHtml(rendimiento.valor)}%</span>
           </div>
         `;
       }
@@ -221,11 +218,10 @@ export class LevFactSheetPDF {
     </style>
 
     <div class="flex-column expanded ">
-        ${
-        data_fs.caracteristicas_fondo.aniversario
-        ? `<img src="/assets/sellos/${data_fs.caracteristicas_fondo.aniversario}.png" width="13.5%"
-            style="position:absolute; z-index:1000; right:320px; top:50px; transform: rotate(12deg);" />`
-        : ''
+        ${ data_fs.caracteristicas_fondo.aniversario
+            ? `<img src="/assets/sellos/${data_fs.caracteristicas_fondo.aniversario}.png" width="13.5%"
+                style="position:absolute; z-index:1000; right:320px; top:50px; transform: rotate(12deg);" />`
+            : ''
         }
         <!-- CABECERA -->
         <div class="flex items-center gap-48 "
@@ -311,20 +307,20 @@ export class LevFactSheetPDF {
                         <div style="width: 100%; display: flex; margin-bottom: 12px; gap: 2px;">
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
-                                    style="font-size: 10px; ">${this.formatoNumberMiles(data_fs.rendimiento_fondo.actual)}%</span>
+                                    style="font-size: 10px; ">${formatoNumberMilesHtml(data_fs.rendimiento_fondo.actual)}%</span>
                             </div>
                             <div style="flex: 1; padding:2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
-                                    style="font-size: 10px; ">${this.formatoNumberMiles(data_fs.rendimiento_fondo.tres_meses)}%</span>
+                                    style="font-size: 10px; ">${formatoNumberMilesHtml(data_fs.rendimiento_fondo.tres_meses)}%</span>
                             </div>
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
-                                    style="font-size: 10px;">${this.formatoNumberMiles(data_fs.rendimiento_fondo.ytd)}%</span>
+                                    style="font-size: 10px;">${formatoNumberMilesHtml(data_fs.rendimiento_fondo.ytd)}%</span>
                             </div>
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span style="font-size: 10px;">
                                     ${data_fs.rendimiento_fondo.doce_meses === 0 ? "—" :
-                                    `${this.formatoNumberMiles(data_fs.rendimiento_fondo.doce_meses)}%`}
+                                    `${formatoNumberMilesHtml(data_fs.rendimiento_fondo.doce_meses)}%`}
                                 </span>
                             </div>
                         </div>
@@ -377,7 +373,7 @@ export class LevFactSheetPDF {
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                         <span style=" color: #10273D;">Tamaño del fondo (AUM)</span>
-                        <span style="color: #0A80BA;">${this.formatoNumberMiles(data_fs.caracteristicas_fondo.aum,0)}</span>
+                        <span style="color: #0A80BA;">${formatoNumberMilesHtml(data_fs.caracteristicas_fondo.aum, 0)}</span>
                     </div>
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
@@ -394,7 +390,7 @@ export class LevFactSheetPDF {
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                         <span style=" color: #10273D;">Inversión mínima</span>
                         <span
-                            style="color: #0A80BA;">${this.formatoNumberMilesInv(data_fs.caracteristicas_fondo.inv_min,0)}</span>
+                            style="color: #0A80BA;">${formatoNumberMilesInv(data_fs.caracteristicas_fondo.inv_min,0)}</span>
                     </div>
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
@@ -571,34 +567,4 @@ export class LevFactSheetPDF {
       document.getElementById('visorPDF')?.setAttribute('src', url);
     });
   }
-
-  private static formatoNumberMiles(x: any, decimalLimit: number = 2) {
-    if (x && !isNaN(Number(x))) {
-      var myArray = Number(x).toFixed(decimalLimit).toString().split('.');
-      return (
-        myArray[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-        (decimalLimit ? '.' + myArray[1] : '')
-      );
-    }
-    return `${Number(0).toFixed(decimalLimit)}`;
-  }
-
-  private static formatoNumberMilesInv(x: any, decimalLimit: number = 2) {
-    // Verifica si x es un número válido
-    if (x && !isNaN(Number(x))) {
-      // Convierte el número a un valor con los decimales indicados
-      let myArray = Number(x).toFixed(decimalLimit).toString().split('.');
-
-      // Agrega las comas como separadores de miles en la parte entera del número
-      const formattedNumber = myArray[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-      // Devuelve el número con los decimales, garantizando que siempre haya dos decimales
-      return formattedNumber + '.' + (myArray[1] || '00'); // Si no hay parte decimal, agrega '00'
-    }
-
-    // Si el valor no es un número válido, devuelve 0.00 formateado
-    return '0.00';
-  }
-
-
 }
