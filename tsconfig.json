@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -21,12 +22,23 @@
     "module": "es2020",
     "useDefineForClassFields": false,
     "lib": [
-      "ES2018",
+      "ES2022",
       "dom"
     ],
     "strictNullChecks": false,
     "skipLibCheck": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@shared_core/*": [
+        "src/app/shared/core/*"
+      ],
+      "@shared_models/*": [
+        "src/app/shared/models/*"
+      ],
+      "@shared_utils/*": [
+        "src/app/shared/utils/*"
+      ],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,51 +1,97 @@
-<div class="chart-container">
-  <canvas #chartCanvas></canvas>
-</div>
+<div
+  style="display: flex;
+    flex-direction: column;
+    width: 100%;
+">
+  <div class="head">FACTSHEET</div>
+  <div class="styleHead">
+    <div class="styleFile">
+      <span>Aqui puedes subir tu plantilla de excel por cada Fondo</span>
+      <label for="modeloExcel" class="custom-button">Subir Plantilla</label>
+      <span style="font-size: 12px; opacity: 0.6;">Cantidad max. 1 archivo</span>
+      <input id="modeloExcel" type="file" class="file-input" (change)="onFileChange($event)" accept=".xlsx, .xls"/>
 
-<br>
+      <div style="text-align: center;">
+        <p>Fondo a Generar:</p>
+        <select name="" id="" 
+          class="styleSelectOption" 
+          [(ngModel)]="opcionSeleccionada" 
+          (change)="onSeleccionar()"
+          [disabled]="isPlantillaCargada"
+        >
+          <option value="">Seleccione fondo...</option>
+          <option value="fondo_1">Fondo Impulso PYME 01</option>
+          <option value="fondo_2">Fondo Impulso PYME 02</option>
+          <option value="fondo_3">Fondo Impulso PYME 03</option>
+          <option value="fondo_4">Fondo Impulso PYME 04</option>
+          <option value="fondo_5">Fondo Impulso PYME 05</option>
+          <option value="fondo_6">Fondo Impulso PYME 06</option>
+          <option value="fondo_7">Fondo Impulso PYME 07</option>
+          <option value="fondo_10">Fondo Impulso PYME 10</option>
+        </select>
+      </div>
+      <!-- <p style="color: rgb(255, 0, 0); font-size: 11px; margin: 0; font-weight: bold; opacity: 0.9;">{{this.statusMessage_2}}</p> -->
 
-<div class="chart-container2">
-  <canvas #chartCanvasActivos></canvas>
-</div>
-
-<div class="chart-container2">
-  <canvas #chartCanvasSectores></canvas>
-</div>
-
-<button (click)="generarPDF()">
-  <span>generar</span>
-</button>
-
-
- <!-- NUEVO FACTSHEET -->
-<!-- <div style="display: flex; width: 100%; height: 1200px;">
-  <div #chartWrapperActivos style="display: flex; justify-content: center; flex: 2;  align-items: start; padding-top: 20px;">
-    <div style="position: relative; width: 950px">
-      <canvas #chartCanvasActivos></canvas>
-      <div #chartContainerActivos style="position: absolute; top: 0; left: 0"></div>
+      <button class="styleUpdatedClear" (click)="clearPagina()">
+        <img src="assets/icons/updated.svg" width="20" alt="Updated" title="Limpiar página">
+      </button>
     </div>
   </div>
-  <div style="background-color: blue; flex: 1">1</div>
-</div>
+  <div class="stylePlantilla">
+    Descargar: <a href="assets/Plantilla/plantilla_factsheet.xlsx" download>Plantilla Fondo Excel </a>
+  </div>
 
-<br>
+  <div class="styleComentario">
+    <p style="color: #0A80BA; font-weight: 700; font-size: 14px; margin-bottom: 10px; font-size: 15px;">
+      Comentarios de la Sociedad Gestora 
+      <strong style="color: rgb(255, 0, 0); font-size: 12px;">(Texto editable)</strong>
+    </p>
+    <span style="font-size: 12px; opacity: 0.6; font-weight: bold;">Cantidad max. caracteres 1294</span>
+    <textarea 
+      name="" id="" 
+      rows="20" 
+      cols="83" 
+      [(ngModel)]="prevComent" 
+      style="padding: 20px; border-radius: 10px;" 
+      maxlength="1294" 
+      placeholder="Cantidad máxima de caracteres 1294"
+      (ngModelChange)="updatedComent($event)">
+    </textarea>
+  </div>
 
-<div style="display: flex; width: 100%; height: 1200px;">
-  <div #chartWrapper style="display: flex; justify-content: center; flex: 2;  align-items: start; padding-top: 20px;">
-    <div style="position: relative; width: 950px">
-      <canvas #chartCanvas></canvas>
-      <div #chartContainer style="position: absolute; top: 0; left: 0"></div>
+  <app-loading *ngIf="isLoading"></app-loading>
+
+  <br>
+  <div style="display: flex; align-items: center; flex-direction: column; gap:15px; margin-top: 10px;">
+    <div style="display: flex; gap: 20px;">
+        <button class="styleUpdate" (click)="generar('edit')">Previsualizar</button>
+         <button (click)="generar()" class="buttonGenerar">Generar</button>
+    </div>
+    <p style="color: rgb(255, 0, 0); font-size: 11px; margin: 0; font-weight: bold; opacity: 0.9;">{{this.statusMessage_1}}</p>
+
+    <iframe id="visorPDF" width="70%" height="1000px"></iframe>
+    <!-- <embed id="visorPDF" width="100%" height="600px" type="application/pdf"> -->
+  </div>
+
+  <div style="display: flex; width: 100%; height: 1050px; opacity: 0;">
+    <div #chartWrapperActivos style="display: flex; justify-content: center; flex: 2.2; align-items: center; padding-top: 20px;">
+      <div style="position: relative; width: 750px; height: 750px;">
+        <canvas #chartCanvasActivos width="700" height="700"></canvas>
+        <div #chartContainerActivos style="position: absolute; top: 0; left: 0"></div>
+      </div>
     </div>
   </div>
-  <div style="background-color: blue; flex: 1">1</div>
+
+  <div style="display: flex; width: 100%; height: 1050px; opacity: 0;">
+    <div #chartWrapper style="display: flex; justify-content: center; flex: 2.2; align-items: center; padding-top: 20px;">
+      <div style="position: relative; width: 750px; height: 750px;">
+        <canvas #chartCanvas width="700" height="700"></canvas>
+        <div #chartContainer style="position: absolute; top: 0; left: 0"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas #chartVC></canvas>
+  </div>
 </div>
-
-<br>
-
-<div class="chart-container">
-  <canvas #chartVC></canvas>
-</div>
-
-<br>
-
-<button (click)="generar()">generar</button> -->

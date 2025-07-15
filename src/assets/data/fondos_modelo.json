@@ -1,0 +1,243 @@
+{
+    "fondo_1": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_2": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_3": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_4": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_5": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_6": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_7": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "tipo": "",
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    },
+    "fondo_10": {
+        "fecha": "",
+        "mes": "",
+        "anio": 0,
+        "caracteristicas_fondo": {
+            "fondo": "",
+            "moneda": "",
+            "ini_op": "",
+            "vencimiento": "",
+            "valor_cuota_al": "",
+            "iso": "",
+            "aum": 0,
+            "valor_cuota": 0,
+            "frec_val": "Diaria",
+            "inv_min": 0,
+            "fideicomiso": "La Fiduciaria S.A",
+            "rentabilidad_objetivo": "",
+            "aniversario": 0
+        },
+        "rendimiento_fondo": {
+            "actual": 0,
+            "tres_meses": 0,
+            "ytd": 0,
+            "doce_meses": 0
+        },
+        "rendimiento_anio": [],
+        "valor_cuota": [],
+        "activos": [],
+        "sectores": []
+    }
+}
