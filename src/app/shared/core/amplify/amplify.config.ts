@@ -1,4 +1,4 @@
-import { Constants } from "@shared_models/constants.model";
+/* import { Constants } from "@shared_models/constants.model";
 import { environment } from '../../../../environments/environment';
 import { AmplifyHelper } from "@shared_utils/amplify.utils";
 import sweetalert from "sweetalert2";
@@ -57,4 +57,4 @@ export const config = {
             region: environment.region
         }
     }
-};
+}; */
