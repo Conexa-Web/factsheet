@@ -1,5 +1,5 @@
 import html2pdf from 'html2pdf.js';
-import { opt_pdf } from './core/configPdf';
+import { opt_pdf } from './Core/configPdf';
 import { formatoNumberMilesHtml, formatoNumberMilesInv } from './shared/utils/format';
 
 export class LevFactSheetPDF {
