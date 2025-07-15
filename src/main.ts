@@ -7,11 +7,11 @@ import { environment } from './environments/environment';
 import { config } from '@shared_core/amplify/amplify.config';
 
 /* import { FsNuevoComponent } from './app/fs-nuevo/fs-nuevo.component'; */
-Amplify.configure(config);
+/* Amplify.configure(config);
 
 if (environment.production) {
   enableProdMode();
-}
+} */
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
