@@ -18,7 +18,10 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "allowedCommonJsDependencies": [
-              "aws-amplify"
+              "aws-amplify",
+              "lodash",
+              "file-saver",
+              "rxjs-compat"
             ],
             "outputPath": "dist/factsheet",
             "index": "src/index.html",
