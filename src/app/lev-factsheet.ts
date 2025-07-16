@@ -379,7 +379,7 @@ export class LevFactSheetPDF {
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                         <span style=" color: #10273D;">Valor cuota al ${data_fs.caracteristicas_fondo.valor_cuota_al}
                             (NAV)</span>
-                        <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.valor_cuota}</span>
+                        <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.valor_cuota.toFixed(4)}</span>
                     </div>
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
