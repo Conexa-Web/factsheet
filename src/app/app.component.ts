@@ -172,11 +172,14 @@ export class AppComponent implements OnInit {
     });
 
     //TEXTO PARA SECTORES
-    const primerosSeis = data_fs.sectores.slice(0, 6);
-    const restantes = data_fs.sectores.slice(6);
-    const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
+    const ordenarSectores = data_fs.sectores.sort((a, b) => b.valor - a.valor);
+    console.log("ordenarSectoressss", ordenarSectores)
 
-    primerosSeis.sort((a, b) => b.valor - a.valor);
+    const primerosSeis = ordenarSectores.filter(item => item.sector !== 'Otros').slice(0, 6);
+    const idsTop = primerosSeis.map(s => s.sector);
+    const restantes = ordenarSectores.filter(s => !idsTop.includes(s.sector));
+
+    const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
     primerosSeis.forEach((sector, i) => {
       sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
