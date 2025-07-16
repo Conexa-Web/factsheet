@@ -219,8 +219,8 @@ export class LevFactSheetPDF {
 
     <div class="flex-column expanded ">
         ${ data_fs.caracteristicas_fondo.aniversario
-            ? `<img src="/assets/sellos/${data_fs.caracteristicas_fondo.aniversario}.png" width="13.5%"
-                style="position:absolute; z-index:1000; right:320px; top:50px; transform: rotate(12deg);" />`
+            ? `<img src="/assets/sellos/${data_fs.caracteristicas_fondo.aniversario}.png" width="12.6%"
+                style="position:absolute; z-index:1000; right:320px; top:45px; transform: rotate(12deg);" />`
             : ''
         }
         <!-- CABECERA -->
