@@ -176,16 +176,24 @@ export class AppComponent implements OnInit {
     console.log("ordenarSectoressss", ordenarSectores)
 
     const primerosSeis = ordenarSectores.filter(item => item.sector !== 'Otros').slice(0, 6);
+    
     const idsTop = primerosSeis.map(s => s.sector);
     const restantes = ordenarSectores.filter(s => !idsTop.includes(s.sector));
 
     const suma_restante = restantes.reduce((acc, curr) => acc + curr.valor, 0);
 
     primerosSeis.forEach((sector, i) => {
-      sectores_texto += `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}${i === primerosSeis.length - 1
-        ? ` y ${formatoNumberMiles(suma_restante, 2)}% en los demás sectores`
-        : ', '
-        }`;
+      const porcentaje = `${sector.valor.toFixed(2)}% en ${sector.sector.toLowerCase()}`;
+      const esUltimo = i === primerosSeis.length - 1;
+      const mostrarRestante = suma_restante && Number(suma_restante) !== 0;
+  
+      sectores_texto += porcentaje;
+  
+      if (esUltimo && mostrarRestante) {
+        sectores_texto += ` y ${formatoNumberMiles(suma_restante, 2)}% en los demás sectores`;
+      } else if (!esUltimo) {
+        sectores_texto += ', ';
+      }
     });
 
     let parrafo_1 = `El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso} ${data_fs.caracteristicas_fondo.valor_cuota}. Con este resultado la rentabilidad acumulada de los últimos 12 meses es de ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses}%`}. La Gestora viene haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.`;
