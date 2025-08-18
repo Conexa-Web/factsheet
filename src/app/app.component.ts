@@ -116,7 +116,7 @@ export class AppComponent implements OnInit {
           newItem.sector = "Tele -\ncomunicaciones";
         }
         if (newItem.sector.toLowerCase() === "alquiler de equipos") {
-          newItem.sector = "alquiler de\nequipos";
+          newItem.sector = "Alquiler de\nequipos";
         }
         return newItem;
       })
