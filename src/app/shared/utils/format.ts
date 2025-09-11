@@ -36,7 +36,7 @@ export function formatoNumberMilesInv(x: any, decimalLimit: number = 2) {
   return '0.00';
 }
 
-export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
+/* export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
   if (x && !isNaN(Number(x))) {
     var myArray = Number(x).toFixed(decimalLimit).toString().split('.');
     return (
@@ -45,4 +45,17 @@ export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
     );
   }
   return `${Number(0).toFixed(decimalLimit)}`;
+} */
+
+export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
+  if (x && !isNaN(Number(x))) {
+    const num = Number(x).toFixed(decimalLimit);
+    const [entero, decimales] = num.split('.');
+
+    return entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+           (decimalLimit > 0 ? '.' + decimales : '');
+  }
+
+  const fallback = Number(0).toFixed(decimalLimit);
+  return decimalLimit > 0 ? fallback : '0';
 }
