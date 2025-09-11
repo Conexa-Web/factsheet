@@ -3,6 +3,9 @@ import { opt_pdf } from './Core/configPdf';
 import { formatoNumberMilesHtml, formatoNumberMilesInv } from './shared/utils/format';
 
 export class LevFactSheetPDF {
+
+  static nameFiles: string = "";
+
   static async create(
     htmlChart: any,
     htmlChartActivos: any,
@@ -21,6 +24,8 @@ export class LevFactSheetPDF {
     const parrafo_1 = parrafos[0];
     const parrafo_2 = parrafos[2];
     const parrafo_3 = parrafos[4];
+
+    this.nameFiles = data_fs.caracteristicas_fondo.fondo;
 
     if (data_fs.rendimiento_anio && Array.isArray(data_fs.rendimiento_anio) && data_fs.rendimiento_anio.length > 0) {
         for (let rendimiento of data_fs.rendimiento_anio) {
@@ -555,6 +560,7 @@ export class LevFactSheetPDF {
 
   // FEAT - NITIDEZ DE IMAGEN Y PDF
   private static getPdf(html) {
+    opt_pdf.filename = this.nameFiles;
     return html2pdf().from(html).set(opt_pdf);
   }
 
