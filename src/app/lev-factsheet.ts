@@ -373,7 +373,7 @@ export class LevFactSheetPDF {
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                         <span style=" color: #10273D;">Tamaño del fondo (AUM)</span>
-                        <span style="color: #0A80BA;">${formatoNumberMilesHtml(data_fs.caracteristicas_fondo.aum, 0)}</span>
+                        <span style="color: #0A80BA;">${data_fs.caracteristicas_fondo.aum.toFixed(3)}</span>
                     </div>
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
