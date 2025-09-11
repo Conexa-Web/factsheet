@@ -52,10 +52,11 @@ export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
     const num = Number(x).toFixed(decimalLimit);
     const [entero, decimales] = num.split('.');
 
+    const tieneDecimales = decimalLimit > 0 && /[^0]/.test(decimales); // al menos un dígito ≠ 0
+
     return entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-           (decimalLimit > 0 ? '.' + decimales : '');
+           (tieneDecimales ? '.' + decimales : '');
   }
 
-  const fallback = Number(0).toFixed(decimalLimit);
-  return decimalLimit > 0 ? fallback : '0';
+  return decimalLimit > 0 ? '0.00' : '0';
 }
