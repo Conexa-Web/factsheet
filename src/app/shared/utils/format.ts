@@ -63,14 +63,14 @@ export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
 
 export function formatTextoFecha(fechaStr: string) {
   const meses = {
-    Jan: "Enero", Feb: "Febrero", Mar: "Marzo", Apr: "Abril",
-    May: "Mayo", Jun: "Junio", Jul: "Julio", Aug: "Agosto",
-    Sep: "Septiembre", Set: "Setiembre", Oct: "Octubre",
-    Nov: "Noviembre", Dec: "Diciembre"
+    Jan: "enero", Feb: "febrero", Mar: "marzo", Apr: "abril",
+    May: "mayo", Jun: "junio", Jul: "julio", Aug: "agosto",
+    Sep: "septiembre", Set: "setiembre", Oct: "octubre",
+    Nov: "noviembre", Dec: "diciembre"
   };
 
   const partes = fechaStr.split(" - ");
-  /* if (partes.length !== 3) return "Formato inválido"; */
+  if (partes.length !== 3) return "Formato inválido";
 
   const [dia, mesAbrev] = partes;
   const mesCompleto = meses[mesAbrev];

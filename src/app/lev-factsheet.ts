@@ -1,6 +1,6 @@
 import html2pdf from 'html2pdf.js';
 import { opt_pdf } from './Core/configPdf';
-import { formatoNumberMilesHtml, formatoNumberMilesInv } from './shared/utils/format';
+import { formatoNumberMilesHtml, formatoNumberMilesInv, formatoNumberMiles } from './shared/utils/format';
 
 export class LevFactSheetPDF {
 
@@ -312,21 +312,21 @@ export class LevFactSheetPDF {
                         <div style="width: 100%; display: flex; margin-bottom: 12px; gap: 2px;">
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
-                                    style="font-size: 10px; ">${formatoNumberMilesHtml(data_fs.rendimiento_fondo.actual)}%</span>
+                                    style="font-size: 10px; ">${formatoNumberMiles(data_fs.rendimiento_fondo.actual)}%</span>
                             </div>
                             <div style="flex: 1; padding:2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
                                     style="font-size: 10px; ">${data_fs.rendimiento_fondo.tres_meses === 0 ? "—" : 
-                                        `${formatoNumberMilesHtml(data_fs.rendimiento_fondo.tres_meses)}%`}</span>
+                                        `${formatoNumberMiles(data_fs.rendimiento_fondo.tres_meses)}%`}</span>
                             </div>
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
-                                    style="font-size: 10px;">${formatoNumberMilesHtml(data_fs.rendimiento_fondo.ytd)}%</span>
+                                    style="font-size: 10px;">${formatoNumberMiles(data_fs.rendimiento_fondo.ytd)}%</span>
                             </div>
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span style="font-size: 10px;">
                                     ${data_fs.rendimiento_fondo.doce_meses === 0 ? "—" :
-                                    `${formatoNumberMilesHtml(data_fs.rendimiento_fondo.doce_meses)}%`}
+                                    `${formatoNumberMiles(data_fs.rendimiento_fondo.doce_meses)}%`}
                                 </span>
                             </div>
                         </div>
