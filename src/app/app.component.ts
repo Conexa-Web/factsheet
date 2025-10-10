@@ -207,9 +207,9 @@ export class AppComponent implements OnInit {
   obtenerNameFondo(index) {
     let name_fondo = `fondo_${index + 1}`;
 
-    if (name_fondo === "fondo_8") {
+    /* if (name_fondo === "fondo_8") {
       name_fondo = 'fondo_10';
-    }
+    } */
     return name_fondo;
   }
 
@@ -339,7 +339,7 @@ export class AppComponent implements OnInit {
       console.log("completado carga - rendimiento_anio ... 6");
 
       // Carga - datos, valor_cuota, activos, sectores, rendimiento_anio -----------
-      Array.from({ length: 8 }).forEach((_, i) => {
+      Array.from({ length: 10 }).forEach((_, i) => {
         let name_fondo = this.obtenerNameFondo(i);
 
         // Carga - datos
