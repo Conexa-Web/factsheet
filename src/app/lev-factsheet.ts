@@ -316,7 +316,8 @@ export class LevFactSheetPDF {
                             </div>
                             <div style="flex: 1; padding:2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span
-                                    style="font-size: 10px; ">${formatoNumberMilesHtml(data_fs.rendimiento_fondo.tres_meses)}%</span>
+                                    style="font-size: 10px; ">${data_fs.rendimiento_fondo.tres_meses === 0 ? "—" : 
+                                        `${formatoNumberMilesHtml(data_fs.rendimiento_fondo.tres_meses)}%`}</span>
                             </div>
                             <div style="flex: 1; padding: 2px; text-align: center; border: 1px solid #E1EBF1;">
                                 <span

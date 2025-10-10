@@ -60,3 +60,20 @@ export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
 
   return decimalLimit > 0 ? '0.00' : '0';
 }
+
+export function formatTextoFecha(fechaStr: string) {
+  const meses = {
+    Jan: "Enero", Feb: "Febrero", Mar: "Marzo", Apr: "Abril",
+    May: "Mayo", Jun: "Junio", Jul: "Julio", Aug: "Agosto",
+    Sep: "Septiembre", Set: "Setiembre", Oct: "Octubre",
+    Nov: "Noviembre", Dec: "Diciembre"
+  };
+
+  const partes = fechaStr.split(" - ");
+  /* if (partes.length !== 3) return "Formato inválido"; */
+
+  const [dia, mesAbrev] = partes;
+  const mesCompleto = meses[mesAbrev];
+
+  return mesCompleto ? `${parseInt(dia)} de ${mesCompleto}` : "Mes inválido";
+}
