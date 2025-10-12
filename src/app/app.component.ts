@@ -146,6 +146,20 @@ export class AppComponent implements OnInit {
 
   }
 
+  obtenerArticulo_Activo(nombreActivo) {
+    let articulo = '';
+
+    if (nombreActivo.startsWith('cesión') || nombreActivo.startsWith('caja')) {
+      articulo = 'la';
+    } else if (nombreActivo.startsWith('capital') || nombreActivo.startsWith('factoring')) {
+      articulo = 'el';
+    } else if (nombreActivo.startsWith('financiamientos')) {
+      articulo = 'los';
+    }
+
+    return articulo;
+  }
+
   prevComentarios(data_fs) {
     let activo_texto = '';
     let sectores_texto = '';
@@ -155,20 +169,20 @@ export class AppComponent implements OnInit {
     activos_data.sort((a, b) => b.valor - a.valor);
 
     activos_data.forEach((activo, i) => {
-      let nombreActivo = activo.nombre_activo;
+      let nombreActivo_original = activo.nombre_activo;
+      let nombreActivo = activo.nombre_activo.toLowerCase();
 
       // Verificar si el nombre contiene la palabra "Financiamiento" y agregar "s" solo a esa palabra
-      if (nombreActivo.toLowerCase().includes("financiamiento")) {
-        nombreActivo = nombreActivo.replace(/financiamiento/gi, 'financiamientos');
+      if (nombreActivo.includes("financiamiento")) {
+        nombreActivo = nombreActivo_original.replace(/financiamiento/gi, 'financiamientos').toLowerCase();
       }
 
-      activo_texto += `${nombreActivo === 'Cesión de Derechos' ? 'la' : 'los'
-        } ${nombreActivo.toLowerCase()} con ${activo.valor.toFixed(2)}%${i === activos_data.length - 1
-          ? ''
-          : i === activos_data.length - 2
-            ? ' y '
+      activo_texto += `${this.obtenerArticulo_Activo(nombreActivo)
+        } ${nombreActivo} con ${activo.valor.toFixed(2)}%${
+        i === activos_data.length - 1 ? ''
+          : i === activos_data.length - 2 ? ' y '
             : ', '
-        }`;
+      }`;
     });
 
     //TEXTO PARA SECTORES
@@ -196,22 +210,50 @@ export class AppComponent implements OnInit {
       }
     });
 
-    console.log("aquiiiiii", data_fs.caracteristicas_fondo.ini_op)
+    // Construir Párrafos
+    const {
+      iso,
+      valor_cuota,
+      es_nuevo,
+      fondo,
+      ini_op
+    } = data_fs.caracteristicas_fondo;
+    
+    const {
+      doce_meses,
+      ytd: nueve_meses_ytd
+    } = data_fs.rendimiento_fondo;
+    
+    let completar_parrafo_1 = '';
+    let completar_parrafo_3 = '';
+    const PYME_7 = "Fondo Impulso PYME 07";
+    const cajaBancos = data_fs.activos.find(x => x.nombre_activo === "Caja y Bancos");
+    const liquidez_cajaBancos = cajaBancos?.valor ?? 0;
 
-    let parrafo_1 = `El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${data_fs.caracteristicas_fondo.iso} ${data_fs.caracteristicas_fondo.valor_cuota.toFixed(4)}, ${data_fs.caracteristicas_fondo.fondo === "Fondo Impulso PYME 08" || data_fs.caracteristicas_fondo.fondo === "Fondo Impulso PYME 09" ? `lo que refleja los rendimientos generados desde el ${formatTextoFecha(data_fs.caracteristicas_fondo.ini_op)}, que comenzó a operar el fondo` : `Con este resultado la rentabilidad acumulada de los últimos ${data_fs.caracteristicas_fondo.fondo === "Fondo Impulso PYME 07" ? '9' : '12'} meses es de ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses.toFixed(2)}%`}`}. La Gestora viene haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.`;
+    if (es_nuevo) {
+      completar_parrafo_1 = `lo que refleja los rendimientos generados desde el ${formatTextoFecha(ini_op)}, que comenzó a operar el fondo`;
+      completar_parrafo_3 = `lo que resulta normal en un fondo nuevo en la etapa inicial de levantamiento de capitales`;
+    } else {
+      if (fondo === PYME_7) {
+        completar_parrafo_1 = !nueve_meses_ytd ? "—" : `9 meses es de ${nueve_meses_ytd.toFixed(2)}%`;
+      } else {
+        completar_parrafo_1 = !doce_meses ? "—" : `12 meses es de ${doce_meses.toFixed(2)}%`;
+      }
+
+      completar_parrafo_1 = `con este resultado la rentabilidad acumulada de los últimos ${completar_parrafo_1}`;
+      completar_parrafo_3 = `ubicándose ${liquidez_cajaBancos > 10 ? 'por encima' : 'dentro'} del rango meta de hasta 10.00% de los activos`;
+    }
+
+    let parrafo_1 = `El valor cuota al cierre de ${data_fs.mes.toLowerCase()} alcanzó ${iso} ${valor_cuota.toFixed(4)}, ${completar_parrafo_1}. La Gestora viene haciendo seguimiento a la cartera de créditos otorgados, así como impulsando la diversificación de la cartera de clientes; ambas iniciativas deberían contribuir a alcanzar la rentabilidad anual objetivo del Fondo.`;
     let parrafo_2 = `Las operaciones más frecuentes son: ${activo_texto}. Los sectores en los que se invierte mantienen un alto potencial de crecimiento, destacando: ${sectores_texto}. La Gestora mantiene su énfasis en la diversificación sectorial, con el objetivo de mantener la participación en cada industria por debajo del 20.00% de los activos del Fondo.`;
-    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor.toFixed(2)}%, ${data_fs.caracteristicas_fondo.fondo === "Fondo Impulso PYME 08" || data_fs.caracteristicas_fondo.fondo === "Fondo Impulso PYME 09" ? `lo que resulta normal en un fondo nuevo en la etapa inicial de levantamiento de capitales` : `ubicándose ${data_fs.activos.find((x) => x.nombre_activo === "Caja y Bancos").valor > 10 ? 'por encima' : 'dentro'} del rango meta de hasta 10.00% de los activos`}. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
-    /* Con este resultado la rentabilidad acumulada de los últimos 12 meses es de ${(data_fs.rendimiento_fondo.doce_meses === undefined || data_fs.rendimiento_fondo.doce_meses === 0) ? "—" : `${data_fs.rendimiento_fondo.doce_meses.toFixed(2)}%`} */
+    let parrafo_3 = `El Fondo cerró el mes con una liquidez de ${liquidez_cajaBancos.toFixed(2)}%, ${completar_parrafo_3}. La gestora está monitoreando activamente el contexto macroeconómico y financiero local, enfocándose en los sectores, empresas e instrumentos de inversión con mejores perspectivas para los inversionistas del fondo.`;
+
     this.prevComent = parrafo_1 + "\n\n" + parrafo_2 + "\n\n" + parrafo_3;
     localStorage.setItem("PREV_COMENTARIO", this.prevComent);
   }
 
   obtenerNameFondo(index) {
     let name_fondo = `fondo_${index + 1}`;
-
-    /* if (name_fondo === "fondo_8") {
-      name_fondo = 'fondo_10';
-    } */
     return name_fondo;
   }
 
@@ -261,6 +303,7 @@ export class AppComponent implements OnInit {
         this.data_fs[name_fondo].caracteristicas_fondo.inv_min = item_caract.inv_min || 0;
         this.data_fs[name_fondo].caracteristicas_fondo.rentabilidad_objetivo = item_caract.rentabilidad_objetivo || "";
         this.data_fs[name_fondo].caracteristicas_fondo.aniversario = Number(item_caract.aniversario) !== 0 ? item_caract.aniversario : null;
+        this.data_fs[name_fondo].caracteristicas_fondo.es_nuevo = item_caract.es_nuevo || 0;
       })
       console.log("completado carga - caracteristicas_fondo ... 1");
 
