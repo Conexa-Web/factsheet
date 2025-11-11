@@ -36,26 +36,39 @@ export function formatoNumberMilesInv(x: any, decimalLimit: number = 2) {
   return '0.00';
 }
 
-/* export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
+export function formatoNumberMilesHtmlAUM(x: any) {
   if (x && !isNaN(Number(x))) {
-    var myArray = Number(x).toFixed(decimalLimit).toString().split('.');
-    return (
-      myArray[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-      (decimalLimit ? '.' + myArray[1] : '')
-    );
+    const num = Number(x);
+    const partes = num.toString().split('.');
+    const parteEntera = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const parteDecimal = partes[1] ? '.' + partes[1] : '';
+    return parteEntera + parteDecimal;
   }
-  return `${Number(0).toFixed(decimalLimit)}`;
-} */
+  return '0';
+}
 
+// export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
+//   if (x && !isNaN(Number(x))) {
+//     const num = Number(x).toFixed(decimalLimit);
+//     const [entero, decimales] = num.split('.');
+
+//     const tieneDecimales = decimalLimit > 0 && /[^0]/.test(decimales); // al menos un dígito ≠ 0
+
+//     return entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+//            (tieneDecimales ? '.' + decimales : '');
+//   }
+
+//   return decimalLimit > 0 ? '0.00' : '0';
+// }
+
+
+// FEAT FORMATO DOS DECIMALES TODOS LOS VALORES EN Rendimiento año calendario
 export function formatoNumberMilesHtml(x: any, decimalLimit: number = 2) {
   if (x && !isNaN(Number(x))) {
     const num = Number(x).toFixed(decimalLimit);
     const [entero, decimales] = num.split('.');
 
-    const tieneDecimales = decimalLimit > 0 && /[^0]/.test(decimales); // al menos un dígito ≠ 0
-
-    return entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-           (tieneDecimales ? '.' + decimales : '');
+    return entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + decimales;
   }
 
   return decimalLimit > 0 ? '0.00' : '0';

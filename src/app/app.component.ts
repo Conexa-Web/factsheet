@@ -231,7 +231,7 @@ export class AppComponent implements OnInit {
     const liquidez_cajaBancos = cajaBancos?.valor ?? 0;
 
     if (es_nuevo) {
-      completar_parrafo_1 = `lo que refleja los rendimientos generados desde el ${formatTextoFecha(ini_op)}, que comenzó a operar el fondo`;
+      completar_parrafo_1 = `con este resultado la rentabilidad acumulada desde el ${formatTextoFecha(ini_op)} es de ${nueve_meses_ytd.toFixed(2)}%`;
       completar_parrafo_3 = `lo que resulta normal en un fondo nuevo en la etapa inicial de levantamiento de capitales`;
     } else {
       if (fondo === PYME_7) {
@@ -592,6 +592,8 @@ export class AppComponent implements OnInit {
     });
   }
 
+
+  // TODO - GRAFICO LINEAS
   renderChartLineas(dataFondoFs): void {
     if (this.chart) {
       this.chart.destroy();
@@ -656,9 +658,18 @@ export class AppComponent implements OnInit {
         plugins: {
           legend: { display: false },
           datalabels: {
+            
+            // FEAT FONDO 8 Y 9 (nuevos valores)
+            // anchor: 'start',
+            // align: 'top',
+            // offset: 3,
+            // clip: false,
+
+            // FEAT ALL FONDOS
             anchor: 'end',
             align: 'right',
             offset: 5,
+            
             color: '#59BCE2',
             font: {
               size: 16,

@@ -1,6 +1,6 @@
 import html2pdf from 'html2pdf.js';
 import { opt_pdf } from './Core/configPdf';
-import { formatoNumberMilesHtml, formatoNumberMilesInv, formatoNumberMiles } from './shared/utils/format';
+import { formatoNumberMilesHtml, formatoNumberMilesInv, formatoNumberMiles, formatoNumberMilesHtmlAUM } from './shared/utils/format';
 
 export class LevFactSheetPDF {
 
@@ -379,7 +379,7 @@ export class LevFactSheetPDF {
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
                         <span style=" color: #10273D;">Tamaño del fondo (AUM)</span>
-                        <span style="color: #0A80BA;">${formatoNumberMilesHtml(data_fs.caracteristicas_fondo.aum, 3)}</span>
+                        <span style="color: #0A80BA;">${formatoNumberMilesHtmlAUM(data_fs.caracteristicas_fondo.aum)}</span>
                     </div>
                     <div
                         style="display: flex; justify-content: space-between; font-size: 9px; border-bottom: 1.5px solid #516C7D; padding: 0 8px 4px 8px; margin-bottom: 3px;">
