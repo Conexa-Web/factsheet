@@ -113,10 +113,13 @@ export class AppComponent implements OnInit {
       alternado = alternado.map(item => {
         const newItem = { ...item };
         if (newItem.sector.toLowerCase() === "telecomunicaciones") {
-          newItem.sector = "Tele -\ncomunicaciones";
+          newItem.sector = "Tele \ncomunica \nciones";
         }
         if (newItem.sector.toLowerCase() === "alquiler de equipos") {
           newItem.sector = "Alquiler de\nequipos";
+        }
+        if (newItem.sector.toLowerCase() === "hidrocarburos") {
+          newItem.sector = "Hidro \ncarburos";
         }
         return newItem;
       })
