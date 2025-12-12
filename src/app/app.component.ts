@@ -567,7 +567,9 @@ export class AppComponent implements OnInit {
       label.style.top = `${labelY}px`;
       label.style.transform = 'translate(-50%, -50%)';
       label.style.textAlign = 'center';
-      label.style.minWidth = '170px'; // espaciado del texto en la gráfica
+      // TODO MOFIDICAR TEXTO DE GRAFICO ACTIVO ESPACIADO facsheet
+      label.style.minWidth = '170px'; // espaciado del texto en la gráfica para TODOS LOS FONDOS
+      // label.style.minWidth = '208px'; // espaciado del texto en la gráfica para FONDO 09
 
       // Ajustamos el estilo según el ángulo
       const isLeft = Math.cos(angle) < 0;
