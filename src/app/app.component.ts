@@ -234,7 +234,8 @@ export class AppComponent implements OnInit {
     const liquidez_cajaBancos = cajaBancos?.valor ?? 0;
 
     if (es_nuevo) {
-      completar_parrafo_1 = `con este resultado la rentabilidad acumulada desde el ${formatTextoFecha(ini_op)} es de ${nueve_meses_ytd.toFixed(2)}%`;
+      // completar_parrafo_1 = `con este resultado la rentabilidad acumulada desde el ${formatTextoFecha(ini_op)} es de ${nueve_meses_ytd.toFixed(2)}%`;
+      completar_parrafo_1 = `lo que refleja los rendimientos generados desde que comenzó a operar`;
       completar_parrafo_3 = `lo que resulta normal en un fondo nuevo en la etapa inicial de levantamiento de capitales`;
     } else {
       if (fondo === PYME_7) {
@@ -645,6 +646,40 @@ export class AppComponent implements OnInit {
 
     // Obtiene el contexto 2D del canvas
     const ctx = this.chartVC.nativeElement.getContext('2d');
+
+    // Detectar nombre del fondo
+    const fondoNombre = dataFondoFs.caracteristicas_fondo?.fondo || "";
+
+    // Configuración dinámica de datalabels
+    const datalabelsConfig: any =
+  fondoNombre.includes("08") || fondoNombre.includes("09")
+    ? {
+        anchor: "start",
+        align: "top",
+        offset: 3,
+        clip: false,
+        color: "#59BCE2",
+        font: {
+          size: 16,
+          family: "TT Hoves Pro Trial",
+        },
+        formatter: (value) =>
+          value === 1 ? "" : formatoNumberMiles(value, 4),
+      }
+    : {
+        anchor: "end",
+        align: "right",
+        offset: 5,
+        clip: false,
+        color: "#59BCE2",
+        font: {
+          size: 16,
+          family: "TT Hoves Pro Trial",
+        },
+        formatter: (value) =>
+          value === 1 ? "" : formatoNumberMiles(value, 4),
+      };
+
     const chartConfig: ChartConfiguration = {
       type: 'line',
       data: {
@@ -660,29 +695,33 @@ export class AppComponent implements OnInit {
             right: 40 // Agregamos padding solo a la derecha
           }
         },
-        plugins: {
-          legend: { display: false },
-          datalabels: {
-            
-            // FEAT FONDO 8 Y 9 (nuevos valores)
-            // anchor: 'start',
-            // align: 'top',
-            // offset: 3,
-            // clip: false,
+        // plugins: {
+        //   legend: { display: false },
+        //   datalabels: {
+        //     // TODO GRAFICO LINEAS, ESPACIADO DE VALORES
+        //     // FEAT FONDO 8 Y 9 (nuevos valores)
+        //     anchor: 'start',
+        //     align: 'top',
+        //     offset: 3,
+        //     clip: false,
 
-            // FEAT ALL FONDOS
-            anchor: 'end',
-            align: 'right',
-            offset: 5,
+        //     // FEAT ALL FONDOS
+        //     // anchor: 'end',
+        //     // align: 'right',
+        //     // offset: 5,
             
-            color: '#59BCE2',
-            font: {
-              size: 16,
-              family: 'TT Hoves Pro Trial',
-            },
-            formatter: (value) =>
-              value === 1 ? '' : formatoNumberMiles(value, 4),
-          },
+        //     color: '#59BCE2',
+        //     font: {
+        //       size: 16,
+        //       family: 'TT Hoves Pro Trial',
+        //     },
+        //     formatter: (value) =>
+        //       value === 1 ? '' : formatoNumberMiles(value, 4),
+        //   },
+        // },
+         plugins: {
+          legend: { display: false },
+          datalabels: datalabelsConfig, // <-- aquí usas la variable dinámica
         },
         scales: {
           x: {
