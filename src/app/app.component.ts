@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
       alternado = alternado.map(item => {
         const newItem = { ...item };
         if (newItem.sector.toLowerCase() === "telecomunicaciones") {
-          newItem.sector = "Tele \ncomunica \nciones";
+          newItem.sector = "Tele \n-comunica \n-ciones";
         }
         if (newItem.sector.toLowerCase() === "alquiler de equipos") {
           newItem.sector = "Alquiler de\nequipos";
@@ -224,25 +224,25 @@ export class AppComponent implements OnInit {
     
     const {
       doce_meses,
+      tres_meses,
       ytd: nueve_meses_ytd
     } = data_fs.rendimiento_fondo;
     
     let completar_parrafo_1 = '';
     let completar_parrafo_3 = '';
-    const PYME_7 = "Fondo Impulso PYME 07";
+    const PYME_8 = "Fondo Impulso PYME 08";
+    const PYME_9 = "Fondo Impulso PYME 09";
     const cajaBancos = data_fs.activos.find(x => x.nombre_activo === "Caja y Bancos");
     const liquidez_cajaBancos = cajaBancos?.valor ?? 0;
 
-    if (es_nuevo) {
-      // completar_parrafo_1 = `con este resultado la rentabilidad acumulada desde el ${formatTextoFecha(ini_op)} es de ${nueve_meses_ytd.toFixed(2)}%`;
-      completar_parrafo_1 = `lo que refleja los rendimientos generados desde que comenzó a operar`;
+    if (fondo === PYME_8 || fondo === PYME_9) {
+      completar_parrafo_1 = !tres_meses ? "—" : `3 meses es de ${tres_meses.toFixed(2)}%`;
       completar_parrafo_3 = `lo que resulta normal en un fondo nuevo en la etapa inicial de levantamiento de capitales`;
+
+      completar_parrafo_1 = `con este resultado la rentabilidad acumulada de los últimos ${completar_parrafo_1}`;
+
     } else {
-      if (fondo === PYME_7) {
-        completar_parrafo_1 = !nueve_meses_ytd ? "—" : `9 meses es de ${nueve_meses_ytd.toFixed(2)}%`;
-      } else {
-        completar_parrafo_1 = !doce_meses ? "—" : `12 meses es de ${doce_meses.toFixed(2)}%`;
-      }
+      completar_parrafo_1 = !doce_meses ? "—" : `12 meses es de ${doce_meses.toFixed(2)}%`;
 
       completar_parrafo_1 = `con este resultado la rentabilidad acumulada de los últimos ${completar_parrafo_1}`;
       completar_parrafo_3 = `ubicándose ${liquidez_cajaBancos > 10 ? 'por encima' : 'dentro'} del rango meta de hasta 10.00% de los activos`;
@@ -650,35 +650,66 @@ export class AppComponent implements OnInit {
     // Detectar nombre del fondo
     const fondoNombre = dataFondoFs.caracteristicas_fondo?.fondo || "";
 
-    // Configuración dinámica de datalabels
+    // FEAT Configuración dinámica de datalabels - TODOS LOS FONDOS
     const datalabelsConfig: any =
-  fondoNombre.includes("08") || fondoNombre.includes("09")
-    ? {
-        anchor: "start",
-        align: "top",
-        offset: 3,
-        clip: false,
-        color: "#59BCE2",
-        font: {
-          size: 16,
-          family: "TT Hoves Pro Trial",
-        },
-        formatter: (value) =>
-          value === 1 ? "" : formatoNumberMiles(value, 4),
-      }
-    : {
-        anchor: "end",
-        align: "right",
-        offset: 5,
-        clip: false,
-        color: "#59BCE2",
-        font: {
-          size: 16,
-          family: "TT Hoves Pro Trial",
-        },
-        formatter: (value) =>
-          value === 1 ? "" : formatoNumberMiles(value, 4),
+    fondoNombre.includes("08") || fondoNombre.includes("09")
+      ? {
+          anchor: "start",
+          align: "top",
+          offset: 3,
+          clip: false,
+          color: "#59BCE2",
+          font: {
+            size: 16,
+            family: "TT Hoves Pro Trial",
+          },
+          formatter: (value) =>
+            value === 1 ? "" : formatoNumberMiles(value, 4),
+        }
+      : {
+          anchor: "end",
+          align: "right",
+          offset: 5,
+          clip: false,
+          color: "#59BCE2",
+          font: {
+            size: 16,
+            family: "TT Hoves Pro Trial",
+          },
+          formatter: (value) =>
+            value === 1 ? "" : formatoNumberMiles(value, 4),
       };
+
+  // FEAT FONDO 8 Y 9 - AUMENTAR OFFSET Y CAMBIAR ALINEACIÓN DE LOS VALORES PARA MEJOR VISIBILIDAD
+    // const datalabelsConfig: any =
+    // fondoNombre.includes("08") || fondoNombre.includes("09")
+    // ? {
+    //     anchor: "end",        //  mejor que start
+    //     align: "top",
+    //     offset: 14,           //  AUMENTAR separación
+    //     clip: false,
+    //     color: "#59BCE2",
+    //     font: {
+    //       size: 16,
+    //       family: "TT Hoves Pro Trial",
+    //     },
+    //     formatter: (value) =>
+    //       value === 1 ? "" : formatoNumberMiles(value, 4),
+    //   }
+    // : {
+    //     anchor: "end",
+    //     align: "top",          //  mejor que right
+    //     offset: 14,            //  MÁS separación
+    //     clip: false,
+    //     color: "#59BCE2",
+    //     font: {
+    //       size: 16,
+    //       family: "TT Hoves Pro Trial",
+    //     },
+    //     formatter: (value) =>
+    //       value === 1 ? "" : formatoNumberMiles(value, 4),
+    //   };
+
 
     const chartConfig: ChartConfiguration = {
       type: 'line',
