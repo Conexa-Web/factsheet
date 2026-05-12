@@ -119,7 +119,7 @@ export class AppComponent implements OnInit {
           newItem.sector = "Alquiler de\nequipos";
         }
         if (newItem.sector.toLowerCase() === "hidrocarburos") {
-          newItem.sector = "Hidro \ncarburos";
+          newItem.sector = "Hidro \n-carburos";
         }
         return newItem;
       })
@@ -686,7 +686,7 @@ export class AppComponent implements OnInit {
     // ? {
     //     anchor: "end",        //  mejor que start
     //     align: "top",
-    //     offset: 14,           //  AUMENTAR separación
+    //     offset: 15,           //  AUMENTAR separación
     //     clip: false,
     //     color: "#59BCE2",
     //     font: {
@@ -699,7 +699,7 @@ export class AppComponent implements OnInit {
     // : {
     //     anchor: "end",
     //     align: "top",          //  mejor que right
-    //     offset: 14,            //  MÁS separación
+    //     offset: 15,            //  MÁS separación
     //     clip: false,
     //     color: "#59BCE2",
     //     font: {
@@ -711,6 +711,39 @@ export class AppComponent implements OnInit {
     //   };
 
 
+    //  FEAT FONDO 8 Y 9 - CASO: EXTREMO MEDIDAS
+    // const datalabelsConfig: any =
+    //   fondoNombre.includes("08") || fondoNombre.includes("09")
+    //     ? {
+    //         anchor: "end",
+    //         align: "left", // evita que se vaya muy a la derecha
+    //         offset: 4, // menos separación
+    //         clamp: true,
+    //         clip: false,
+    //         color: "#59BCE2",
+    //         font: {
+    //           size: 16,
+    //           family: "TT Hoves Pro Trial",
+    //         },
+    //         formatter: (value) =>
+    //           value === 1 ? "" : formatoNumberMiles(value, 4),
+    //       }
+    //     : {
+    //         anchor: "end",
+    //         align: "top",
+    //         offset: 4, // menos separación hacia arriba
+    //         clamp: true,
+    //         clip: false,
+    //         color: "#59BCE2",
+    //         font: {
+    //           size: 16,
+    //           family: "TT Hoves Pro Trial",
+    //         },
+    //         formatter: (value) =>
+    //           value === 1 ? "" : formatoNumberMiles(value, 4),
+    //       };
+
+  // TODO Continua por default
     const chartConfig: ChartConfiguration = {
       type: 'line',
       data: {
